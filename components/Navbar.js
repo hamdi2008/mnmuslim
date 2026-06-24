@@ -17,7 +17,7 @@ export default function Navbar() {
           Browse
         </Link>
         <Link href="/submit" className="nav-cta">
-          + List Your Service
+          Get Listed
         </Link>
       </div>
     </nav>
