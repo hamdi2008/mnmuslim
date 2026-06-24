@@ -10,11 +10,7 @@ export async function getStaticPaths() {
     .from('listings')
     .select('id')
     .eq('approved', true)
-
-  const paths = (data || []).map((l) => ({
-    params: { id: String(l.id) },
-  }))
-
+  const paths = (data || []).map((l) => ({ params: { id: String(l.id) } }))
   return { paths, fallback: 'blocking' }
 }
 
@@ -25,15 +21,16 @@ export async function getStaticProps({ params }) {
     .eq('id', params.id)
     .eq('approved', true)
     .single()
+  if (error || !data) return { notFound: true }
+  return { props: { listing: data }, revalidate: 60 }
+}
 
-  if (error || !data) {
-    return { notFound: true }
-  }
+function cleanUrl(url) {
+  return url.replace(/^https?:\/\//, '').replace(/\/$/, '')
+}
 
-  return {
-    props: { listing: data },
-    revalidate: 60,
-  }
+function cleanInstagram(handle) {
+  return handle.startsWith('@') ? handle : `@${handle}`
 }
 
 export default function ListingDetail({ listing }) {
@@ -42,29 +39,46 @@ export default function ListingDetail({ listing }) {
   const hasBusiness = listing.business_name && listing.business_name.trim()
   const pageTitle = hasBusiness ? listing.business_name : listing.service_name
 
-  const contacts = [
-    listing.phone && { label: 'Phone', value: listing.phone, href: `tel:${listing.phone}` },
-    listing.email && { label: 'Email', value: listing.email, href: `mailto:${listing.email}` },
+  const contactItems = [
+    listing.phone && {
+      icon: '📞',
+      label: listing.phone,
+      href: `tel:${listing.phone.replace(/[^0-9+]/g, '')}`,
+      external: false,
+    },
+    listing.email && {
+      icon: '✉️',
+      label: listing.email,
+      href: `mailto:${listing.email}`,
+      external: false,
+    },
     listing.website && {
-      label: 'Website',
-      value: listing.website.replace(/^https?:\/\//, ''),
-      href: listing.website,
+      icon: '🌐',
+      label: cleanUrl(listing.website),
+      href: listing.website.startsWith('http') ? listing.website : `https://${listing.website}`,
+      external: true,
     },
     listing.instagram && {
-      label: 'Instagram',
-      value: listing.instagram,
+      icon: '📷',
+      label: cleanInstagram(listing.instagram),
       href: `https://instagram.com/${listing.instagram.replace('@', '')}`,
+      external: true,
     },
   ].filter(Boolean)
+
+  const primaryContact = listing.email
+    ? `mailto:${listing.email}`
+    : listing.phone
+    ? `tel:${listing.phone.replace(/[^0-9+]/g, '')}`
+    : listing.website
+    ? (listing.website.startsWith('http') ? listing.website : `https://${listing.website}`)
+    : null
 
   return (
     <>
       <Head>
         <title>{pageTitle} – MNMuslim.com</title>
-        <meta
-          name="description"
-          content={`${pageTitle} by ${listing.provider_name}. ${listing.description.slice(0, 150)}`}
-        />
+        <meta name="description" content={`${pageTitle} by ${listing.provider_name}. ${listing.description.slice(0, 150)}`} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
@@ -76,9 +90,7 @@ export default function ListingDetail({ listing }) {
         </button>
 
         <div className="detail-header">
-          <div className="detail-badge">
-            {cat.icon} {cat.name}
-          </div>
+          <div className="detail-badge">{cat.icon} {cat.name}</div>
           {hasBusiness ? (
             <>
               <h1 className="detail-title">{listing.business_name}</h1>
@@ -100,39 +112,49 @@ export default function ListingDetail({ listing }) {
             <p className="detail-desc">{listing.description}</p>
           </div>
 
-          <div>
-            <div className="detail-card">
-              <h3>Contact Information</h3>
-              {contacts.length === 0 ? (
-                <p style={{ fontSize: '13px', color: 'var(--text-muted)' }}>
-                  No contact info provided.
-                </p>
-              ) : (
-                contacts.map((c) => (
-                  <div key={c.label} className="contact-row">
-                    <span className="contact-label">{c.label}</span>
-                    <span className="contact-val">
-                      <a
-                        href={c.href}
-                        target={c.label === 'Website' || c.label === 'Instagram' ? '_blank' : undefined}
-                        rel="noreferrer"
-                      >
-                        {c.value}
-                      </a>
-                    </span>
-                  </div>
-                ))
-              )}
-              {listing.email && (
-                <a href={`mailto:${listing.email}`} className="big-contact-btn">
-                  Send a Message
-                </a>
-              )}
-            </div>
-
-            <div className="disclaimer-card">
-              This provider is a community member. Please verify credentials independently before hiring.
-            </div>
+          <div className="detail-card">
+            <h3>Contact Information</h3>
+            {contactItems.length === 0 ? (
+              <p style={{ fontSize: '14px', color: 'var(--text-muted)' }}>No contact info provided.</p>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '4px' }}>
+                {contactItems.map((item) => (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    target={item.external ? '_blank' : undefined}
+                    rel={item.external ? 'noreferrer' : undefined}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      gap: '12px',
+                      color: 'var(--text)',
+                      textDecoration: 'none',
+                      fontSize: '14px',
+                      lineHeight: '1.5',
+                    }}
+                  >
+                    <span style={{ fontSize: '18px', flexShrink: 0, marginTop: '1px' }}>{item.icon}</span>
+                    <span style={{
+                      color: 'var(--green)',
+                      wordBreak: 'break-word',
+                      fontWeight: 500,
+                    }}>{item.label}</span>
+                  </a>
+                ))}
+              </div>
+            )}
+            {primaryContact && (
+              <a
+                href={primaryContact}
+                target={!primaryContact.startsWith('mailto') && !primaryContact.startsWith('tel') ? '_blank' : undefined}
+                rel="noreferrer"
+                className="big-contact-btn"
+                style={{ marginTop: '24px' }}
+              >
+                Contact Provider
+              </a>
+            )}
           </div>
         </div>
       </div>
