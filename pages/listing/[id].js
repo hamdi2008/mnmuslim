@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Navbar from '../../components/Navbar'
 import Footer from '../../components/Footer'
@@ -40,6 +39,8 @@ export async function getStaticProps({ params }) {
 export default function ListingDetail({ listing }) {
   const router = useRouter()
   const cat = getCategoryById(listing.category)
+  const hasBusiness = listing.business_name && listing.business_name.trim()
+  const pageTitle = hasBusiness ? listing.business_name : listing.service_name
 
   const contacts = [
     listing.phone && { label: 'Phone', value: listing.phone, href: `tel:${listing.phone}` },
@@ -59,10 +60,10 @@ export default function ListingDetail({ listing }) {
   return (
     <>
       <Head>
-        <title>{listing.service_name} – MNMuslim.com</title>
+        <title>{pageTitle} – MNMuslim.com</title>
         <meta
           name="description"
-          content={`${listing.service_name} by ${listing.provider_name}. ${listing.description.slice(0, 150)}`}
+          content={`${pageTitle} by ${listing.provider_name}. ${listing.description.slice(0, 150)}`}
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
@@ -74,25 +75,31 @@ export default function ListingDetail({ listing }) {
           ← Back to results
         </button>
 
-        {/* Header card */}
         <div className="detail-header">
           <div className="detail-badge">
             {cat.icon} {cat.name}
           </div>
-          <h1 className="detail-title">{listing.service_name}</h1>
-          <p className="detail-provider">By {listing.provider_name}</p>
+          {hasBusiness ? (
+            <>
+              <h1 className="detail-title">{listing.business_name}</h1>
+              <p className="detail-service-sub">{listing.service_name}</p>
+              <p className="detail-provider">By {listing.provider_name}</p>
+            </>
+          ) : (
+            <>
+              <h1 className="detail-title">{listing.service_name}</h1>
+              <p className="detail-provider">By {listing.provider_name}</p>
+            </>
+          )}
           <p className="detail-area">📍 {listing.service_area}</p>
         </div>
 
-        {/* Body */}
         <div className="detail-body">
-          {/* Description */}
           <div className="detail-card">
             <h3>About this Service</h3>
             <p className="detail-desc">{listing.description}</p>
           </div>
 
-          {/* Contact sidebar */}
           <div>
             <div className="detail-card">
               <h3>Contact Information</h3>
@@ -105,7 +112,11 @@ export default function ListingDetail({ listing }) {
                   <div key={c.label} className="contact-row">
                     <span className="contact-label">{c.label}</span>
                     <span className="contact-val">
-                      <a href={c.href} target={c.label === 'Website' || c.label === 'Instagram' ? '_blank' : undefined} rel="noreferrer">
+                      <a
+                        href={c.href}
+                        target={c.label === 'Website' || c.label === 'Instagram' ? '_blank' : undefined}
+                        rel="noreferrer"
+                      >
                         {c.value}
                       </a>
                     </span>
@@ -120,8 +131,7 @@ export default function ListingDetail({ listing }) {
             </div>
 
             <div className="disclaimer-card">
-              This provider is a community member. Please verify credentials independently before
-              hiring.
+              This provider is a community member. Please verify credentials independently before hiring.
             </div>
           </div>
         </div>
