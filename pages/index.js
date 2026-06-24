@@ -100,7 +100,7 @@ export default function Home({ recentListings, totalCount }) {
           <span className="stat-num">{totalCount}</span> Services Listed
         </div>
         <div className="stat-item">
-          <span className="stat-num">13</span> Categories
+          <span className="stat-num">17</span> Categories
         </div>
         <div className="stat-item">
           <span className="stat-num">MN</span> Statewide
