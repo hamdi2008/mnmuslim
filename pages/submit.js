@@ -7,7 +7,6 @@ import { CATEGORIES } from '../lib/categories'
 
 export default function Submit() {
   const [form, setForm] = useState({
-    business_name: '',
     service_name: '',
     provider_name: '',
     category: '',
@@ -29,23 +28,41 @@ export default function Submit() {
   async function handleSubmit(e) {
     e.preventDefault()
     setError('')
-    const required = ['service_name', 'provider_name', 'category', 'description', 'service_area', 'email']
+    const required = ['service_name', 'provider_name', 'category', 'description']
     for (const field of required) {
-      if (!form[field].trim()) { setError('Please fill in all required fields.'); return }
+      if (!form[field].trim()) {
+        setError('Please fill in all required fields.')
+        return
+      }
     }
     setLoading(true)
     try {
-      const res = await fetch('/api/submit', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(form) })
+      const res = await fetch('/api/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...form,
+          service_area: form.service_area.trim() || 'Minnesota',
+        }),
+      })
       const data = await res.json()
-      if (!res.ok) { setError(data.error || 'Something went wrong.') } else { setSubmitted(true) }
-    } catch { setError('Network error.') } finally { setLoading(false) }
+      if (!res.ok) {
+        setError(data.error || 'Something went wrong. Please try again.')
+      } else {
+        setSubmitted(true)
+      }
+    } catch {
+      setError('Network error. Please check your connection and try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
     <>
       <Head>
-        <title>Submit Your Service – MNMuslim.com</title>
-        <meta name="description" content="List your service on MNMuslim.com." />
+        <title>Get Listed – MNMuslim.com</title>
+        <meta name="description" content="List your service, business, or professional expertise on MNMuslim.com and be discovered by Minnesota Muslims." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <Navbar />
@@ -55,27 +72,25 @@ export default function Submit() {
             <div style={{ fontSize: '40px' }}>🌿</div>
             <h2>Listing Submitted!</h2>
             <p>Thank you. Your listing is pending review and will appear publicly once approved, typically within 2–3 business days.</p>
-            <Link href="/browse" className="btn-green" style={{ display: 'inline-block', marginTop: '4px' }}>Browse Listings</Link>
+            <Link href="/browse" className="btn-green" style={{ display: 'inline-block', marginTop: '16px' }}>Browse Listings</Link>
           </div>
         ) : (
           <>
-            <h1>List Your Service</h1>
-            <p className="form-sub">Submit your service to be discovered by Minnesota Muslims. All listings are reviewed before publishing. Free to list — always.</p>
+            <h1>List Your Service or Business</h1>
+            <p className="form-sub">Submit your service, business, or professional expertise to be discovered by Minnesota Muslims. All listings are reviewed before publishing. Free to list — always.</p>
             {error && <div className="error-msg">{error}</div>}
             <form onSubmit={handleSubmit} noValidate>
+
               <div className="form-group">
-                <label htmlFor="business_name">Business / Brand Name</label>
-                <input id="business_name" name="business_name" type="text" placeholder="e.g. Gateway Security Services (leave blank if individual)" value={form.business_name} onChange={handleChange} />
-                <p style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '5px' }}>Leave blank if you’re an individual provider with no business name.</p>
+                <label htmlFor="service_name">Service or Business Name <span className="req">*</span></label>
+                <input id="service_name" name="service_name" type="text" placeholder="e.g. Your business or service name" value={form.service_name} onChange={handleChange} />
               </div>
-              <div className="form-group">
-                <label htmlFor="service_name">Service Name <span className="req">*</span></label>
-                <input id="service_name" name="service_name" type="text" placeholder="e.g. Security Guards & Mobile Patrol" value={form.service_name} onChange={handleChange} />
-              </div>
+
               <div className="form-group">
                 <label htmlFor="provider_name">Contact Person <span className="req">*</span></label>
-                <input id="provider_name" name="provider_name" type="text" placeholder="e.g. Fatima Hassan" value={form.provider_name} onChange={handleChange} />
+                <input id="provider_name" name="provider_name" type="text" placeholder="e.g. Your name" value={form.provider_name} onChange={handleChange} />
               </div>
+
               <div className="form-group">
                 <label htmlFor="category">Category <span className="req">*</span></label>
                 <select id="category" name="category" value={form.category} onChange={handleChange}>
@@ -83,24 +98,43 @@ export default function Submit() {
                   {CATEGORIES.map((cat) => (<option key={cat.id} value={cat.id}>{cat.icon} {cat.name}</option>))}
                 </select>
               </div>
+
               <div className="form-group">
                 <label htmlFor="description">Description <span className="req">*</span></label>
-                <textarea id="description" name="description" placeholder="Describe what you offer…" value={form.description} onChange={handleChange} />
+                <textarea id="description" name="description" placeholder="Briefly describe what you offer, who you help, and what makes your service useful." value={form.description} onChange={handleChange} />
               </div>
+
               <div className="form-group">
-                <label htmlFor="service_area">Service Area <span className="req">*</span></label>
-                <input id="service_area" name="service_area" type="text" placeholder="e.g. Twin Cities Metro, Statewide, Minneapolis" value={form.service_area} onChange={handleChange} />
+                <label htmlFor="service_area">Service Area <span style={{fontSize:'12px',color:'var(--text-muted)',fontWeight:400}}>(optional)</span></label>
+                <input id="service_area" name="service_area" type="text" placeholder="e.g. Twin Cities Metro, Minneapolis, Statewide, Remote" value={form.service_area} onChange={handleChange} />
               </div>
+
               <div className="form-row">
-                <div className="form-group"><label htmlFor="phone">Phone</label><input id="phone" name="phone" type="tel" placeholder="(612) 555-0100" value={form.phone} onChange={handleChange} /></div>
-                <div className="form-group"><label htmlFor="email">Email <span className="req">*</span></label><input id="email" name="email" type="email" placeholder="you@example.com" value={form.email} onChange={handleChange} /></div>
+                <div className="form-group">
+                  <label htmlFor="phone">Phone <span style={{fontSize:'12px',color:'var(--text-muted)',fontWeight:400}}>(optional)</span></label>
+                  <input id="phone" name="phone" type="tel" placeholder="(612) 555-0100" value={form.phone} onChange={handleChange} />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="email">Email <span style={{fontSize:'12px',color:'var(--text-muted)',fontWeight:400}}>(optional)</span></label>
+                  <input id="email" name="email" type="email" placeholder="you@example.com" value={form.email} onChange={handleChange} />
+                </div>
               </div>
+
               <div className="form-row">
-                <div className="form-group"><label htmlFor="website">Website</label><input id="website" name="website" type="url" placeholder="https://yoursite.com" value={form.website} onChange={handleChange} /></div>
-                <div className="form-group"><label htmlFor="instagram">Instagram</label><input id="instagram" name="instagram" type="text" placeholder="@yourhandle" value={form.instagram} onChange={handleChange} /></div>
+                <div className="form-group">
+                  <label htmlFor="website">Website <span style={{fontSize:'12px',color:'var(--text-muted)',fontWeight:400}}>(optional)</span></label>
+                  <input id="website" name="website" type="url" placeholder="https://yoursite.com" value={form.website} onChange={handleChange} />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="instagram">Instagram <span style={{fontSize:'12px',color:'var(--text-muted)',fontWeight:400}}>(optional)</span></label>
+                  <input id="instagram" name="instagram" type="text" placeholder="@yourhandle" value={form.instagram} onChange={handleChange} />
+                </div>
               </div>
-              <button type="submit" className="submit-btn" disabled={loading}>{loading ? 'Submitting…' : 'Submit Listing'}</button>
-              <p className="form-note">★ Free to list &nbsp;·&nbsp; Reviewed within 2–3 business days &nbsp;·&nbsp; Approved listings appear publicly</p>
+
+              <button type="submit" className="submit-btn" disabled={loading}>
+                {loading ? 'Submitting…' : 'Submit Listing'}
+              </button>
+              <p className="form-note">Free to list &nbsp;·&nbsp; Reviewed within 2–3 business days &nbsp;·&nbsp; Approved listings appear publicly</p>
             </form>
           </>
         )}
