@@ -540,31 +540,6 @@ input, select, textarea {
 
 .detail-desc { font-size: 15px; line-height: 1.7; color: var(--text-muted); }
 
-.contact-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--border);
-  font-size: 14px;
-}
-
-.contact-row:last-child { border-bottom: none; }
-
-.contact-label {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--text-muted);
-  font-weight: 600;
-  width: 72px;
-  flex-shrink: 0;
-  padding-top: 1px;
-}
-
-.contact-val { color: var(--text); word-break: break-all; }
-.contact-val a { color: var(--green); }
-
 .big-contact-btn {
   background: var(--green);
   color: #fff;
@@ -574,24 +549,14 @@ input, select, textarea {
   font-size: 15px;
   font-weight: 600;
   width: 100%;
-  margin-top: 14px;
   transition: background 0.15s;
   display: block;
   text-align: center;
+  text-decoration: none;
 }
 
 .big-contact-btn:hover { background: var(--green-light); }
 
-.disclaimer-card {
-  background: var(--gold-faint);
-  border: 1.5px solid rgba(201,150,59,0.3);
-  border-radius: var(--radius);
-  padding: 14px 16px;
-  font-size: 13px;
-  color: var(--text-muted);
-  line-height: 1.55;
-  margin-top: 14px;
-}
 
 /* ─── FORM ─── */
 .form-wrap {
