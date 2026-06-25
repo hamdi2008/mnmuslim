@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 export default function Navbar() {
@@ -6,8 +7,8 @@ export default function Navbar() {
 
   return (
     <nav className="nav">
-      <Link href="/" className="nav-brand">
-        MN<span>Muslim</span>.com
+      <Link href="/" className="nav-logo">
+        <Image src="/logo.png" alt="MNMuslim" width={140} height={42} priority />
       </Link>
       <div className="nav-links">
         <Link href="/" className={`nav-link${router.pathname === '/' ? ' active' : ''}`}>
@@ -17,7 +18,7 @@ export default function Navbar() {
           Browse
         </Link>
         <Link href="/submit" className="nav-cta">
-          Get Listed
+          ⚡ Get Listed
         </Link>
       </div>
     </nav>
