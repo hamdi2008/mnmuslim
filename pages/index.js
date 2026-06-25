@@ -63,7 +63,7 @@ export default function Home() {
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '52px' }}>
               <Link href="/" onClick={() => setMobileOpen(false)} style={{ textDecoration: 'none' }}>
-                <img src="/logo.png" alt="MNMuslim" style={{ height: '38px', width: 'auto' }} />
+                <img src="/logo.png" alt="MNMuslim" style={{ height: '44px', width: 'auto', display: 'block' }} />
               </Link>
               <button onClick={() => setMobileOpen(false)} style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', padding: '4px' }}>
                 <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
@@ -95,15 +95,7 @@ export default function Home() {
                 </a>
               ))}
             </div>
-            <div style={{ paddingBottom: '32px', paddingTop: '32px' }}>
-              <Link href="/submit" onClick={() => setMobileOpen(false)} style={{
-                display: 'inline-block', background: '#0CA5A5', color: '#fff',
-                fontSize: '15px', fontWeight: '700', padding: '14px 32px',
-                borderRadius: '40px', textDecoration: 'none',
-              }}>
-                Get Listed →
-              </Link>
-            </div>
+
           </div>
         )}
 
@@ -310,5 +302,6 @@ export default function Home() {
     </>
   )
 }
+
 
 
