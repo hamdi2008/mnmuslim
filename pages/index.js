@@ -22,7 +22,7 @@ export default function Home() {
       <Head>
         <title>MNMuslim — The Digital Home for Muslims in Minnesota</title>
         <meta name="description" content="Discover trusted Muslim services, halal food, and community resources — all in one place." />
-        <link rel="icon" href="/ChatGPT Image Jun 25, 2026, 10_18_45 AM.png" />
+                <link rel="icon" href="/favicon.png" />
       </Head>
 
 
@@ -32,7 +32,7 @@ export default function Home() {
         {/* ── NAV ── */}
         <nav className="hn-nav">
           <Link href="/" className="hn-logo">
-            <img src="/ChatGPT Image Jun 25, 2026, 10_09_38 AM.png" alt="MNMuslim" className="hn-logo-img" />
+                      <img src="/logo.png" alt="MNMuslim" className="hn-logo-img" />
           </Link>
           <div className="hn-pill">
             <Link href="/services" className="hn-nl">Services</Link>
