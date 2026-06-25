@@ -43,16 +43,12 @@ export default function Home() {
           <div className="hn-g hn-g2" />
           <div className="hn-g hn-g3" />
 
-          <div className="hn-badge">
-            <span className="hn-bp" />
-            Minnesota · Muslim · Community
-          </div>
+          <p className="hn-hero-eyebrow">The digital home for Muslims in Minnesota</p>
 
           <h1 className="hn-h1">
-            Everything Minnesota<br />
-            Muslims need.<br />
-            <em>One trusted <span className="hn-teal">place.</span></em>
+            Everything Minnesota<br />Muslims need.
           </h1>
+          <p className="hn-h1-sub">One trusted <span className="hn-teal">place.</span></p>
 
           <p className="hn-sub">
             Discover trusted Muslim services, halal food, and community resources — all in one place.
@@ -70,23 +66,26 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="hn-btns">
-            <Link href="/services" className="hn-btn-primary">Browse Services</Link>
-            <a href="https://mnhalal.com" className="hn-btn-ghost" target="_blank" rel="noopener noreferrer">Browse MNHalal</a>
+          <div className="hn-chips">
+            <Link href="/services" className="hn-chip">Services</Link>
+            <a href="https://mnhalal.com" className="hn-chip" target="_blank" rel="noopener noreferrer">Halal Food</a>
+            <Link href="/services" className="hn-chip">Businesses</Link>
+            <Link href="/services" className="hn-chip">Professionals</Link>
           </div>
         </section>
 
-        {/* hero → white transition */}
+        {/* hero to white transition */}
         <div className="hn-fade" />
 
         {/* ── ABOUT ── */}
         <section className="hn-about">
+          <div className="hn-about-bg" />
           <div className="hn-about-inner">
             <div className="hn-about-left">
               <div className="hn-eyebrow">What is MNMuslim?</div>
               <h2 className="hn-section-h2">One platform.<br />Built for<br />Minnesota Muslims.</h2>
               <p className="hn-about-body">
-                MNMuslim connects Minnesota Muslims with trusted local resources. We&apos;re building one place to discover businesses, halal food, professionals, and future community tools — so our community can find what it needs, fast.
+                MNMuslim brings together trusted services, halal food, and community resources so Minnesota Muslims can discover, connect, and support one another.
               </p>
               <p className="hn-about-human">Built by a Minnesota Muslim for the Minnesota Muslim community.</p>
               <Link href="/about" className="hn-text-link">Learn more about us →</Link>
@@ -114,21 +113,19 @@ export default function Home() {
         <section className="hn-eco">
           <div className="hn-eco-inner">
             <div className="hn-section-head">
-              <div className="hn-eyebrow" style={{ textAlign: 'center' }}>The MNMuslim Ecosystem</div>
-              <h2 className="hn-section-h2" style={{ textAlign: 'center' }}>Explore what MNMuslim offers</h2>
+              <div className="hn-eyebrow" style={{ textAlign: 'center' }}>Start Here</div>
+              <h2 className="hn-section-h2" style={{ textAlign: 'center' }}>Explore MNMuslim</h2>
               <p className="hn-section-sub">Two focused products. One unified community platform.</p>
             </div>
             <div className="hn-eco-grid">
-
               <div className="hn-ecard hn-ec-teal">
                 <div className="hn-ec-pat" />
                 <div className="hn-ec-ico">💼</div>
                 <div className="hn-ec-tag">Services Directory</div>
                 <div className="hn-ec-name">Muslim Services</div>
-                <p className="hn-ec-desc">Find trusted Muslim professionals across Minnesota.</p>
+                <p className="hn-ec-desc">Find trusted Muslim professionals and service providers across Minnesota.</p>
                 <Link href="/services" className="hn-ec-btn hn-ec-btn-teal">Browse Services →</Link>
               </div>
-
               <div className="hn-ecard hn-ec-gold">
                 <div className="hn-ec-pat" />
                 <div className="hn-ec-ico">🍽️</div>
@@ -137,7 +134,6 @@ export default function Home() {
                 <p className="hn-ec-desc">Discover halal restaurants, markets, bakeries, and cafés across Minnesota.</p>
                 <a href="https://mnhalal.com" className="hn-ec-btn hn-ec-btn-gold" target="_blank" rel="noopener noreferrer">Explore MNHalal →</a>
               </div>
-
             </div>
           </div>
         </section>
@@ -146,12 +142,11 @@ export default function Home() {
         <section className="hn-vision">
           <div className="hn-vision-inner">
             <div className="hn-vision-intro">
-              <div className="hn-eyebrow">Building the MNMuslim Ecosystem</div>
+              <div className="hn-eyebrow">Building the digital home for Muslims in Minnesota</div>
               <h2 className="hn-section-h2">One platform. Growing together.</h2>
               <p className="hn-vision-sub">We&apos;re just getting started — and we&apos;d love to build this together.</p>
             </div>
             <div className="hn-vg">
-
               <div className="hn-vcol">
                 <div className="hn-vcol-hd">
                   <span className="hn-vdot-live" />
@@ -174,7 +169,6 @@ export default function Home() {
                   <span className="hn-vi-arr">→</span>
                 </a>
               </div>
-
               <div className="hn-vcol">
                 <div className="hn-vcol-hd">
                   <span className="hn-vdot-soon" />
@@ -189,7 +183,12 @@ export default function Home() {
                   ))}
                 </div>
               </div>
-
+            </div>
+            <div className="hn-vision-suggest">
+              <p style={{ fontSize: '13px', color: '#7A8FA6', marginBottom: '16px' }}>
+                We&apos;re just getting started — and we&apos;d love to build this together.
+              </p>
+              <Link href="/contact" className="hn-suggest-btn">✦ Make a Suggestion</Link>
             </div>
           </div>
         </section>
@@ -198,15 +197,14 @@ export default function Home() {
         <section className="hn-cta">
           <div className="hn-cta-b1" />
           <div className="hn-cta-b2" />
-          <h2 className="hn-cta-h2">Ready to explore?</h2>
+          <div className="hn-cta-b3" />
+          <p className="hn-cta-label">Get Listed</p>
+          <h2 className="hn-cta-h2">Offer a service or halal business?</h2>
+          <p className="hn-cta-sub">Help Minnesota Muslims discover and support your business.</p>
           <div className="hn-cta-btns">
-            <Link href="/services" className="hn-cta-btn1">Browse Services</Link>
-            <a href="https://mnhalal.com" className="hn-cta-btn2" target="_blank" rel="noopener noreferrer">Browse MNHalal</a>
+            <Link href="/submit" className="hn-cta-btn1">List Your Service</Link>
+            <a href="https://mnhalal.com" className="hn-cta-btn2" target="_blank" rel="noopener noreferrer">List on MNHalal</a>
           </div>
-          <p className="hn-cta-note">
-            Own a Muslim business or service?{' '}
-            <Link href="/submit" className="hn-cta-note-link">Submit your listing.</Link>
-          </p>
         </section>
 
         {/* ── FOOTER ── */}
@@ -224,8 +222,8 @@ export default function Home() {
                 <Link href="/services" className="hn-fl">Services</Link>
                 <a href="https://mnhalal.com" className="hn-fl" target="_blank" rel="noopener noreferrer">MNHalal</a>
                 <Link href="/about" className="hn-fl">About</Link>
+                <Link href="/submit" className="hn-fl">Get Listed</Link>
                 <Link href="/contact" className="hn-fl">Contact</Link>
-                <a href="https://instagram.com/mnmuslim" className="hn-fl" target="_blank" rel="noopener noreferrer">Instagram</a>
               </div>
             </div>
             <div className="hn-footer-bottom">
@@ -241,4 +239,4 @@ export default function Home() {
       </div>
     </>
   )
-          }
+}
