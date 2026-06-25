@@ -7,7 +7,7 @@
 /* NAV */
 .hn-nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 60px; position: relative; z-index: 30; }
 .hn-logo { display: flex; align-items: center; text-decoration: none; }
-.hn-logo-img { height: 44px; width: auto; display: block; }
+.hn-logo-img { height: 56px; width: auto; display: block; }
 .hn-pill { display: flex; align-items: center; gap: 4px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14); border-radius: 50px; padding: 5px 6px; backdrop-filter: blur(8px); }
 .hn-nl { color: rgba(255,255,255,0.82); font-size: 13.5px; font-weight: 600; padding: 9px 22px; border-radius: 40px; cursor: pointer; text-decoration: none; transition: all .18s; white-space: nowrap; letter-spacing: .01em; }
 .hn-nl:hover { color: #fff; background: rgba(255,255,255,.14); transform: none; }
@@ -166,7 +166,7 @@
 @media (max-width: 768px) {
   .hn-nav { padding: 16px 20px; }
   .hn-pill { display: none; }
-  .hn-contact { font-size: 12px; padding: 8px 16px; }
+  .hn-contact { display: none; }
   .hn-mobile-menu { display: block; }
   .hn-hero { padding: 80px 20px 72px; }
   .hn-h1 { font-size: 42px; letter-spacing: -2.5px; }
