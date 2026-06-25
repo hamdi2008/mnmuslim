@@ -4,6 +4,7 @@ import Link from 'next/link'
 
 export default function Home() {
   const [search, setSearch] = useState('')
+  const [mobileOpen, setMobileOpen] = useState(false)
 
   const visionItems = [
     { emoji: '📅', name: 'Events' },
@@ -34,8 +35,76 @@ export default function Home() {
             <a href="https://mnhalal.com" className="hn-nl" target="_blank" rel="noopener noreferrer">MNHalal</a>
             <Link href="/about" className="hn-nl">About</Link>
           </div>
-          <Link href="/contact" className="hn-contact">Contact</Link>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <Link href="/contact" className="hn-contact">Contact</Link>
+            <button
+              className="hn-mobile-menu"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label="Toggle menu"
+            >
+              {mobileOpen ? (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                  <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+              ) : (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                  <line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/>
+                </svg>
+              )}
+            </button>
+          </div>
         </nav>
+        {mobileOpen && (
+          <div style={{
+            position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+            background: '#060D1A', zIndex: 50,
+            display: 'flex', flexDirection: 'column', padding: '24px 28px',
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '48px' }}>
+              <Link href="/" className="hn-logo" onClick={() => setMobileOpen(false)}>
+                <img src="/logo.png" alt="MNMuslim" className="hn-logo-img" />
+              </Link>
+              <button onClick={() => setMobileOpen(false)} style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer' }}>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                  <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+              </button>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              {[
+                { label: 'Services', href: '/services', internal: true },
+                { label: 'MNHalal', href: 'https://mnhalal.com', internal: false },
+                { label: 'About', href: '/about', internal: true },
+                { label: 'Contact', href: '/contact', internal: true },
+              ].map(item => item.internal ? (
+                <Link key={item.label} href={item.href} onClick={() => setMobileOpen(false)} style={{
+                  color: '#fff', fontSize: '28px', fontWeight: '700', textDecoration: 'none',
+                  padding: '14px 0', borderBottom: '1px solid rgba(255,255,255,0.08)',
+                  letterSpacing: '-0.5px',
+                }}>
+                  {item.label}
+                </Link>
+              ) : (
+                <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer" onClick={() => setMobileOpen(false)} style={{
+                  color: '#fff', fontSize: '28px', fontWeight: '700', textDecoration: 'none',
+                  padding: '14px 0', borderBottom: '1px solid rgba(255,255,255,0.08)',
+                  letterSpacing: '-0.5px',
+                }}>
+                  {item.label}
+                </a>
+              ))}
+            </div>
+            <div style={{ marginTop: '40px' }}>
+              <Link href="/submit" onClick={() => setMobileOpen(false)} style={{
+                display: 'inline-block', background: '#0CA5A5', color: '#fff',
+                fontSize: '15px', fontWeight: '700', padding: '14px 32px',
+                borderRadius: '40px', textDecoration: 'none',
+              }}>
+                Get Listed
+              </Link>
+            </div>
+          </div>
+        )}
 
         {/* ── HERO ── */}
         <section className="hn-hero">
@@ -240,3 +309,4 @@ export default function Home() {
     </>
   )
 }
+
