@@ -56,21 +56,22 @@ export default function Home() {
         </nav>
         {mobileOpen && (
           <div style={{
-            position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
-            background: '#060D1A', zIndex: 50,
-            display: 'flex', flexDirection: 'column', padding: '24px 28px',
+            position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',
+            background: '#060D1A', zIndex: 100,
+            display: 'flex', flexDirection: 'column', padding: '20px 24px',
+            overflowY: 'auto',
           }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '48px' }}>
-              <Link href="/" className="hn-logo" onClick={() => setMobileOpen(false)}>
-                <img src="/logo.png" alt="MNMuslim" className="hn-logo-img" />
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '52px' }}>
+              <Link href="/" onClick={() => setMobileOpen(false)} style={{ textDecoration: 'none' }}>
+                <img src="/logo.png" alt="MNMuslim" style={{ height: '38px', width: 'auto' }} />
               </Link>
-              <button onClick={() => setMobileOpen(false)} style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer' }}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+              <button onClick={() => setMobileOpen(false)} style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', padding: '4px' }}>
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
                   <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
                 </svg>
               </button>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
               {[
                 { label: 'Services', href: '/services', internal: true },
                 { label: 'MNHalal', href: 'https://mnhalal.com', internal: false },
@@ -78,29 +79,29 @@ export default function Home() {
                 { label: 'Contact', href: '/contact', internal: true },
               ].map(item => item.internal ? (
                 <Link key={item.label} href={item.href} onClick={() => setMobileOpen(false)} style={{
-                  color: '#fff', fontSize: '28px', fontWeight: '700', textDecoration: 'none',
-                  padding: '14px 0', borderBottom: '1px solid rgba(255,255,255,0.08)',
-                  letterSpacing: '-0.5px',
+                  color: '#fff', fontSize: '32px', fontWeight: '800', textDecoration: 'none',
+                  padding: '18px 0', borderBottom: '1px solid rgba(255,255,255,0.07)',
+                  letterSpacing: '-1px', display: 'block',
                 }}>
                   {item.label}
                 </Link>
               ) : (
                 <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer" onClick={() => setMobileOpen(false)} style={{
-                  color: '#fff', fontSize: '28px', fontWeight: '700', textDecoration: 'none',
-                  padding: '14px 0', borderBottom: '1px solid rgba(255,255,255,0.08)',
-                  letterSpacing: '-0.5px',
+                  color: '#fff', fontSize: '32px', fontWeight: '800', textDecoration: 'none',
+                  padding: '18px 0', borderBottom: '1px solid rgba(255,255,255,0.07)',
+                  letterSpacing: '-1px', display: 'block',
                 }}>
                   {item.label}
                 </a>
               ))}
             </div>
-            <div style={{ marginTop: '40px' }}>
+            <div style={{ paddingBottom: '32px', paddingTop: '32px' }}>
               <Link href="/submit" onClick={() => setMobileOpen(false)} style={{
                 display: 'inline-block', background: '#0CA5A5', color: '#fff',
                 fontSize: '15px', fontWeight: '700', padding: '14px 32px',
                 borderRadius: '40px', textDecoration: 'none',
               }}>
-                Get Listed
+                Get Listed →
               </Link>
             </div>
           </div>
@@ -309,4 +310,5 @@ export default function Home() {
     </>
   )
 }
+
 
