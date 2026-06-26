@@ -11,10 +11,10 @@ export default function Home() {
     window.addEventListener('scroll', onScroll)
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
-  const placeholders = ['Dentist…', 'Halal restaurant…', 'Accountant…', 'Photographer…', 'Islamic school…']
+  const placeholders = ['Photographer…', 'Accountant…', 'Dentist…', 'Mosque…', 'Islamic School…', 'Halal Restaurant…']
   const [phIdx, setPhIdx] = useState(0)
   useEffect(() => {
-    const t = setInterval(() => setPhIdx(i => (i + 1) % placeholders.length), 2800)
+    const t = setInterval(() => setPhIdx(i => (i + 1) % placeholders.length), 3000)
     return () => clearInterval(t)
   }, [])
 
@@ -125,7 +125,7 @@ export default function Home() {
           </h1>
 
           <p className="hn-sub">
-            One trusted place to discover Muslim services, halal food, businesses, and community resources across Minnesota.
+            Discover trusted Muslim services, halal food, businesses, and community resources across Minnesota—all in one place.
           </p>
 
           <div className="hn-search-wrap">
