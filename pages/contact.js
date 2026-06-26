@@ -24,20 +24,14 @@ export default function Contact() {
     {
       icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>,
       title: 'Suggest a Feature',
-      desc: "Have an idea for MNMuslim or something you'd like to see added?",
+      desc: "Help shape MNMuslim by sharing your ideas and suggestions.",
       link: { href: 'mailto:hello@mnmuslim.com?subject=Feature Suggestion', label: 'Suggest an idea →', external: true },
     },
     {
       icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>,
       title: 'Report an Issue',
-      desc: 'Found a broken link, incorrect information, or something that needs fixing?',
+      desc: "Found incorrect information or something that isn't working? Let us know so we can fix it.",
       link: { href: 'mailto:hello@mnmuslim.com?subject=Issue Report', label: 'Report an issue →', external: true },
-    },
-    {
-      icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>,
-      title: 'Services Directory',
-      desc: 'Offer a service in Minnesota? Our Muslim Services directory is coming soon.',
-      link: { href: '/services', label: 'Learn about Services →', external: false },
     },
   ]
 
@@ -112,7 +106,7 @@ export default function Contact() {
           <div className="ct-hero-inner">
             <p className="hn-hero-eyebrow">Contact</p>
             <h1 className="ct-hero-h1">Contact MNMuslim</h1>
-            <p className="ct-hero-sub">Have a question, suggestion, or idea for the Minnesota Muslim community? We&apos;d love to hear from you.</p>
+            <p className="ct-hero-sub">Questions, feedback, or ideas? We&apos;d love to hear from you.</p>
           </div>
         </section>
 
@@ -120,7 +114,7 @@ export default function Contact() {
         <section className="ct-body">
           <div className="ct-card">
             <h2 className="ct-card-title">Get in Touch</h2>
-            <p className="ct-card-intro">Whether you want to suggest a resource, report an issue, share feedback, or connect about MNMuslim, this is the best place to start.</p>
+            <p className="ct-card-intro">Whether you're reporting an issue, suggesting a feature, or simply saying hello, this is the best place to reach us.</p>
 
             <div className="ct-rows">
               {rows.map((row, i) => (
@@ -152,7 +146,7 @@ export default function Contact() {
                   <img src="/logo-footer.png" alt="MNMuslim" className="hn-footer-logo-img" />
                 </Link>
                 <p className="hn-footer-tag">Helping Minnesota Muslims discover trusted businesses, services, and community resources.</p>
-                <p className="hn-footer-mission">Built by a Minnesota Muslim for the Minnesota Muslim community.</p>
+                <p className="hn-footer-mission">Helping Minnesota Muslims discover trusted businesses, services, and community resources.</p>
               </div>
               <div className="hn-footer-cols">
                 <div className="hn-footer-col">
