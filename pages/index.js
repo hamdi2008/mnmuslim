@@ -228,14 +228,21 @@ export default function Home() {
                 <div className="hn-roadmap-live">
                   <div className="hn-live-item">
                     <span className="hn-live-check">✓</span>
-                    <span className="hn-live-name">Muslim Services</span>
+                    <div>
+                      <div className="hn-live-name">Muslim Services</div>
+                      <div className="hn-live-sub">Professional Services Directory</div>
+                    </div>
                   </div>
                   <div className="hn-live-item">
                     <span className="hn-live-check">✓</span>
-                    <span className="hn-live-name">MNHalal</span>
+                    <div>
+                      <div className="hn-live-name">MNHalal</div>
+                      <div className="hn-live-sub">Halal Food Guide</div>
+                    </div>
                   </div>
                 </div>
               </div>
+              <div className="hn-roadmap-divider" />
               <div className="hn-roadmap-col">
                 <div className="hn-roadmap-label">
                   <span className="hn-vdot-soon" />
@@ -249,8 +256,8 @@ export default function Home() {
               </div>
             </div>
             <div className="hn-vision-suggest">
-              <p className="hn-vision-suggest-txt">Have an idea for MNMuslim? We&apos;d love to hear it.</p>
-              <Link href="/contact" className="hn-suggest-btn">✦ Make a Suggestion</Link>
+              <p className="hn-vision-suggest-txt">Have an idea that would help Minnesota Muslims?</p>
+              <Link href="/contact" className="hn-suggest-btn">Make a Suggestion</Link>
             </div>
           </div>
         </section>
