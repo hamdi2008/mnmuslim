@@ -151,18 +151,20 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
 
 
 /* HOW IT WORKS */
-.hn-how { background: #ffffff; padding: 100px 56px; border-top: 1px solid #F0F4F8; }
-.hn-how-inner { max-width: 1000px; margin: 0 auto; }
-.hn-how-inner .hn-section-head { margin-bottom: 64px; }
+.hn-how { background: #ffffff; padding: 88px 56px 80px; border-top: 1px solid #F0F4F8; }
+.hn-how-inner { max-width: 960px; margin: 0 auto; }
+.hn-how-inner .hn-section-head { margin-bottom: 52px; }
 .hn-journey { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; align-items: start; }
-.hn-journey-step { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 20px; position: relative; }
-.hn-journey-icon { width: 64px; height: 64px; border-radius: 50%; background: #F0FDFA; border: 1.5px solid #B2DEDE; display: flex; align-items: center; justify-content: center; color: #0CA5A5; margin-bottom: 16px; transition: all .25s; flex-shrink: 0; }
-.hn-journey-step:hover .hn-journey-icon { background: #0CA5A5; color: #fff; transform: translateY(-4px); box-shadow: 0 12px 32px rgba(12,165,165,0.2); }
-.hn-journey-num { font-size: 10px; font-weight: 800; color: #0CA5A5; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 8px; opacity: 0.7; }
-.hn-journey-title { font-size: 16px; font-weight: 800; color: #0D2B59; margin-bottom: 10px; letter-spacing: -0.2px; }
-.hn-journey-desc { font-size: 13px; color: #6B7A8D; line-height: 1.72; max-width: 180px; }
-.hn-journey-arrow { position: absolute; top: 30px; right: -14px; color: #CBD5E1; z-index: 2; transition: color .25s, transform .25s; }
-.hn-journey-step:hover .hn-journey-arrow { color: #0CA5A5; transform: translateX(3px); }
+.hn-journey-line { position: absolute; top: 36px; left: calc(12.5%); right: calc(12.5%); height: 1.5px; background: linear-gradient(to right, #0CA5A5, #B2DEDE, #B2DEDE, #0CA5A5); opacity: 0.35; z-index: 0; pointer-events: none; }
+.hn-journey-step { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 16px; position: relative; z-index: 1; }
+.hn-journey-icon-wrap { position: relative; margin-bottom: 18px; }
+.hn-journey-icon { width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(145deg, #F0FDFA, #E6F9F9); border: 1.5px solid rgba(12,165,165,0.25); display: flex; align-items: center; justify-content: center; color: #0CA5A5; transition: all .3s cubic-bezier(.4,0,.2,1); box-shadow: 0 4px 16px rgba(12,165,165,0.08), inset 0 1px 0 rgba(255,255,255,0.8); }
+.hn-journey-num { position: absolute; top: -6px; right: -6px; width: 20px; height: 20px; border-radius: 50%; background: #0CA5A5; color: #fff; font-size: 9px; font-weight: 800; display: flex; align-items: center; justify-content: center; letter-spacing: 0; border: 2px solid #fff; }
+.hn-journey-step:hover .hn-journey-icon { transform: translateY(-5px) scale(1.05); background: linear-gradient(145deg, #0CA5A5, #0BBDBD); color: #fff; box-shadow: 0 16px 36px rgba(12,165,165,0.25), 0 4px 12px rgba(12,165,165,0.15); border-color: transparent; }
+.hn-journey-step:hover .hn-journey-title { color: #0CA5A5; }
+.hn-journey-title { font-size: 15px; font-weight: 800; color: #0D2B59; margin-bottom: 8px; letter-spacing: -0.2px; transition: color .25s; }
+.hn-journey-desc { font-size: 12.5px; color: #7A8FA6; line-height: 1.65; max-width: 165px; }
+.hn-journey-closing { text-align: center; font-size: 13.5px; color: #94A3B8; margin-top: 52px; font-style: italic; letter-spacing: 0.01em; line-height: 1.6; }
 
 /* TRUST */
 .hn-trust { background: #0B1626; padding: 56px 56px; border-top: 1px solid rgba(255,255,255,0.05); }
@@ -248,12 +250,11 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
   .hn-section-h2 { font-size: 28px; }
   .hn-eco { padding: 72px 20px; }
   .hn-eco-grid { grid-template-columns: 1fr; }
-  .hn-how { padding: 72px 20px; }
-  .hn-journey { grid-template-columns: 1fr; gap: 40px; }
-  .hn-journey-step { align-items: flex-start; text-align: left; padding: 0; padding-left: 20px; border-left: 2px solid #EDF2F7; }
-  .hn-journey-icon { margin-bottom: 14px; }
-  .hn-journey-arrow { display: none; }
+  .hn-how { padding: 64px 20px; }
+  .hn-journey { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .hn-journey-line { display: none; }
   .hn-journey-desc { max-width: 100%; }
+  .hn-journey-closing { margin-top: 36px; font-size: 12.5px; }
   .hn-trust { padding: 40px 20px; }
   .hn-trust-inner { grid-template-columns: 1fr 1fr; gap: 24px; }
   .hn-cta { padding: 64px 24px; }
