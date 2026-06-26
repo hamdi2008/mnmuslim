@@ -171,7 +171,7 @@
   .hn-pill { display: none; }
   .hn-contact { display: none; }
   .hn-mobile-menu { display: block; }
-  .hn-logo-img { height: 38px; }
+  .hn-logo-img { width: 130px; height: auto; }
   .hn-hero { padding: 80px 20px 72px; }
   .hn-h1 { font-size: 42px; letter-spacing: -2.5px; }
   .hn-h1-sub { font-size: 42px; letter-spacing: -2.5px; }
