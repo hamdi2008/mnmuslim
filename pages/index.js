@@ -151,15 +151,16 @@ export default function Home() {
 
         {/* ── ABOUT ── */}
         <section className="hn-about">
+          <div className="hn-about-glow" />
           <div className="hn-about-inner">
             <div className="hn-about-left">
               <div className="hn-eyebrow">Why MNMuslim exists</div>
-              <h2 className="hn-section-h2">Minnesota has an incredible Muslim community.<br />Finding it shouldn't be this hard.</h2>
+              <h2 className="hn-section-h2">Minnesota has an incredible<br />Muslim community.<br /><span className="hn-about-h2-sub">Finding it shouldn't be this hard.</span></h2>
               <p className="hn-about-body">
-                Minnesota is home to amazing Muslim businesses, professionals, halal restaurants, organizations, and community resources. But everything is scattered—across social media groups, personal referrals, and dozens of disconnected websites.
+                Minnesota is home to amazing Muslim businesses, professionals, halal restaurants, and community resources—but everything is scattered across social media, personal referrals, and disconnected websites.
               </p>
-              <p className="hn-about-body" style={{ marginTop: '20px' }}>
-                MNMuslim brings everything together into one trusted place where Minnesota Muslims can discover services, support local businesses, and stay connected to their community.
+              <p className="hn-about-body" style={{ marginTop: '18px' }}>
+                MNMuslim brings it all together. One trusted place to discover services, support local businesses, and stay connected.
               </p>
               <p className="hn-about-human">
                 Built by a Minnesota Muslim<br />for the Minnesota Muslim community.
