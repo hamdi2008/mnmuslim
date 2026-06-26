@@ -260,7 +260,7 @@ export default function Home() {
                     </svg>
                   ),
                   num: '03', title: 'Support',
-                  desc: 'Every purchase strengthens Minnesota's Muslim economy and helps local businesses thrive.'
+                  desc: "Every purchase strengthens Minnesota's Muslim economy and helps local businesses thrive."
                 },
                 {
                   icon: (
