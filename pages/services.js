@@ -4,23 +4,19 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { CATEGORIES, getCategoryById } from '../lib/categories'
 
-// ── Trust badge helper ──────────────────────────────────────
 function TrustBadges({ listing }) {
   const badges = []
-  if (listing.owner_submitted) badges.push({ label: 'Owner Submitted', icon: '✓' })
-  if (listing.verified)        badges.push({ label: 'Verified', icon: '✓' })
-  if (listing.responds_quickly) badges.push({ label: 'Responds Quickly', icon: '✓' })
+  if (listing.owner_submitted)  badges.push('Owner Submitted')
+  if (listing.verified)         badges.push('Verified')
+  if (listing.responds_quickly) badges.push('Responds Quickly')
   if (!badges.length) return null
   return (
     <div className="sv-card-badges">
-      {badges.map(b => (
-        <span key={b.label} className="sv-trust-badge">{b.icon} {b.label}</span>
-      ))}
+      {badges.map(b => <span key={b} className="sv-trust-badge">✓ {b}</span>)}
     </div>
   )
 }
 
-// ── Listing card ────────────────────────────────────────────
 function ListingCard({ listing }) {
   const cat = getCategoryById(listing.category)
   return (
@@ -29,12 +25,9 @@ function ListingCard({ listing }) {
         <span className="sv-card-badge">{cat.icon} {cat.name}</span>
       </div>
       <div className="sv-card-name">{listing.service_name}</div>
-      {listing.business_name && (
-        <div className="sv-card-provider">by <strong>{listing.business_name}</strong></div>
-      )}
-      {!listing.business_name && (
-        <div className="sv-card-provider">by <strong>{listing.provider_name}</strong></div>
-      )}
+      <div className="sv-card-provider">
+        by <strong>{listing.business_name || listing.provider_name}</strong>
+      </div>
       <TrustBadges listing={listing} />
       <p className="sv-card-desc">{listing.description}</p>
       <div className="sv-card-footer">
@@ -48,7 +41,6 @@ function ListingCard({ listing }) {
   )
 }
 
-// ── Page ────────────────────────────────────────────────────
 export default function Services() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled, setScrolled]     = useState(false)
@@ -94,13 +86,13 @@ export default function Services() {
     <>
       <Head>
         <title>Muslim Services Directory — MNMuslim</title>
-        <meta name="description" content="Discover trusted Muslim-owned businesses, freelancers, and service providers across Minnesota — tutors, photographers, contractors, consultants, and more." />
+        <meta name="description" content="Discover trusted Muslim-owned businesses, freelancers, and service providers across Minnesota." />
         <link rel="icon" href="/favicon.png" />
       </Head>
 
       <div className="home-page">
 
-        {/* ── NAV ── */}
+        {/* NAV */}
         <nav className={`hn-nav${scrolled ? ' scrolled' : ''}`}>
           <Link href="/" className="hn-logo">
             <img src="/logo.png" alt="MNMuslim" className="hn-logo-img" />
@@ -145,19 +137,19 @@ export default function Services() {
           </div>
         )}
 
-        {/* ── HERO ── */}
+        {/* HERO */}
         <section className="sv-hero">
           <div className="sv-hero-glow" />
           <div className="sv-hero-inner">
             <p className="sv-eyebrow">Muslim Services Directory</p>
             <h1 className="sv-hero-h1">Find trusted Muslim<br />services in Minnesota</h1>
-            <p className="sv-hero-sub">Discover trusted Muslim-owned businesses, freelancers, and service providers across Minnesota — from tutors and photographers to contractors, consultants, and more.</p>
+            <p className="sv-hero-sub">Discover Muslim-owned businesses, freelancers, and service providers across Minnesota.</p>
             <div className="sv-search-wrap">
               <div className="sv-search-box">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" style={{ color: 'rgba(255,255,255,0.4)', flexShrink: 0 }}><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                 <input
                   className="sv-search-input"
-                  placeholder="Search for a photographer, tutor, contractor…"
+                  placeholder="Search services, businesses, or keywords..."
                   value={search}
                   onChange={e => setSearch(e.target.value)}
                 />
@@ -168,25 +160,15 @@ export default function Services() {
                 )}
               </div>
             </div>
-            <div className="sv-hero-meta">
-              <span className="sv-meta-item">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><polyline points="20 6 9 17 4 12"/></svg>
-                {loading ? '…' : `${listings.length} trusted services`}
-              </span>
-              <span className="sv-meta-dot" />
-              <span className="sv-meta-item">Minnesota Statewide</span>
-              <span className="sv-meta-dot" />
-              <span className="sv-meta-item">Free to browse</span>
-            </div>
           </div>
         </section>
 
-        {/* ── DIRECTORY BODY ── */}
+        {/* DIRECTORY */}
         <div className="sv-body">
 
           {/* Sidebar */}
           <aside className="sv-sidebar">
-            <div className="sv-sidebar-label">Filter by Category</div>
+            <div className="sv-sidebar-label">Categories</div>
             <button className={`sv-cat-btn${activeCat === '' ? ' sv-cat-active' : ''}`} onClick={() => setActiveCat('')}>
               <span className="sv-cat-icon">🗂️</span> All Categories
             </button>
@@ -210,13 +192,13 @@ export default function Services() {
               ))}
             </div>
 
-            {/* Results header */}
+            {/* Results bar */}
             <div className="sv-results-head">
               {!loading && (
                 <p className="sv-results-count">
                   {listings.length === 0
                     ? 'No listings found'
-                    : `${listings.length} listing${listings.length !== 1 ? 's' : ''}${activeCat ? ` in ${getCategoryById(activeCat).name}` : ''}${search ? ` for "${search}"` : ''}`}
+                    : `${listings.length} listing${listings.length !== 1 ? 's' : ''}${activeCat ? ` · ${getCategoryById(activeCat).name}` : ''}${search ? ` · "${search}"` : ''}`}
                 </p>
               )}
               <Link href="/submit" className="sv-list-btn">+ List Your Service</Link>
@@ -248,35 +230,7 @@ export default function Services() {
           </main>
         </div>
 
-        {/* ── ECOSYSTEM ── */}
-        <section className="sv-ecosystem">
-          <div className="sv-eco-inner">
-            <p className="hn-eyebrow" style={{ textAlign: 'center', marginBottom: '10px' }}>MNMuslim Platform</p>
-            <h2 className="sv-eco-h2">Explore the MNMuslim Ecosystem</h2>
-            <div className="sv-eco-grid">
-              <div className="sv-eco-card sv-eco-card-teal">
-                <div className="sv-eco-icon">🛠️</div>
-                <div className="sv-eco-name">Muslim Services</div>
-                <div className="sv-eco-desc">Trusted Muslim-owned businesses and service providers across Minnesota.</div>
-                <span className="sv-eco-tag sv-eco-tag-teal">You are here</span>
-              </div>
-              <a href="https://mnhalal.com" className="sv-eco-card sv-eco-card-gold" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
-                <div className="sv-eco-icon">🍽️</div>
-                <div className="sv-eco-name">MNHalal</div>
-                <div className="sv-eco-desc">Discover halal restaurants, cafés, bakeries, and markets near you.</div>
-                <span className="sv-eco-tag sv-eco-tag-gold">Visit MNHalal →</span>
-              </a>
-              <div className="sv-eco-card sv-eco-card-muted">
-                <div className="sv-eco-icon">🚧</div>
-                <div className="sv-eco-name">More Coming Soon</div>
-                <div className="sv-eco-desc">Events, jobs, mosques, community resources, and more are on the way.</div>
-                <span className="sv-eco-tag sv-eco-tag-muted">In development</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ── CTA BANNER ── */}
+        {/* CTA */}
         <section className="sv-cta-bar">
           <div className="sv-cta-bar-inner">
             <div>
@@ -287,7 +241,7 @@ export default function Services() {
           </div>
         </section>
 
-        {/* ── FOOTER ── */}
+        {/* FOOTER */}
         <footer className="hn-footer">
           <div className="hn-footer-inner">
             <div className="hn-footer-top">
