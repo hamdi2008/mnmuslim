@@ -269,13 +269,6 @@ export default function Home() {
             <p className="hn-cta-sub">Join the growing directory and make it easier for Minnesota Muslims to discover and support your business or professional service.</p>
             <Link href="/submit" className="hn-cta-btn1">List Your Business</Link>
             <Link href="/about" className="hn-cta-learn">Learn how listing works →</Link>
-            <div className="hn-cta-trust">
-              <span className="hn-cta-trust-item">✓ Muslim Services</span>
-              <span className="hn-cta-trust-sep">·</span>
-              <span className="hn-cta-trust-item">✓ MNHalal</span>
-              <span className="hn-cta-trust-sep">·</span>
-              <span className="hn-cta-trust-item">✓ Growing community</span>
-            </div>
           </div>
         </section>
 
