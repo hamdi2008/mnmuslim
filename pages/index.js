@@ -141,8 +141,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* hero to white transition */}
-        <div className="hn-fade" />
 
         {/* ── ABOUT ── */}
         <section className="hn-about">
