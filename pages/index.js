@@ -141,7 +141,7 @@ export default function Home() {
             <Link href="/services" className="hn-chip">Businesses</Link>
           </div>
         </section>
-
+        </div>
 
         {/* ── ABOUT ── */}
         <section className="hn-about">
