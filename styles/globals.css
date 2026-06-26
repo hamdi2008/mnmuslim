@@ -205,7 +205,7 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
 .hn-fb-link:hover { color: rgba(255,255,255,.5); }
 
 /* REVEAL */
-.hn-reveal { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s ease; }
+.hn-reveal { opacity: 0; transform: translateY(18px); transition: opacity .55s ease, transform .55s ease; }
 .hn-reveal.hn-revealed { opacity: 1; transform: translateY(0); }
 .hn-reveal-d1 { transition-delay: .1s; }
 .hn-reveal-d2 { transition-delay: .2s; }
