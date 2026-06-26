@@ -1,10 +1,12 @@
 import { useState, useEffect, useRef } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 export default function Home() {
   const [search, setSearch] = useState('')
   const [mobileOpen, setMobileOpen] = useState(false)
+  const router = useRouter()
   const [scrolled, setScrolled] = useState(false)
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -52,9 +54,9 @@ export default function Home() {
             <img src="/logo.png" alt="MNMuslim" className="hn-logo-img" />
           </Link>
           <div className="hn-pill">
-            <Link href="/services" className="hn-nl">Services</Link>
+            <Link href="/services" className={`hn-nl${router.pathname==="/services" ? " hn-nl-active" : ""}`}>Services</Link>
             <a href="https://mnhalal.com" className="hn-nl" target="_blank" rel="noopener noreferrer">MNHalal</a>
-            <Link href="/about" className="hn-nl">About</Link>
+            <Link href="/about" className={`hn-nl${router.pathname==="/about" ? " hn-nl-active" : ""}`}>About</Link>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <Link href="/contact" className="hn-contact">Contact <span aria-hidden="true">→</span></Link>
