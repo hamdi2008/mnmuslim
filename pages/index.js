@@ -5,6 +5,12 @@ import Link from 'next/link'
 export default function Home() {
   const [search, setSearch] = useState('')
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40)
+    window.addEventListener('scroll', onScroll)
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
   const placeholders = ['Dentist…', 'Halal restaurant…', 'Accountant…', 'Photographer…', 'Islamic school…']
   const [phIdx, setPhIdx] = useState(0)
   useEffect(() => {
@@ -33,7 +39,7 @@ export default function Home() {
 
         <div className="hn-dark-header">
         {/* ── NAV ── */}
-        <nav className="hn-nav">
+        <nav className={`hn-nav${scrolled ? " scrolled" : ""}`}>
           <Link href="/" className="hn-logo">
             <img src="/logo.png" alt="MNMuslim" className="hn-logo-img" />
           </Link>
