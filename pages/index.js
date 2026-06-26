@@ -138,7 +138,6 @@ export default function Home() {
             <Link href="/services" className="hn-chip">Services</Link>
             <a href="https://mnhalal.com" className="hn-chip" target="_blank" rel="noopener noreferrer">Halal Food</a>
             <Link href="/services" className="hn-chip">Businesses</Link>
-            <Link href="/services" className="hn-chip">Professionals</Link>
           </div>
         </section>
 
