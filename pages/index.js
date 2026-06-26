@@ -29,10 +29,6 @@ export default function Home() {
         <nav className="hn-nav">
           <Link href="/" className="hn-logo">
             <img src="/logo.png" alt="MNMuslim" className="hn-logo-img" />
-            <div className="hn-logo-text">
-              <span className="hn-logo-name"><span>MN</span>Muslim</span>
-              <span className="hn-logo-tagline">The digital home for Muslims in Minnesota</span>
-            </div>
           </Link>
           <div className="hn-pill">
             <Link href="/services" className="hn-nl">Services</Link>
