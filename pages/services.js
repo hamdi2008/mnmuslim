@@ -1,41 +1,41 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { CATEGORIES, getCategoryById } from '../lib/categories'
+
+function ListingCard({ listing }) {
+  const cat = getCategoryById(listing.category)
+  return (
+    <Link href={`/listing/${listing.id}`} className="sv-card" style={{ textDecoration: 'none' }}>
+      <div className="sv-card-top">
+        <span className="sv-card-badge">{cat.icon} {cat.name}</span>
+      </div>
+      <div className="sv-card-name">{listing.business_name || listing.service_name}</div>
+      {listing.business_name && (
+        <div className="sv-card-service">{listing.service_name}</div>
+      )}
+      <div className="sv-card-provider">By <strong>{listing.provider_name}</strong></div>
+      <p className="sv-card-desc">{listing.description}</p>
+      <div className="sv-card-footer">
+        <span className="sv-card-area">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          {listing.service_area}
+        </span>
+        <span className="sv-card-cta">View details →</span>
+      </div>
+    </Link>
+  )
+}
 
 export default function Services() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [listings, setListings] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [search, setSearch] = useState('')
+  const [activeCat, setActiveCat] = useState('')
   const router = useRouter()
-
-  const CATEGORIES = [
-    { icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>, label: 'Photographer' },
-    { icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>, label: 'Accountant' },
-    { icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>, label: 'Tutor' },
-    { icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>, label: 'Lawyer' },
-    { icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>, label: 'Contractor' },
-    { icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/></svg>, label: 'Designer' },
-    { icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>, label: 'Therapist' },
-    { icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>, label: 'Doctor' },
-  ]
-
-  const WHY_POINTS = [
-    {
-      icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,
-      label: 'Verified & Trusted',
-      desc: 'Every listing is reviewed to ensure you\'re connecting with real, reliable Muslim professionals in your community.',
-    },
-    {
-      icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>,
-      label: 'Minnesota Local',
-      desc: 'Exclusively focused on Minnesota — so every result is someone who actually serves your area, not a national listing.',
-    },
-    {
-      icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
-      label: 'Community Driven',
-      desc: 'Built by Minnesota Muslims for Minnesota Muslims. Every listing you visit or share strengthens our local economy.',
-    },
-  ]
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -44,24 +44,41 @@ export default function Services() {
   }, [])
 
   useEffect(() => {
-    const els = document.querySelectorAll('.hn-reveal')
-    if (!els.length) return
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('hn-revealed'); obs.unobserve(e.target) } })
-    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' })
-    els.forEach(el => {
-      const rect = el.getBoundingClientRect()
-      if (rect.top < window.innerHeight) el.classList.add('hn-revealed')
-      else obs.observe(el)
-    })
-    return () => obs.disconnect()
-  }, [])
+    if (!router.isReady) return
+    if (router.query.search) setSearch(router.query.search)
+    if (router.query.category) setActiveCat(router.query.category)
+  }, [router.isReady, router.query])
+
+  const fetchListings = useCallback(async () => {
+    setLoading(true)
+    const params = new URLSearchParams()
+    if (search) params.set('search', search)
+    if (activeCat) params.set('category', activeCat)
+    try {
+      const res = await fetch(`/api/listings?${params.toString()}`)
+      const data = await res.json()
+      setListings(Array.isArray(data) ? data : [])
+    } catch {
+      setListings([])
+    } finally {
+      setLoading(false)
+    }
+  }, [search, activeCat])
+
+  useEffect(() => {
+    const t = setTimeout(fetchListings, 300)
+    return () => clearTimeout(t)
+  }, [fetchListings])
+
+  function toggleCat(id) {
+    setActiveCat(prev => prev === id ? '' : id)
+  }
 
   return (
     <>
       <Head>
-        <title>Muslim Services — Coming Soon | MNMuslim</title>
-        <meta name="description" content="Muslim Services is a directory of trusted Muslim professionals and service providers coming soon to MNMuslim. Find photographers, lawyers, tutors, contractors, and more in Minnesota." />
+        <title>Muslim Services Directory — MNMuslim</title>
+        <meta name="description" content="Find trusted Muslim service providers across Minnesota — photographers, lawyers, tutors, contractors, and more." />
         <link rel="icon" href="/favicon.png" />
       </Head>
 
@@ -126,72 +143,120 @@ export default function Services() {
         <section className="sv-hero">
           <div className="sv-hero-glow" />
           <div className="sv-hero-inner">
-            <p className="sv-eyebrow hn-fade-up">Coming Soon</p>
-            <h1 className="sv-hero-h1 hn-fade-up-1">
-              Find trusted Muslim<br />professionals across<br />Minnesota
-            </h1>
-            <p className="sv-hero-sub hn-fade-up-2">
-              Muslim Services is a directory of trusted Muslim professionals and service providers — coming soon to MNMuslim.
-            </p>
-            <div className="sv-hero-btns hn-fade-up-3">
-              <Link href="/contact" className="sv-btn-primary">Get Notified</Link>
-              <a href="https://mnhalal.com" className="sv-btn-secondary" target="_blank" rel="noopener noreferrer">Explore MNHalal →</a>
+            <p className="sv-eyebrow">Muslim Services Directory</p>
+            <h1 className="sv-hero-h1">Find trusted Muslim<br />professionals in Minnesota</h1>
+            <p className="sv-hero-sub">Discover verified Muslim service providers across Minnesota — from photographers and lawyers to tutors, contractors, and more.</p>
+            <div className="sv-search-wrap">
+              <div className="sv-search-box">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" style={{ color: 'rgba(255,255,255,0.4)', flexShrink: 0 }}><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input
+                  className="sv-search-input"
+                  placeholder="Search by service, name, or keyword…"
+                  value={search}
+                  onChange={e => setSearch(e.target.value)}
+                />
+                {search && (
+                  <button className="sv-search-clear" onClick={() => setSearch('')} aria-label="Clear">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                  </button>
+                )}
+              </div>
+            </div>
+            <div className="sv-hero-meta">
+              <span className="sv-meta-item">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+                {loading ? '…' : listings.length} listings
+              </span>
+              <span className="sv-meta-dot" />
+              <span className="sv-meta-item">Minnesota Statewide</span>
+              <span className="sv-meta-dot" />
+              <span className="sv-meta-item">Free to browse</span>
             </div>
           </div>
         </section>
 
-        {/* WHAT IS MUSLIM SERVICES */}
-        <section className="sv-what">
-          <div className="sv-what-inner">
-            <div className="sv-section-head hn-reveal">
-              <p className="hn-eyebrow" style={{ textAlign: 'center' }}>What is Muslim Services?</p>
-              <h2 className="hn-section-h2" style={{ textAlign: 'center' }}>One directory for every<br />Muslim professional need</h2>
-              <p className="sv-section-sub">
-                From photographers and lawyers to tutors and contractors — Muslim Services will be your go-to resource for finding trusted Muslim professionals in Minnesota. No more asking around in WhatsApp groups.
-              </p>
-            </div>
-            <div className="sv-chips hn-reveal">
+        {/* DIRECTORY BODY */}
+        <div className="sv-body">
+
+          {/* SIDEBAR */}
+          <aside className="sv-sidebar">
+            <div className="sv-sidebar-label">Filter by Category</div>
+            <button
+              className={`sv-cat-btn${activeCat === '' ? ' sv-cat-active' : ''}`}
+              onClick={() => setActiveCat('')}
+            >
+              <span className="sv-cat-icon">🗂️</span> All Categories
+            </button>
+            {CATEGORIES.map(cat => (
+              <button
+                key={cat.id}
+                className={`sv-cat-btn${activeCat === cat.id ? ' sv-cat-active' : ''}`}
+                onClick={() => toggleCat(cat.id)}
+              >
+                <span className="sv-cat-icon">{cat.icon}</span> {cat.name}
+              </button>
+            ))}
+          </aside>
+
+          {/* MAIN */}
+          <main className="sv-main">
+
+            {/* Mobile category pills */}
+            <div className="sv-pills-mobile">
+              <button className={`sv-pill${activeCat === '' ? ' sv-pill-active' : ''}`} onClick={() => setActiveCat('')}>All</button>
               {CATEGORIES.map(cat => (
-                <span key={cat.label} className="sv-chip">
-                  <span className="sv-chip-icon">{cat.icon}</span>
-                  {cat.label}
-                </span>
+                <button key={cat.id} className={`sv-pill${activeCat === cat.id ? ' sv-pill-active' : ''}`} onClick={() => toggleCat(cat.id)}>
+                  {cat.icon} {cat.name}
+                </button>
               ))}
             </div>
-          </div>
-        </section>
 
-        {/* WHY IT MATTERS */}
-        <section className="sv-why">
-          <div className="sv-why-inner">
-            <div className="sv-section-head hn-reveal">
-              <p className="hn-eyebrow" style={{ textAlign: 'center' }}>Why it matters</p>
-              <h2 className="hn-section-h2" style={{ textAlign: 'center' }}>Built on trust.<br />Rooted in community.</h2>
+            {/* Results header */}
+            <div className="sv-results-head">
+              {!loading && (
+                <p className="sv-results-count">
+                  {listings.length === 0
+                    ? 'No services found'
+                    : `${listings.length} service${listings.length !== 1 ? 's' : ''} found${activeCat ? ` in ${getCategoryById(activeCat).name}` : ''}${search ? ` for "${search}"` : ''}`}
+                </p>
+              )}
+              <Link href="/submit" className="sv-list-btn">+ List Your Service</Link>
             </div>
-            <div className="sv-pillars">
-              {WHY_POINTS.map((p, i) => (
-                <div key={p.label} className={`sv-pillar hn-reveal hn-reveal-d${i + 1}`}>
-                  <div className="sv-pillar-icon">{p.icon}</div>
-                  <div>
-                    <div className="sv-pillar-label">{p.label}</div>
-                    <div className="sv-pillar-desc">{p.desc}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
 
-        {/* GET NOTIFIED CTA */}
-        <section className="sv-cta">
-          <div className="sv-cta-inner hn-reveal">
-            <p className="sv-cta-eyebrow">Stay in the loop</p>
-            <h2 className="sv-cta-h2">Be the first to know when<br />Muslim Services launches.</h2>
-            <p className="sv-cta-sub">We&apos;re working hard to build the most trusted Muslim professional directory in Minnesota. Sign up and we&apos;ll let you know when it&apos;s live.</p>
-            <div className="sv-cta-btns">
-              <Link href="/contact" className="hn-cta-btn1">Contact Us</Link>
-              <a href="https://mnhalal.com" className="hn-cta-btn2" target="_blank" rel="noopener noreferrer">Explore MNHalal →</a>
+            {/* Grid */}
+            {loading && (
+              <div className="sv-loading">
+                {[1,2,3,4,5,6].map(i => <div key={i} className="sv-skeleton" />)}
+              </div>
+            )}
+
+            {!loading && listings.length === 0 && (
+              <div className="sv-empty">
+                <div className="sv-empty-icon">🔍</div>
+                <h3 className="sv-empty-title">No services found</h3>
+                <p className="sv-empty-sub">Try a different search term or browse all categories.</p>
+                <button className="sv-empty-reset" onClick={() => { setSearch(''); setActiveCat('') }}>Clear filters</button>
+              </div>
+            )}
+
+            {!loading && listings.length > 0 && (
+              <div className="sv-grid">
+                {listings.map(listing => (
+                  <ListingCard key={listing.id} listing={listing} />
+                ))}
+              </div>
+            )}
+          </main>
+        </div>
+
+        {/* CTA BANNER */}
+        <section className="sv-cta-bar">
+          <div className="sv-cta-bar-inner">
+            <div>
+              <div className="sv-cta-bar-title">Offer a service to the community?</div>
+              <div className="sv-cta-bar-sub">Submit your listing for free. Reach Minnesota Muslims looking for trusted providers.</div>
             </div>
+            <Link href="/submit" className="sv-cta-bar-btn">List Your Service →</Link>
           </div>
         </section>
 
