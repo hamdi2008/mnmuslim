@@ -151,32 +151,36 @@ export default function Home() {
 
         {/* ── ABOUT ── */}
         <section className="hn-about">
-          <div className="hn-about-bg" />
           <div className="hn-about-inner">
             <div className="hn-about-left">
-              <div className="hn-eyebrow">What is MNMuslim?</div>
-              <h2 className="hn-section-h2">One platform.<br />Built for<br />Minnesota Muslims.</h2>
+              <div className="hn-eyebrow">Why MNMuslim exists</div>
+              <h2 className="hn-section-h2">Minnesota has an incredible Muslim community.<br />Finding it shouldn't be this hard.</h2>
               <p className="hn-about-body">
-                MNMuslim brings together trusted services, halal food, and community resources so Minnesota Muslims can discover, connect, and support one another.
+                Resources are scattered across social media groups, word of mouth, and dozens of disconnected websites. There's no single place to find a trusted dentist, a halal restaurant, an Islamic school, or a local business that shares your values.
+              </p>
+              <p className="hn-about-body" style={{ marginTop: '16px' }}>
+                MNMuslim changes that. One trusted platform where Minnesota Muslims can discover services, support local businesses, and stay connected to their community.
               </p>
               <p className="hn-about-human">Built by a Minnesota Muslim for the Minnesota Muslim community.</p>
-              <Link href="/about" className="hn-text-link">Learn more about us →</Link>
+              <Link href="/about" className="hn-text-link">Our Mission →</Link>
             </div>
             <div className="hn-about-right">
-              {[
-                { ico: '🤝', bg: '#E6F9F9', t: 'Community Focused', s: 'Built for and by Minnesota Muslims' },
-                { ico: '🛡️', bg: '#EEF2FF', t: 'Trusted & Reliable', s: 'Verified listings, real people' },
-                { ico: '📍', bg: '#FFFBEB', t: 'Local to Minnesota', s: 'Statewide and growing' },
-                { ico: '🌙', bg: '#F3F0FF', t: 'Faith-Driven Values', s: 'Rooted in our community identity' },
-              ].map(v => (
-                <div key={v.t} className="hn-av">
-                  <div className="hn-av-ico" style={{ background: v.bg }}>{v.ico}</div>
-                  <div>
-                    <div className="hn-av-t">{v.t}</div>
-                    <div className="hn-av-s">{v.s}</div>
+              <div className="hn-principles">
+                {[
+                  { label: 'Community Built', desc: 'Created by and for Minnesota Muslims.' },
+                  { label: 'Minnesota Focused', desc: 'Locally rooted, statewide reach.' },
+                  { label: 'Faith Driven', desc: 'Grounded in our shared values.' },
+                  { label: 'Growing Together', desc: 'Built alongside the community.' },
+                ].map(p => (
+                  <div key={p.label} className="hn-principle">
+                    <span className="hn-principle-dot" />
+                    <div>
+                      <div className="hn-principle-label">{p.label}</div>
+                      <div className="hn-principle-desc">{p.desc}</div>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </section>
