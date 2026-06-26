@@ -116,10 +116,9 @@ export default function Home() {
           <h1 className="hn-h1">
             Everything Minnesota<br />Muslims need
           </h1>
-          <p className="hn-h1-sub">One trusted<br /><span className="hn-teal">place.</span></p>
 
           <p className="hn-sub">
-            Discover trusted Muslim services, halal food, and community resources — all in one place.
+            One trusted place to discover Muslim services, halal food, businesses, and community resources across Minnesota.
           </p>
 
           <div className="hn-search-wrap">
