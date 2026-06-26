@@ -156,12 +156,14 @@ export default function Home() {
               <div className="hn-eyebrow">Why MNMuslim exists</div>
               <h2 className="hn-section-h2">Minnesota has an incredible Muslim community.<br />Finding it shouldn't be this hard.</h2>
               <p className="hn-about-body">
-                Resources are scattered across social media groups, word of mouth, and dozens of disconnected websites. There's no single place to find a trusted dentist, a halal restaurant, an Islamic school, or a local business that shares your values.
+                Minnesota is home to amazing Muslim businesses, professionals, halal restaurants, organizations, and community resources. But everything is scattered—across social media groups, personal referrals, and dozens of disconnected websites.
               </p>
-              <p className="hn-about-body" style={{ marginTop: '16px' }}>
-                MNMuslim changes that. One trusted platform where Minnesota Muslims can discover services, support local businesses, and stay connected to their community.
+              <p className="hn-about-body" style={{ marginTop: '20px' }}>
+                MNMuslim brings everything together into one trusted place where Minnesota Muslims can discover services, support local businesses, and stay connected to their community.
               </p>
-              <p className="hn-about-human">Built by a Minnesota Muslim for the Minnesota Muslim community.</p>
+              <p className="hn-about-human">
+                Built by a Minnesota Muslim<br />for the Minnesota Muslim community.
+              </p>
               <Link href="/about" className="hn-text-link">Our Mission →</Link>
             </div>
             <div className="hn-about-right">
@@ -173,11 +175,8 @@ export default function Home() {
                   { label: 'Growing Together', desc: 'Built alongside the community.' },
                 ].map(p => (
                   <div key={p.label} className="hn-principle">
-                    <span className="hn-principle-dot" />
-                    <div>
-                      <div className="hn-principle-label">{p.label}</div>
-                      <div className="hn-principle-desc">{p.desc}</div>
-                    </div>
+                    <div className="hn-principle-label">{p.label}</div>
+                    <div className="hn-principle-desc">{p.desc}</div>
                   </div>
                 ))}
               </div>
