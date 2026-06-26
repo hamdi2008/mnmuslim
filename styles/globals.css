@@ -1,6 +1,6 @@
 /* GLOBAL RESET */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x: hidden; }
+html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x: hidden; scroll-behavior: smooth; }
 #__next { background: #071423; }
 
 /* ============================================================
@@ -215,6 +215,11 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
 .hn-fade-up-2 { animation: hn-fadein .6s .2s ease both; }
 .hn-fade-up-3 { animation: hn-fadein .6s .3s ease both; }
 @keyframes hnpulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: .3; transform: scale(.7); } }
+@keyframes hn-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+.hn-ecard { animation: hn-float 5s ease-in-out infinite; }
+.hn-ec-teal { animation-delay: 0s; }
+.hn-ec-gold { animation-delay: .8s; }
+.hn-ecard:hover { animation-play-state: paused; }
 @keyframes hn-tw { 0%, 100% { opacity: var(--op, .5); } 50% { opacity: .05; } }
 .hn-star { position: fixed; border-radius: 50%; background: #fff; pointer-events: none; animation: hn-tw var(--d, 3s) var(--delay, 0s) ease-in-out infinite; }
 
