@@ -11,7 +11,16 @@ export default function Home() {
     window.addEventListener('scroll', onScroll)
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
-  const placeholders = ['Photographer…', 'Accountant…', 'Tutor…', 'Contractor…', 'Restaurant…', 'Bakery…', 'Café…', 'Halal Market…']
+  useEffect(() => {
+    const els = document.querySelectorAll('.hn-reveal')
+    if (!els.length) return
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('hn-revealed'); obs.unobserve(e.target) } })
+    }, { threshold: 0.12 })
+    els.forEach(el => obs.observe(el))
+    return () => obs.disconnect()
+  }, [])
+  const placeholders = ['Halal Restaurant…', 'Halal Market…', 'Bakery…', 'Café…', 'Photographer…', 'Accountant…', 'Tutor…', 'Contractor…']
   const [phIdx, setPhIdx] = useState(0)
   useEffect(() => {
     const t = setInterval(() => setPhIdx(i => (i + 1) % placeholders.length), 3000)
@@ -117,13 +126,13 @@ export default function Home() {
           <div className="hn-g hn-g2" />
           <div className="hn-g hn-g3" />
 
-          <p className="hn-hero-eyebrow">The digital home for Muslims in Minnesota</p>
+          <p className="hn-hero-eyebrow hn-reveal">The digital home for Muslims in Minnesota</p>
 
-          <h1 className="hn-h1">
+          <h1 className="hn-h1 hn-reveal hn-reveal-d1">
             Everything Minnesota<br />Muslims need
           </h1>
 
-          <p className="hn-sub">
+          <p className="hn-sub hn-reveal hn-reveal-d2">
             Discover trusted Muslim services, halal food, businesses, and community resources across Minnesota—all in one place.
           </p>
 
@@ -153,18 +162,18 @@ export default function Home() {
           <div className="hn-about-glow" />
           <div className="hn-about-inner">
             <div className="hn-about-left">
-              <div className="hn-eyebrow">Why MNMuslim exists</div>
-              <h2 className="hn-section-h2">Minnesota has an incredible<br />Muslim community.<br /><span className="hn-about-h2-sub">Finding it shouldn't be this hard.</span></h2>
-              <p className="hn-about-body">
-                Minnesota is home to amazing Muslim businesses, professionals, halal restaurants, and community resources—but everything is scattered across social media, personal referrals, and disconnected websites.
+              <div className="hn-eyebrow hn-reveal">Why MNMuslim exists</div>
+              <h2 className="hn-section-h2 hn-reveal hn-reveal-d1">Minnesota has an incredible<br />Muslim community.<br /><span className="hn-about-h2-sub">Finding it shouldn't be this hard.</span></h2>
+              <p className="hn-about-body hn-reveal hn-reveal-d2">
+                Minnesota is home to trusted Muslim businesses, professionals, halal restaurants, and community resources. But everything is scattered—across social media, word of mouth, and dozens of disconnected websites.
               </p>
-              <p className="hn-about-body" style={{ marginTop: '18px' }}>
-                MNMuslim brings it all together. One trusted place to discover services, support local businesses, and stay connected.
+              <p className="hn-about-body hn-reveal hn-reveal-d3" style={{ marginTop: '18px' }}>
+                MNMuslim changes that. One trusted platform to discover services, support local businesses, and stay connected to your community.
               </p>
-              <p className="hn-about-human">
+              <p className="hn-about-human hn-reveal hn-reveal-d4">
                 Built by a Minnesota Muslim<br />for the Minnesota Muslim community.
               </p>
-              <Link href="/about" className="hn-about-cta">Our Mission →</Link>
+              <Link href="/about" className="hn-about-cta hn-reveal hn-reveal-d4">Our Mission →</Link>
             </div>
             <div className="hn-about-right">
               <div className="hn-principles">
@@ -210,56 +219,47 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ── VISION ── */}
-        <section className="hn-vision">
-          <div className="hn-vision-inner">
-            <div className="hn-vision-left">
-              <div className="hn-eyebrow">What&apos;s coming next</div>
-              <h2 className="hn-section-h2">Building the digital home<br />for Muslims in Minnesota</h2>
-              <p className="hn-vision-sub">MNMuslim begins with Muslim Services and MNHalal, but our vision is much bigger. Over time we&apos;ll continue building tools that help Minnesota Muslims discover, connect, and support one another.</p>
-              <div className="hn-vision-today">
-                <div className="hn-roadmap-label">
-                  <span className="hn-vdot-live" />Available Today
-                </div>
-                <div className="hn-live-cards">
-                  <div className="hn-live-card">
-                    <span className="hn-live-check">✓</span>
-                    <div>
-                      <div className="hn-live-name">Muslim Services</div>
-                      <div className="hn-live-sub">Professional Services Directory</div>
-                    </div>
-                  </div>
-                  <div className="hn-live-card">
-                    <span className="hn-live-check">✓</span>
-                    <div>
-                      <div className="hn-live-name">MNHalal</div>
-                      <div className="hn-live-sub">Halal Food Guide</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+        {/* ── HOW IT WORKS ── */}
+        <section className="hn-how">
+          <div className="hn-how-inner">
+            <div className="hn-section-head hn-reveal">
+              <div className="hn-eyebrow" style={{ textAlign: 'center' }}>How it works</div>
+              <h2 className="hn-section-h2" style={{ textAlign: 'center' }}>Simple. Trusted. Community-first.</h2>
             </div>
-            <div className="hn-vision-right">
-              <div className="hn-soon-card">
-                <div className="hn-roadmap-label" style={{ marginBottom: '20px' }}>
-                  <span className="hn-vdot-soon" />Coming Soon
+            <div className="hn-how-grid">
+              {[
+                { num: '01', title: 'Discover', desc: 'Search trusted Muslim services and halal businesses across Minnesota—all in one place.' },
+                { num: '02', title: 'Support', desc: 'Choose local Muslim professionals and businesses. Every visit helps strengthen our community.' },
+                { num: '03', title: 'Grow', desc: 'List your business and get discovered by thousands of Minnesota Muslims looking for trusted services.' },
+              ].map((s, i) => (
+                <div key={s.num} className={`hn-how-card hn-reveal hn-reveal-d${i+1}`}>
+                  <div className="hn-how-num">{s.num}</div>
+                  <div className="hn-how-title">{s.title}</div>
+                  <p className="hn-how-desc">{s.desc}</p>
                 </div>
-                <div className="hn-soon-chips">
-                  {['Events', 'Jobs', 'Mosques', 'Organizations', 'Resources'].map(item => (
-                    <div key={item} className="hn-soon-chip">{item}</div>
-                  ))}
-                </div>
-              </div>
-              <div className="hn-vision-cta">
-                <p className="hn-vision-cta-title">Help shape what&apos;s next for MNMuslim.</p>
-                <p className="hn-vision-cta-sub">Have an idea that would help Minnesota Muslims? We&apos;d love to hear it.</p>
-                <Link href="/contact" className="hn-suggest-btn">Make a Suggestion</Link>
-              </div>
+              ))}
             </div>
           </div>
         </section>
 
-                {/* ── CTA ── */}
+        {/* ── TRUST ── */}
+        <section className="hn-trust">
+          <div className="hn-trust-inner">
+            {[
+              { label: 'Community Built', sub: 'By and for Minnesota Muslims' },
+              { label: 'Minnesota Focused', sub: 'Locally rooted, statewide reach' },
+              { label: 'Growing Directory', sub: 'New listings added regularly' },
+              { label: 'Free to List', sub: 'No cost to join the platform' },
+            ].map((t, i) => (
+              <div key={t.label} className={`hn-trust-item hn-reveal hn-reveal-d${i+1}`}>
+                <div className="hn-trust-label">{t.label}</div>
+                <div className="hn-trust-sub">{t.sub}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── CTA ── */}
         <section className="hn-cta">
           <div className="hn-cta-inner">
             <h2 className="hn-cta-h2">Get discovered by<br />Minnesota Muslims</h2>
@@ -268,6 +268,7 @@ export default function Home() {
               <Link href="/submit" className="hn-cta-btn1">List Your Service</Link>
               <a href="https://mnhalal.com/submit" className="hn-cta-btn2" target="_blank" rel="noopener noreferrer">List Halal Business</a>
             </div>
+            <p className="hn-cta-trust-line">Free to list · Built for the Minnesota Muslim community</p>
             <Link href="/about" className="hn-cta-learn">Learn how listing works →</Link>
           </div>
         </section>
