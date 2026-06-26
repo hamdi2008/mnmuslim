@@ -285,7 +285,7 @@ export default function Home() {
             <div className="hn-footer-top">
               <div className="hn-footer-brand">
                 <Link href="/" className="hn-footer-logo">
-                  <img src="/logo.png" alt="MNMuslim" className="hn-footer-logo-img" />
+                  <img src="/logo-footer.png" alt="MNMuslim" className="hn-footer-logo-img" />
                 </Link>
                 <p className="hn-footer-tag">The trusted platform connecting Minnesota Muslims with businesses, services, and community resources.</p>
                 <p className="hn-footer-mission">Built by a Minnesota Muslim for the Minnesota Muslim community.</p>
