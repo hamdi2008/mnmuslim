@@ -4,6 +4,23 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { CATEGORIES, getCategoryById } from '../lib/categories'
 
+// ── Trust badge helper ──────────────────────────────────────
+function TrustBadges({ listing }) {
+  const badges = []
+  if (listing.owner_submitted) badges.push({ label: 'Owner Submitted', icon: '✓' })
+  if (listing.verified)        badges.push({ label: 'Verified', icon: '✓' })
+  if (listing.responds_quickly) badges.push({ label: 'Responds Quickly', icon: '✓' })
+  if (!badges.length) return null
+  return (
+    <div className="sv-card-badges">
+      {badges.map(b => (
+        <span key={b.label} className="sv-trust-badge">{b.icon} {b.label}</span>
+      ))}
+    </div>
+  )
+}
+
+// ── Listing card ────────────────────────────────────────────
 function ListingCard({ listing }) {
   const cat = getCategoryById(listing.category)
   return (
@@ -11,15 +28,18 @@ function ListingCard({ listing }) {
       <div className="sv-card-top">
         <span className="sv-card-badge">{cat.icon} {cat.name}</span>
       </div>
-      <div className="sv-card-name">{listing.business_name || listing.service_name}</div>
+      <div className="sv-card-name">{listing.service_name}</div>
       {listing.business_name && (
-        <div className="sv-card-service">{listing.service_name}</div>
+        <div className="sv-card-provider">by <strong>{listing.business_name}</strong></div>
       )}
-      <div className="sv-card-provider">By <strong>{listing.provider_name}</strong></div>
+      {!listing.business_name && (
+        <div className="sv-card-provider">by <strong>{listing.provider_name}</strong></div>
+      )}
+      <TrustBadges listing={listing} />
       <p className="sv-card-desc">{listing.description}</p>
       <div className="sv-card-footer">
         <span className="sv-card-area">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
           {listing.service_area}
         </span>
         <span className="sv-card-cta">View details →</span>
@@ -28,13 +48,14 @@ function ListingCard({ listing }) {
   )
 }
 
+// ── Page ────────────────────────────────────────────────────
 export default function Services() {
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
-  const [listings, setListings] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [search, setSearch] = useState('')
-  const [activeCat, setActiveCat] = useState('')
+  const [scrolled, setScrolled]     = useState(false)
+  const [listings, setListings]     = useState([])
+  const [loading, setLoading]       = useState(true)
+  const [search, setSearch]         = useState('')
+  const [activeCat, setActiveCat]   = useState('')
   const router = useRouter()
 
   useEffect(() => {
@@ -45,24 +66,21 @@ export default function Services() {
 
   useEffect(() => {
     if (!router.isReady) return
-    if (router.query.search) setSearch(router.query.search)
+    if (router.query.search)   setSearch(router.query.search)
     if (router.query.category) setActiveCat(router.query.category)
   }, [router.isReady, router.query])
 
   const fetchListings = useCallback(async () => {
     setLoading(true)
     const params = new URLSearchParams()
-    if (search) params.set('search', search)
+    if (search)    params.set('search', search)
     if (activeCat) params.set('category', activeCat)
     try {
-      const res = await fetch(`/api/listings?${params.toString()}`)
+      const res  = await fetch(`/api/listings?${params.toString()}`)
       const data = await res.json()
       setListings(Array.isArray(data) ? data : [])
-    } catch {
-      setListings([])
-    } finally {
-      setLoading(false)
-    }
+    } catch { setListings([]) }
+    finally  { setLoading(false) }
   }, [search, activeCat])
 
   useEffect(() => {
@@ -70,21 +88,19 @@ export default function Services() {
     return () => clearTimeout(t)
   }, [fetchListings])
 
-  function toggleCat(id) {
-    setActiveCat(prev => prev === id ? '' : id)
-  }
+  function toggleCat(id) { setActiveCat(prev => prev === id ? '' : id) }
 
   return (
     <>
       <Head>
         <title>Muslim Services Directory — MNMuslim</title>
-        <meta name="description" content="Find trusted Muslim service providers across Minnesota — photographers, lawyers, tutors, contractors, and more." />
+        <meta name="description" content="Discover trusted Muslim-owned businesses, freelancers, and service providers across Minnesota — tutors, photographers, contractors, consultants, and more." />
         <link rel="icon" href="/favicon.png" />
       </Head>
 
       <div className="home-page">
 
-        {/* NAV */}
+        {/* ── NAV ── */}
         <nav className={`hn-nav${scrolled ? ' scrolled' : ''}`}>
           <Link href="/" className="hn-logo">
             <img src="/logo.png" alt="MNMuslim" className="hn-logo-img" />
@@ -97,13 +113,9 @@ export default function Services() {
             <Link href="/contact" className="hn-contact">Contact <span aria-hidden="true">→</span></Link>
             <button className="hn-mobile-menu" onClick={() => setMobileOpen(!mobileOpen)} aria-label="Toggle menu">
               {mobileOpen ? (
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-                  <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-                </svg>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
               ) : (
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-                  <line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/>
-                </svg>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
               )}
             </button>
           </div>
@@ -116,9 +128,7 @@ export default function Services() {
                 <img src="/logo-light.png" alt="MNMuslim" style={{ width: '140px', height: 'auto', display: 'block' }} />
               </Link>
               <button onClick={() => setMobileOpen(false)} style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', padding: '4px' }}>
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-                  <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-                </svg>
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
               </button>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
@@ -127,31 +137,27 @@ export default function Services() {
                 { label: 'MNHalal', href: 'https://mnhalal.com', internal: false },
                 { label: 'Contact', href: '/contact', internal: true },
               ].map(item => item.internal ? (
-                <Link key={item.label} href={item.href} onClick={() => setMobileOpen(false)} style={{ color: '#fff', fontSize: '32px', fontWeight: '800', textDecoration: 'none', padding: '18px 0', borderBottom: '1px solid rgba(255,255,255,0.07)', letterSpacing: '-1px', display: 'block' }}>
-                  {item.label}
-                </Link>
+                <Link key={item.label} href={item.href} onClick={() => setMobileOpen(false)} style={{ color: '#fff', fontSize: '32px', fontWeight: '800', textDecoration: 'none', padding: '18px 0', borderBottom: '1px solid rgba(255,255,255,0.07)', letterSpacing: '-1px', display: 'block' }}>{item.label}</Link>
               ) : (
-                <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer" onClick={() => setMobileOpen(false)} style={{ color: '#fff', fontSize: '32px', fontWeight: '800', textDecoration: 'none', padding: '18px 0', borderBottom: '1px solid rgba(255,255,255,0.07)', letterSpacing: '-1px', display: 'block' }}>
-                  {item.label}
-                </a>
+                <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer" onClick={() => setMobileOpen(false)} style={{ color: '#fff', fontSize: '32px', fontWeight: '800', textDecoration: 'none', padding: '18px 0', borderBottom: '1px solid rgba(255,255,255,0.07)', letterSpacing: '-1px', display: 'block' }}>{item.label}</a>
               ))}
             </div>
           </div>
         )}
 
-        {/* HERO */}
+        {/* ── HERO ── */}
         <section className="sv-hero">
           <div className="sv-hero-glow" />
           <div className="sv-hero-inner">
             <p className="sv-eyebrow">Muslim Services Directory</p>
-            <h1 className="sv-hero-h1">Find trusted Muslim<br />professionals in Minnesota</h1>
-            <p className="sv-hero-sub">Discover verified Muslim service providers across Minnesota — from photographers and lawyers to tutors, contractors, and more.</p>
+            <h1 className="sv-hero-h1">Find trusted Muslim<br />services in Minnesota</h1>
+            <p className="sv-hero-sub">Discover trusted Muslim-owned businesses, freelancers, and service providers across Minnesota — from tutors and photographers to contractors, consultants, and more.</p>
             <div className="sv-search-wrap">
               <div className="sv-search-box">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" style={{ color: 'rgba(255,255,255,0.4)', flexShrink: 0 }}><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                 <input
                   className="sv-search-input"
-                  placeholder="Search by service, name, or keyword…"
+                  placeholder="Search for a photographer, tutor, contractor…"
                   value={search}
                   onChange={e => setSearch(e.target.value)}
                 />
@@ -165,7 +171,7 @@ export default function Services() {
             <div className="sv-hero-meta">
               <span className="sv-meta-item">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><polyline points="20 6 9 17 4 12"/></svg>
-                {loading ? '…' : listings.length} listings
+                {loading ? '…' : `${listings.length} trusted services`}
               </span>
               <span className="sv-meta-dot" />
               <span className="sv-meta-item">Minnesota Statewide</span>
@@ -175,33 +181,26 @@ export default function Services() {
           </div>
         </section>
 
-        {/* DIRECTORY BODY */}
+        {/* ── DIRECTORY BODY ── */}
         <div className="sv-body">
 
-          {/* SIDEBAR */}
+          {/* Sidebar */}
           <aside className="sv-sidebar">
             <div className="sv-sidebar-label">Filter by Category</div>
-            <button
-              className={`sv-cat-btn${activeCat === '' ? ' sv-cat-active' : ''}`}
-              onClick={() => setActiveCat('')}
-            >
+            <button className={`sv-cat-btn${activeCat === '' ? ' sv-cat-active' : ''}`} onClick={() => setActiveCat('')}>
               <span className="sv-cat-icon">🗂️</span> All Categories
             </button>
             {CATEGORIES.map(cat => (
-              <button
-                key={cat.id}
-                className={`sv-cat-btn${activeCat === cat.id ? ' sv-cat-active' : ''}`}
-                onClick={() => toggleCat(cat.id)}
-              >
+              <button key={cat.id} className={`sv-cat-btn${activeCat === cat.id ? ' sv-cat-active' : ''}`} onClick={() => toggleCat(cat.id)}>
                 <span className="sv-cat-icon">{cat.icon}</span> {cat.name}
               </button>
             ))}
           </aside>
 
-          {/* MAIN */}
+          {/* Main */}
           <main className="sv-main">
 
-            {/* Mobile category pills */}
+            {/* Mobile pills */}
             <div className="sv-pills-mobile">
               <button className={`sv-pill${activeCat === '' ? ' sv-pill-active' : ''}`} onClick={() => setActiveCat('')}>All</button>
               {CATEGORIES.map(cat => (
@@ -216,51 +215,79 @@ export default function Services() {
               {!loading && (
                 <p className="sv-results-count">
                   {listings.length === 0
-                    ? 'No services found'
-                    : `${listings.length} service${listings.length !== 1 ? 's' : ''} found${activeCat ? ` in ${getCategoryById(activeCat).name}` : ''}${search ? ` for "${search}"` : ''}`}
+                    ? 'No listings found'
+                    : `${listings.length} listing${listings.length !== 1 ? 's' : ''}${activeCat ? ` in ${getCategoryById(activeCat).name}` : ''}${search ? ` for "${search}"` : ''}`}
                 </p>
               )}
               <Link href="/submit" className="sv-list-btn">+ List Your Service</Link>
             </div>
 
-            {/* Grid */}
+            {/* Skeleton */}
             {loading && (
               <div className="sv-loading">
                 {[1,2,3,4,5,6].map(i => <div key={i} className="sv-skeleton" />)}
               </div>
             )}
 
+            {/* Empty */}
             {!loading && listings.length === 0 && (
               <div className="sv-empty">
                 <div className="sv-empty-icon">🔍</div>
-                <h3 className="sv-empty-title">No services found</h3>
+                <h3 className="sv-empty-title">No listings found</h3>
                 <p className="sv-empty-sub">Try a different search term or browse all categories.</p>
                 <button className="sv-empty-reset" onClick={() => { setSearch(''); setActiveCat('') }}>Clear filters</button>
               </div>
             )}
 
+            {/* Grid */}
             {!loading && listings.length > 0 && (
               <div className="sv-grid">
-                {listings.map(listing => (
-                  <ListingCard key={listing.id} listing={listing} />
-                ))}
+                {listings.map(listing => <ListingCard key={listing.id} listing={listing} />)}
               </div>
             )}
           </main>
         </div>
 
-        {/* CTA BANNER */}
+        {/* ── ECOSYSTEM ── */}
+        <section className="sv-ecosystem">
+          <div className="sv-eco-inner">
+            <p className="hn-eyebrow" style={{ textAlign: 'center', marginBottom: '10px' }}>MNMuslim Platform</p>
+            <h2 className="sv-eco-h2">Explore the MNMuslim Ecosystem</h2>
+            <div className="sv-eco-grid">
+              <div className="sv-eco-card sv-eco-card-teal">
+                <div className="sv-eco-icon">🛠️</div>
+                <div className="sv-eco-name">Muslim Services</div>
+                <div className="sv-eco-desc">Trusted Muslim-owned businesses and service providers across Minnesota.</div>
+                <span className="sv-eco-tag sv-eco-tag-teal">You are here</span>
+              </div>
+              <a href="https://mnhalal.com" className="sv-eco-card sv-eco-card-gold" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+                <div className="sv-eco-icon">🍽️</div>
+                <div className="sv-eco-name">MNHalal</div>
+                <div className="sv-eco-desc">Discover halal restaurants, cafés, bakeries, and markets near you.</div>
+                <span className="sv-eco-tag sv-eco-tag-gold">Visit MNHalal →</span>
+              </a>
+              <div className="sv-eco-card sv-eco-card-muted">
+                <div className="sv-eco-icon">🚧</div>
+                <div className="sv-eco-name">More Coming Soon</div>
+                <div className="sv-eco-desc">Events, jobs, mosques, community resources, and more are on the way.</div>
+                <span className="sv-eco-tag sv-eco-tag-muted">In development</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── CTA BANNER ── */}
         <section className="sv-cta-bar">
           <div className="sv-cta-bar-inner">
             <div>
-              <div className="sv-cta-bar-title">Offer a service to the community?</div>
-              <div className="sv-cta-bar-sub">Submit your listing for free. Reach Minnesota Muslims looking for trusted providers.</div>
+              <div className="sv-cta-bar-title">Grow your business with MNMuslim</div>
+              <div className="sv-cta-bar-sub">List your service for free and help Minnesota Muslims discover what you offer.</div>
             </div>
             <Link href="/submit" className="sv-cta-bar-btn">List Your Service →</Link>
           </div>
         </section>
 
-        {/* FOOTER */}
+        {/* ── FOOTER ── */}
         <footer className="hn-footer">
           <div className="hn-footer-inner">
             <div className="hn-footer-top">
