@@ -189,25 +189,24 @@ export default function Home() {
         <section className="hn-eco">
           <div className="hn-eco-inner">
             <div className="hn-section-head">
-              <div className="hn-eyebrow" style={{ textAlign: 'center' }}>Start Here</div>
-              <h2 className="hn-section-h2" style={{ textAlign: 'center' }}>Explore MNMuslim</h2>
-              <p className="hn-section-sub">Two focused products. One unified community platform.</p>
+              <h2 className="hn-section-h2" style={{ textAlign: 'center' }}>Where would you like to start?</h2>
+              <p className="hn-section-sub">Two products. One community platform.</p>
             </div>
             <div className="hn-eco-grid">
               <div className="hn-ecard hn-ec-teal">
                 <div className="hn-ec-pat" />
-                <div className="hn-ec-ico">💼</div>
+                <div className="hn-ec-status hn-ec-status-teal"><span className="hn-ec-dot" />Live Now</div>
                 <div className="hn-ec-tag">Services Directory</div>
                 <div className="hn-ec-name">Muslim Services</div>
-                <p className="hn-ec-desc">Find trusted Muslim professionals and service providers across Minnesota.</p>
+                <p className="hn-ec-desc">Find trusted Muslim professionals across Minnesota—from photographers and tutors to accountants, contractors, and more.</p>
                 <Link href="/services" className="hn-ec-btn hn-ec-btn-teal">Browse Services →</Link>
               </div>
               <div className="hn-ecard hn-ec-gold">
                 <div className="hn-ec-pat" />
-                <div className="hn-ec-ico">🍽️</div>
+                <div className="hn-ec-status hn-ec-status-gold"><span className="hn-ec-dot hn-ec-dot-gold" />Live Now</div>
                 <div className="hn-ec-tag hn-ec-tag-gold">Halal Food Guide</div>
                 <div className="hn-ec-name">MNHalal</div>
-                <p className="hn-ec-desc">Discover halal restaurants, markets, bakeries, and cafés across Minnesota.</p>
+                <p className="hn-ec-desc">Discover halal restaurants, bakeries, cafés, and markets across Minnesota.</p>
                 <a href="https://mnhalal.com" className="hn-ec-btn hn-ec-btn-gold" target="_blank" rel="noopener noreferrer">Explore MNHalal →</a>
               </div>
             </div>
