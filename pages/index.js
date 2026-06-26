@@ -214,26 +214,23 @@ export default function Home() {
         {/* ── VISION ── */}
         <section className="hn-vision">
           <div className="hn-vision-inner">
-            <div className="hn-vision-intro">
+            <div className="hn-vision-left">
               <div className="hn-eyebrow">What&apos;s coming next</div>
               <h2 className="hn-section-h2">Building the digital home<br />for Muslims in Minnesota</h2>
               <p className="hn-vision-sub">MNMuslim begins with Muslim Services and MNHalal, but our vision is much bigger. Over time we&apos;ll continue building tools that help Minnesota Muslims discover, connect, and support one another.</p>
-            </div>
-            <div className="hn-roadmap">
-              <div className="hn-roadmap-col">
+              <div className="hn-vision-today">
                 <div className="hn-roadmap-label">
-                  <span className="hn-vdot-live" />
-                  Available Today
+                  <span className="hn-vdot-live" />Available Today
                 </div>
-                <div className="hn-roadmap-live">
-                  <div className="hn-live-item">
+                <div className="hn-live-cards">
+                  <div className="hn-live-card">
                     <span className="hn-live-check">✓</span>
                     <div>
                       <div className="hn-live-name">Muslim Services</div>
                       <div className="hn-live-sub">Professional Services Directory</div>
                     </div>
                   </div>
-                  <div className="hn-live-item">
+                  <div className="hn-live-card">
                     <span className="hn-live-check">✓</span>
                     <div>
                       <div className="hn-live-name">MNHalal</div>
@@ -242,27 +239,28 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <div className="hn-roadmap-divider" />
-              <div className="hn-roadmap-col">
-                <div className="hn-roadmap-label">
-                  <span className="hn-vdot-soon" />
-                  Coming Soon
+            </div>
+            <div className="hn-vision-right">
+              <div className="hn-soon-card">
+                <div className="hn-roadmap-label" style={{ marginBottom: '20px' }}>
+                  <span className="hn-vdot-soon" />Coming Soon
                 </div>
                 <div className="hn-soon-chips">
-                  {['Events', 'Mosques', 'Organizations', 'Jobs', 'Scholarships', 'Resources'].map(item => (
+                  {['Events', 'Jobs', 'Mosques', 'Organizations', 'Scholarships', 'Resources'].map(item => (
                     <div key={item} className="hn-soon-chip">{item}</div>
                   ))}
                 </div>
               </div>
-            </div>
-            <div className="hn-vision-suggest">
-              <p className="hn-vision-suggest-txt">Have an idea that would help Minnesota Muslims?</p>
-              <Link href="/contact" className="hn-suggest-btn">Make a Suggestion</Link>
+              <div className="hn-vision-cta">
+                <p className="hn-vision-cta-title">Help shape what&apos;s next for MNMuslim.</p>
+                <p className="hn-vision-cta-sub">Have an idea that would help Minnesota Muslims? We&apos;d love to hear it.</p>
+                <Link href="/contact" className="hn-suggest-btn">Make a Suggestion</Link>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* ── CTA ── */}
+                {/* ── CTA ── */}
         <section className="hn-cta">
           <div className="hn-cta-b1" />
           <div className="hn-cta-b2" />
