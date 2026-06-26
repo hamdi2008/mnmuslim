@@ -1,10 +1,16 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 
 export default function Home() {
   const [search, setSearch] = useState('')
   const [mobileOpen, setMobileOpen] = useState(false)
+  const placeholders = ['Dentist…', 'Halal restaurant…', 'Accountant…', 'Photographer…', 'Islamic school…']
+  const [phIdx, setPhIdx] = useState(0)
+  useEffect(() => {
+    const t = setInterval(() => setPhIdx(i => (i + 1) % placeholders.length), 2800)
+    return () => clearInterval(t)
+  }, [])
 
   const visionItems = [
     { emoji: '📅', name: 'Events' },
@@ -108,9 +114,9 @@ export default function Home() {
           <p className="hn-hero-eyebrow">The digital home for Muslims in Minnesota</p>
 
           <h1 className="hn-h1">
-            Everything Minnesota<br />Muslims need.
+            Everything Minnesota<br />Muslims need
           </h1>
-          <p className="hn-h1-sub">One trusted <span className="hn-teal">place.</span></p>
+          <p className="hn-h1-sub">One trusted<br /><span className="hn-teal">place.</span></p>
 
           <p className="hn-sub">
             Discover trusted Muslim services, halal food, and community resources — all in one place.
@@ -118,9 +124,10 @@ export default function Home() {
 
           <div className="hn-search-wrap">
             <div className="hn-search-box">
+              <svg className="hn-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
               <input
                 className="hn-search-input"
-                placeholder="Search services, halal restaurants, businesses…"
+                placeholder={placeholders[phIdx]}
                 value={search}
                 onChange={e => setSearch(e.target.value)}
               />
