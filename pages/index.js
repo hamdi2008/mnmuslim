@@ -262,15 +262,20 @@ export default function Home() {
 
                 {/* ── CTA ── */}
         <section className="hn-cta">
-          <div className="hn-cta-b1" />
-          <div className="hn-cta-b2" />
-          <div className="hn-cta-b3" />
-          <p className="hn-cta-label">Get Listed</p>
-          <h2 className="hn-cta-h2">Offer a service or halal business?</h2>
-          <p className="hn-cta-sub">Help Minnesota Muslims discover and support your business.</p>
-          <div className="hn-cta-btns">
-            <Link href="/submit" className="hn-cta-btn1">List Your Service</Link>
-            <a href="https://mnhalal.com" className="hn-cta-btn2" target="_blank" rel="noopener noreferrer">List on MNHalal</a>
+          <div className="hn-cta-glow" />
+          <div className="hn-cta-inner">
+            <p className="hn-cta-label">Get Listed</p>
+            <h2 className="hn-cta-h2">Grow your business<br />with MNMuslim</h2>
+            <p className="hn-cta-sub">Join the growing directory and make it easier for Minnesota Muslims to discover and support your business or professional service.</p>
+            <Link href="/submit" className="hn-cta-btn1">List Your Business</Link>
+            <Link href="/about" className="hn-cta-learn">Learn how listing works →</Link>
+            <div className="hn-cta-trust">
+              <span className="hn-cta-trust-item">✓ Muslim Services</span>
+              <span className="hn-cta-trust-sep">·</span>
+              <span className="hn-cta-trust-item">✓ MNHalal</span>
+              <span className="hn-cta-trust-sep">·</span>
+              <span className="hn-cta-trust-item">✓ Growing community</span>
+            </div>
           </div>
         </section>
 
@@ -280,21 +285,36 @@ export default function Home() {
             <div className="hn-footer-top">
               <div className="hn-footer-brand">
                 <Link href="/" className="hn-footer-logo">
-                  <img src="/logo-light.png" alt="MNMuslim" className="hn-footer-logo-img" />
+                  <img src="/logo.png" alt="MNMuslim" className="hn-footer-logo-img" />
                 </Link>
                 <p className="hn-footer-tag">The digital home for Muslims in Minnesota.</p>
-                <p className="hn-footer-mission">Helping Minnesota Muslims discover, connect, and support one another.</p>
               </div>
-              <div className="hn-footer-links">
-                <Link href="/services" className="hn-fl">Services</Link>
-                <a href="https://mnhalal.com" className="hn-fl" target="_blank" rel="noopener noreferrer">MNHalal</a>
-                <Link href="/about" className="hn-fl">About</Link>
-                <Link href="/submit" className="hn-fl">Get Listed</Link>
-                <Link href="/contact" className="hn-fl">Contact</Link>
+              <div className="hn-footer-cols">
+                <div className="hn-footer-col">
+                  <div className="hn-footer-col-title">Products</div>
+                  <Link href="/services" className="hn-fl">Muslim Services</Link>
+                  <a href="https://mnhalal.com" className="hn-fl" target="_blank" rel="noopener noreferrer">MNHalal</a>
+                </div>
+                <div className="hn-footer-col">
+                  <div className="hn-footer-col-title">Company</div>
+                  <Link href="/about" className="hn-fl">About</Link>
+                  <Link href="/contact" className="hn-fl">Contact</Link>
+                  <Link href="/contact" className="hn-fl">Suggest a Feature</Link>
+                </div>
+                <div className="hn-footer-col">
+                  <div className="hn-footer-col-title">Resources</div>
+                  <Link href="/submit" className="hn-fl">Get Listed</Link>
+                  <span className="hn-fl hn-fl-muted">FAQ (coming soon)</span>
+                </div>
+                <div className="hn-footer-col">
+                  <div className="hn-footer-col-title">Community</div>
+                  <a href="https://instagram.com/mnmuslim" className="hn-fl" target="_blank" rel="noopener noreferrer">Instagram</a>
+                  <span className="hn-fl hn-fl-muted">Newsletter (coming soon)</span>
+                </div>
               </div>
             </div>
             <div className="hn-footer-bottom">
-              <span className="hn-fb-copy">© 2025 MNMuslim.com · All rights reserved</span>
+              <span className="hn-fb-copy">© 2026 MNMuslim. Built in Minnesota for the Minnesota Muslim community.</span>
               <div className="hn-fb-legal">
                 <Link href="/privacy" className="hn-fb-link">Privacy Policy</Link>
                 <Link href="/terms" className="hn-fb-link">Terms of Use</Link>
