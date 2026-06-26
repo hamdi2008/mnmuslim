@@ -18,8 +18,12 @@ export default function Home() {
     if (!els.length) return
     const obs = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('hn-revealed'); obs.unobserve(e.target) } })
-    }, { threshold: 0.12 })
-    els.forEach(el => obs.observe(el))
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' })
+    els.forEach(el => {
+      const rect = el.getBoundingClientRect()
+      if (rect.top < window.innerHeight) { el.classList.add('hn-revealed') }
+      else { obs.observe(el) }
+    })
     return () => obs.disconnect()
   }, [])
   const placeholders = ['Halal Restaurant…', 'Halal Market…', 'Bakery…', 'Café…', 'Photographer…', 'Accountant…', 'Tutor…', 'Contractor…']
@@ -128,13 +132,13 @@ export default function Home() {
           <div className="hn-g hn-g2" />
           <div className="hn-g hn-g3" />
 
-          <p className="hn-hero-eyebrow hn-reveal">The digital home for Muslims in Minnesota</p>
+          <p className="hn-hero-eyebrow">The digital home for Muslims in Minnesota</p>
 
-          <h1 className="hn-h1 hn-reveal hn-reveal-d1">
+          <h1 className="hn-h1">
             Everything Minnesota<br />Muslims need
           </h1>
 
-          <p className="hn-sub hn-reveal hn-reveal-d2">
+          <p className="hn-sub">
             Discover trusted Muslim services, halal food, businesses, and community resources across Minnesota—all in one place.
           </p>
 
