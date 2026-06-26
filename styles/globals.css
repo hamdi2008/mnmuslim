@@ -432,3 +432,36 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
   .ab-personal-inner { grid-template-columns: 1fr; gap: 24px; }
   .ab-personal-body { font-size: 15px; }
 }
+
+/* ============================================================
+   CONTACT PAGE — ct-* namespace
+   ============================================================ */
+.ct-hero { position: relative; background: #071423; padding: 160px 56px 96px; text-align: center; overflow: hidden; }
+.ct-hero-glow { position: absolute; width: 800px; height: 500px; background: radial-gradient(ellipse, rgba(12,165,165,0.08) 0%, transparent 65%); top: -100px; left: 50%; transform: translateX(-50%); pointer-events: none; }
+.ct-hero-inner { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
+.ct-hero-h1 { font-size: 56px; font-weight: 900; color: #fff; letter-spacing: -2px; line-height: 1.08; margin: 18px 0 16px; }
+.ct-hero-sub { font-size: 16px; color: rgba(255,255,255,0.48); line-height: 1.75; max-width: 480px; margin: 0 auto; }
+
+.ct-body { background: #F8FAFC; padding: 80px 24px 100px; min-height: 60vh; }
+.ct-card { background: #fff; border: 1.5px solid #EDF2F7; border-radius: 24px; max-width: 580px; margin: 0 auto; padding: 48px 52px; box-shadow: 0 4px 24px rgba(0,0,0,0.04); }
+.ct-card-title { font-size: 22px; font-weight: 800; color: #0D2B59; margin-bottom: 10px; letter-spacing: -0.4px; }
+.ct-card-intro { font-size: 14px; color: #6B7A8D; line-height: 1.75; margin-bottom: 36px; }
+
+.ct-rows { display: flex; flex-direction: column; gap: 0; }
+.ct-row { display: flex; align-items: flex-start; gap: 16px; padding: 22px 0; border-bottom: 1px solid #F0F4F8; }
+.ct-row:last-child { border-bottom: none; }
+.ct-row-icon { width: 38px; height: 38px; border-radius: 10px; background: #F0FDFA; border: 1px solid rgba(12,165,165,0.15); display: flex; align-items: center; justify-content: center; color: #0CA5A5; flex-shrink: 0; margin-top: 1px; }
+.ct-row-content { flex: 1; }
+.ct-row-title { font-size: 14px; font-weight: 700; color: #0D2B59; margin-bottom: 3px; }
+.ct-row-desc { font-size: 13px; color: #7A8FA6; line-height: 1.6; margin-bottom: 6px; }
+.ct-row-link { font-size: 13px; font-weight: 600; color: #0CA5A5; text-decoration: none; transition: color .15s; }
+.ct-row-link:hover { color: #088888; }
+
+.ct-note { font-size: 12px; color: #94A3B8; text-align: center; margin-top: 32px; font-style: italic; }
+
+@media (max-width: 768px) {
+  .ct-hero { padding: 120px 20px 72px; }
+  .ct-hero-h1 { font-size: 36px; letter-spacing: -1px; }
+  .ct-body { padding: 48px 16px 72px; }
+  .ct-card { padding: 32px 24px; }
+}
