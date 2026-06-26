@@ -6,12 +6,8 @@
 
 /* NAV */
 .hn-nav { display: flex; align-items: center; justify-content: space-between; padding: 24px 72px; position: relative; z-index: 30; }
-.hn-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-.hn-logo-img { height: 52px; width: auto; display: block; }
-.hn-logo-text { display: flex; flex-direction: column; gap: 1px; }
-.hn-logo-name { font-size: 18px; font-weight: 800; color: #fff; letter-spacing: -0.3px; line-height: 1.1; }
-.hn-logo-name span { color: #0CA5A5; }
-.hn-logo-tagline { font-size: 10.5px; font-weight: 400; color: rgba(255,255,255,0.42); letter-spacing: 0.01em; line-height: 1; }
+.hn-logo { display: flex; align-items: center; text-decoration: none; }
+.hn-logo-img { height: 64px; width: auto; display: block; }
 .hn-pill { display: flex; align-items: center; gap: 0; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09); border-radius: 50px; padding: 6px 8px; backdrop-filter: blur(8px); }
 .hn-nl { color: rgba(255,255,255,0.70); font-size: 13.5px; font-weight: 600; padding: 8px 22px; border-radius: 40px; cursor: pointer; text-decoration: none; transition: color .18s; white-space: nowrap; letter-spacing: .01em; position: relative; }
 .hn-nl::after { content: ''; position: absolute; bottom: 5px; left: 22px; right: 22px; height: 1.5px; background: #0CA5A5; border-radius: 2px; opacity: 0; transform: scaleX(0.4); transition: opacity .18s, transform .2s; }
