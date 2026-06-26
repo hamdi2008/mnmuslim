@@ -11,7 +11,7 @@ export default function Home() {
     window.addEventListener('scroll', onScroll)
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
-  const placeholders = ['Photographer…', 'Accountant…', 'Dentist…', 'Mosque…', 'Islamic School…', 'Halal Restaurant…']
+  const placeholders = ['Photographer…', 'Accountant…', 'Tutor…', 'Contractor…', 'Restaurant…', 'Bakery…', 'Café…', 'Halal Market…']
   const [phIdx, setPhIdx] = useState(0)
   useEffect(() => {
     const t = setInterval(() => setPhIdx(i => (i + 1) % placeholders.length), 3000)
@@ -23,7 +23,6 @@ export default function Home() {
     { emoji: '💼', name: 'Jobs' },
     { emoji: '🕌', name: 'Mosques' },
     { emoji: '🏢', name: 'Organizations' },
-    { emoji: '🎓', name: 'Scholarships' },
     { emoji: '🤲', name: 'Resources' },
   ]
 
@@ -165,7 +164,7 @@ export default function Home() {
               <p className="hn-about-human">
                 Built by a Minnesota Muslim<br />for the Minnesota Muslim community.
               </p>
-              <Link href="/about" className="hn-text-link">Our Mission →</Link>
+              <Link href="/about" className="hn-about-cta">Our Mission →</Link>
             </div>
             <div className="hn-about-right">
               <div className="hn-principles">
@@ -190,23 +189,23 @@ export default function Home() {
           <div className="hn-eco-inner">
             <div className="hn-section-head">
               <h2 className="hn-section-h2" style={{ textAlign: 'center' }}>Explore the MNMuslim ecosystem</h2>
-              <p className="hn-section-sub">Everything on MNMuslim starts with these two community-built tools. More resources will be added over time.</p>
+              <p className="hn-section-sub">Two focused products. One growing community platform. Everything you need starts here.</p>
             </div>
             <div className="hn-eco-grid">
-              <div className="hn-ecard hn-ec-teal">
+              <Link href="/services" className="hn-ecard hn-ec-teal" style={{ textDecoration: 'none' }}>
                 <div className="hn-ec-pat" />
                 <div className="hn-ec-tag">Services Directory</div>
                 <div className="hn-ec-name">Muslim Services</div>
                 <p className="hn-ec-desc">Find trusted Muslim professionals and businesses across Minnesota — from accountants and tutors to photographers and contractors.</p>
-                <Link href="/services" className="hn-ec-btn hn-ec-btn-teal">Find a Service →</Link>
-              </div>
-              <div className="hn-ecard hn-ec-gold">
+                <span className="hn-ec-btn hn-ec-btn-teal">Find a Service <span className="hn-ec-arr">→</span></span>
+              </Link>
+              <a href="https://mnhalal.com" className="hn-ecard hn-ec-gold" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
                 <div className="hn-ec-pat" />
                 <div className="hn-ec-tag hn-ec-tag-gold">Halal Food Guide</div>
                 <div className="hn-ec-name">MNHalal</div>
                 <p className="hn-ec-desc">Discover halal restaurants, cafés, bakeries, and markets across Minnesota.</p>
-                <a href="https://mnhalal.com" className="hn-ec-btn hn-ec-btn-gold" target="_blank" rel="noopener noreferrer">Find Halal Food →</a>
-              </div>
+                <span className="hn-ec-btn hn-ec-btn-gold">Find Halal Food <span className="hn-ec-arr">→</span></span>
+              </a>
             </div>
           </div>
         </section>
@@ -246,7 +245,7 @@ export default function Home() {
                   <span className="hn-vdot-soon" />Coming Soon
                 </div>
                 <div className="hn-soon-chips">
-                  {['Events', 'Jobs', 'Mosques', 'Organizations', 'Scholarships', 'Resources'].map(item => (
+                  {['Events', 'Jobs', 'Mosques', 'Organizations', 'Resources'].map(item => (
                     <div key={item} className="hn-soon-chip">{item}</div>
                   ))}
                 </div>
@@ -263,9 +262,12 @@ export default function Home() {
                 {/* ── CTA ── */}
         <section className="hn-cta">
           <div className="hn-cta-inner">
-            <h2 className="hn-cta-h2">Grow your business<br />with MNMuslim</h2>
+            <h2 className="hn-cta-h2">Get discovered by<br />Minnesota Muslims</h2>
             <p className="hn-cta-sub">Join the growing directory and make it easier for Minnesota Muslims to discover and support your business or professional service.</p>
-            <Link href="/submit" className="hn-cta-btn1">List Your Business</Link>
+            <div className="hn-cta-btns">
+              <Link href="/submit" className="hn-cta-btn1">List Your Service</Link>
+              <a href="https://mnhalal.com/submit" className="hn-cta-btn2" target="_blank" rel="noopener noreferrer">List Halal Business</a>
+            </div>
             <Link href="/about" className="hn-cta-learn">Learn how listing works →</Link>
           </div>
         </section>
@@ -279,6 +281,7 @@ export default function Home() {
                   <img src="/logo.png" alt="MNMuslim" className="hn-footer-logo-img" />
                 </Link>
                 <p className="hn-footer-tag">The trusted platform connecting Minnesota Muslims with businesses, services, and community resources.</p>
+                <p className="hn-footer-mission">Built by a Minnesota Muslim for the Minnesota Muslim community.</p>
               </div>
               <div className="hn-footer-cols">
                 <div className="hn-footer-col">
@@ -294,7 +297,8 @@ export default function Home() {
                 </div>
                 <div className="hn-footer-col">
                   <div className="hn-footer-col-title">Resources</div>
-                  <Link href="/submit" className="hn-fl">Get Listed</Link>
+                  <Link href="/submit" className="hn-fl">List Your Service</Link>
+                  <a href="https://mnhalal.com/submit" className="hn-fl" target="_blank" rel="noopener noreferrer">List Halal Business</a>
                 </div>
                 <div className="hn-footer-col">
                   <div className="hn-footer-col-title">Community</div>
