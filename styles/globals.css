@@ -61,21 +61,20 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
 
 
 /* ABOUT */
-.hn-about { background: #ffffff; padding: 130px 56px 120px; position: relative; overflow: hidden; }
+.hn-about { background: #ffffff; padding: 130px 56px 130px; position: relative; overflow: hidden; }
 .hn-about-inner { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: 3fr 2fr; gap: 100px; align-items: start; }
-.hn-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #0CA5A5; margin-bottom: 20px; }
-.hn-section-h2 { font-size: 36px; font-weight: 800; letter-spacing: -1.5px; line-height: 1.18; margin-bottom: 28px; color: #0D2B59; }
+.hn-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #0CA5A5; margin-bottom: 24px; }
+.hn-section-h2 { font-size: 36px; font-weight: 800; letter-spacing: -1.5px; line-height: 1.18; margin-bottom: 32px; color: #0D2B59; }
 .hn-about-body { font-size: 15px; color: #4A5568; line-height: 1.85; }
-.hn-about-human { font-size: 15px; color: #0CA5A5; font-style: italic; margin-top: 36px; padding-top: 28px; border-top: 1px solid #E8F4F4; line-height: 1.7; font-weight: 600; letter-spacing: -0.1px; }
-.hn-text-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: #0CA5A5; cursor: pointer; margin-top: 28px; transition: gap .15s, color .15s; text-decoration: none; }
+.hn-about-human { font-size: 17px; color: #0CA5A5; font-style: italic; margin-top: 48px; padding-top: 36px; border-top: 1px solid #E8F4F4; line-height: 1.65; font-weight: 600; letter-spacing: -0.2px; }
+.hn-text-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: #0CA5A5; cursor: pointer; margin-top: 32px; transition: gap .15s, color .15s; text-decoration: none; }
 .hn-text-link:hover { gap: 10px; color: #088888; }
-.hn-about-right { padding-top: 8px; }
+.hn-about-right { padding-top: 6px; }
 .hn-principles { display: flex; flex-direction: column; gap: 0; }
-.hn-principle { display: flex; align-items: flex-start; gap: 14px; padding: 20px 0; border-bottom: 1px solid #F0F4F8; }
+.hn-principle { padding: 26px 0; border-bottom: 1px solid #F0F4F8; }
 .hn-principle:first-child { border-top: 1px solid #F0F4F8; }
-.hn-principle-dot { width: 6px; height: 6px; border-radius: 50%; background: #0CA5A5; flex-shrink: 0; margin-top: 6px; }
-.hn-principle-label { font-size: 13.5px; font-weight: 700; color: #0D2B59; margin-bottom: 3px; letter-spacing: -0.2px; }
-.hn-principle-desc { font-size: 12.5px; color: #7A8FA6; line-height: 1.5; }
+.hn-principle-label { font-size: 14px; font-weight: 700; color: #0D2B59; margin-bottom: 5px; letter-spacing: -0.2px; }
+.hn-principle-desc { font-size: 13px; color: #7A8FA6; line-height: 1.55; }
 
 /* ECOSYSTEM */
 .hn-eco { background: #ffffff; padding: 100px 56px; border-top: none; }
