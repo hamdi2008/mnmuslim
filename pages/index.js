@@ -31,6 +31,7 @@ export default function Home() {
 
       <div className="home-page">
 
+        <div className="hn-dark-header">
         {/* ── NAV ── */}
         <nav className="hn-nav">
           <Link href="/" className="hn-logo">
