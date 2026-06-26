@@ -175,7 +175,7 @@ export default function Home() {
               <p className="hn-about-human hn-reveal hn-reveal-d4">
                 Built by a Minnesota Muslim<br />for the Minnesota Muslim community.
               </p>
-              <Link href="/about" className="hn-about-cta hn-reveal hn-reveal-d4">Our Mission →</Link>
+              <Link href="/about" className="hn-about-cta hn-reveal hn-reveal-d4">Our Mission <span className="hn-cta-arrow">→</span></Link>
             </div>
             <div className="hn-about-right">
               <div className="hn-principles">
@@ -184,8 +184,8 @@ export default function Home() {
                   { label: 'Minnesota Focused', desc: 'Locally rooted, statewide reach.' },
                   { label: 'Faith Driven', desc: 'Grounded in our shared values.' },
                   { label: 'Growing Together', desc: 'Built alongside the community.' },
-                ].map(p => (
-                  <div key={p.label} className="hn-principle">
+                ].map((p, i) => (
+                  <div key={p.label} className={`hn-principle hn-reveal hn-reveal-d${i+1}`}>
                     <div className="hn-principle-label">{p.label}</div>
                     <div className="hn-principle-desc">{p.desc}</div>
                   </div>
@@ -200,7 +200,7 @@ export default function Home() {
           <div className="hn-eco-inner">
             <div className="hn-section-head">
               <h2 className="hn-section-h2" style={{ textAlign: 'center' }}>Explore the MNMuslim ecosystem</h2>
-              <p className="hn-section-sub">Two focused products. One growing community platform. Everything you need starts here.</p>
+              <p className="hn-section-sub">Two products. One trusted community platform built for Minnesota Muslims.</p>
             </div>
             <div className="hn-eco-grid">
               <Link href="/services" className="hn-ecard hn-ec-teal" style={{ textDecoration: 'none' }}>
@@ -253,7 +253,7 @@ export default function Home() {
               { label: 'Growing Directory', sub: 'New listings added regularly' },
               { label: 'Free to List', sub: 'No cost to join the platform' },
             ].map((t, i) => (
-              <div key={t.label} className={`hn-trust-item hn-reveal hn-reveal-d${i+1}`}>
+              <div key={t.label} className="hn-trust-item hn-reveal">
                 <div className="hn-trust-label">{t.label}</div>
                 <div className="hn-trust-sub">{t.sub}</div>
               </div>
