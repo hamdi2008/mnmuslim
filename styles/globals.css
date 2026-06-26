@@ -55,8 +55,7 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
 
 .hn-chips { display: flex; justify-content: center; gap: 8px; position: relative; z-index: 2; flex-wrap: wrap; }
 .hn-chip { display: inline-flex; align-items: center; gap: 5px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); font-size: 11.5px; font-weight: 500; padding: 5px 14px; border-radius: 40px; cursor: pointer; transition: all .25s; text-decoration: none; }
-.hn-chip:hover { background: rgba(12,165,165,0.12); border-color: rgba(12,165,165,0.4); color: rgba(255,255,255,0.85); transform: translateY(-2px); }
-.hn-chip:hover { background: rgba(12,165,165,0.12); border-color: rgba(12,165,165,0.3); color: #0CA5A5; }
+.hn-chip:hover { background: rgba(12,165,165,0.1); border-color: rgba(12,165,165,0.45); color: #0CA5A5; transform: translateY(-2px); }
 
 /* hero to white transition */
 
