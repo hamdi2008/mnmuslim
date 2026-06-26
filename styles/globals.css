@@ -2,7 +2,7 @@
    MNMUSLIM HOMEPAGE — hn-* namespace
    ============================================================ */
 
-.home-page { font-family: 'Poppins', -apple-system, sans-serif; background: #060D1A; color: #0D2B59; -webkit-font-smoothing: antialiased; }
+.home-page { font-family: 'Poppins', -apple-system, sans-serif; background: #ffffff; color: #0D2B59; -webkit-font-smoothing: antialiased; }
 
 /* NAV */
 .hn-nav { display: flex; align-items: center; justify-content: space-between; padding: 24px 56px; position: relative; z-index: 30; }
@@ -21,7 +21,7 @@
 .hn-mobile-nav { display: none; }
 
 /* HERO */
-.hn-hero { position: relative; background: #060D1A; padding: 130px 80px 72px; text-align: center; overflow: hidden; z-index: 1; }
+.hn-hero { position: relative; background: #060D1A; padding: 130px 80px 100px; text-align: center; overflow: hidden; z-index: 1; }
 /* subtle background: noise texture overlay + radial glows */
 .hn-hero::before { content: ''; position: absolute; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.025; pointer-events: none; z-index: 0; }
 .hn-g { position: absolute; border-radius: 50%; pointer-events: none; }
@@ -50,10 +50,10 @@
 .hn-chip:hover { background: rgba(12,165,165,0.12); border-color: rgba(12,165,165,0.3); color: #0CA5A5; }
 
 /* hero to white transition */
-.hn-fade { height: 120px; background: linear-gradient(to bottom, #060D1A 0%, #ffffff 100%); margin-top: -1px; }
+
 
 /* ABOUT */
-.hn-about { background: #ffffff; padding: 100px 56px; position: relative; overflow: hidden; }
+.hn-about { background: #ffffff; padding: 112px 56px; position: relative; overflow: hidden; }
 .hn-about-bg { position: absolute; width: 500px; height: 500px; background: radial-gradient(ellipse, rgba(12,165,165,0.04) 0%, transparent 70%); top: -100px; right: -100px; pointer-events: none; border-radius: 50%; }
 .hn-about-inner { max-width: 860px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; position: relative; z-index: 1; }
 .hn-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #0CA5A5; margin-bottom: 16px; }
@@ -70,7 +70,7 @@
 .hn-av-s { font-size: 11.5px; color: #7A8FA6; line-height: 1.4; }
 
 /* ECOSYSTEM */
-.hn-eco { background: #ffffff; padding: 100px 56px; border-top: 1px solid #F0F4F8; }
+.hn-eco { background: #ffffff; padding: 100px 56px; border-top: none; }
 .hn-eco-inner { max-width: 860px; margin: 0 auto; }
 .hn-section-head { text-align: center; margin-bottom: 56px; }
 .hn-section-sub { font-size: 14px; color: #7A8FA6; font-weight: 400; line-height: 1.65; margin-top: 10px; }
@@ -103,7 +103,7 @@
 .hn-ec-btn-gold:hover { background: #E0BC40; box-shadow: 0 10px 28px rgba(212,175,55,0.45); transform: translateY(-2px); }
 
 /* VISION */
-.hn-vision { background: #ffffff; padding: 100px 56px; border-top: 1px solid #F0F4F8; }
+.hn-vision { background: #ffffff; padding: 100px 56px; border-top: 1px solid #EBEBEB; }
 .hn-vision-inner { max-width: 860px; margin: 0 auto; }
 .hn-vision-intro { margin-bottom: 52px; }
 .hn-vision-sub { font-size: 14px; color: #7A8FA6; line-height: 1.75; max-width: 500px; margin-top: 10px; }
@@ -147,7 +147,7 @@
 .hn-cta-btn2:hover { background: rgba(255,255,255,.14); color: #fff; transform: translateY(-2px); border-color: rgba(255,255,255,0.35); }
 
 /* FOOTER */
-.hn-footer { background: #071423; padding: 56px 60px 32px; border-top: none; }
+.hn-footer { background: #0C2340; padding: 56px 60px 32px; border-top: none; }
 .hn-footer-inner { max-width: 860px; margin: 0 auto; }
 .hn-footer-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 44px; gap: 40px; }
 .hn-footer-logo { display: flex; align-items: center; text-decoration: none; margin-bottom: 14px; }
