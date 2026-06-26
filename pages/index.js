@@ -63,7 +63,7 @@ export default function Home() {
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '52px' }}>
               <Link href="/" onClick={() => setMobileOpen(false)} style={{ textDecoration: 'none' }}>
-                <img src="/logo-light.png" alt="MNMuslim" style={{ height: '40px', width: 'auto', display: 'block', objectFit: 'contain' }} />
+                <img src="/logo-light.png" alt="MNMuslim" style={{ width: '140px', height: 'auto', display: 'block' }} />
               </Link>
               <button onClick={() => setMobileOpen(false)} style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', padding: '4px' }}>
                 <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
