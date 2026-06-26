@@ -1,9 +1,14 @@
+/* GLOBAL RESET */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x: hidden; }
+#__next { background: #071423; }
+
 /* ============================================================
    MNMUSLIM HOMEPAGE — hn-* namespace
    ============================================================ */
 
-.home-page { font-family: 'Poppins', -apple-system, sans-serif; background: #ffffff; color: #0D2B59; -webkit-font-smoothing: antialiased; }
-.hn-dark-header { background: #071423; width: 100%; }
+.home-page { font-family: 'Poppins', -apple-system, sans-serif; background: #ffffff; color: #0D2B59; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+.hn-dark-header { background: #071423; width: 100vw; margin-left: 0; margin-right: 0; position: relative; left: 0; }
 
 /* NAV */
 .hn-nav { display: flex; align-items: center; justify-content: space-between; padding: 24px 56px; position: relative; z-index: 30; }
