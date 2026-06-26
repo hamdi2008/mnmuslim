@@ -101,7 +101,7 @@ export default function About() {
           <div className="ab-hero-inner">
             <p className="hn-hero-eyebrow">Our Story</p>
             <h1 className="ab-hero-h1">The digital home for<br />Minnesota Muslims</h1>
-            <p className="ab-hero-sub">One trusted place to discover Muslim businesses, services, and community resources in Minnesota.</p>
+            <p className="ab-hero-sub">MNMuslim brings together trusted businesses, services, and community resources—making it easier for Minnesota Muslims to discover, support, and connect.</p>
           </div>
         </section>
 
@@ -112,13 +112,10 @@ export default function About() {
               <div className="hn-eyebrow">Why we built this</div>
               <h2 className="ab-h2">A real problem.<br />A community solution.</h2>
               <p className="ab-body">
-                Minnesota has one of the most vibrant Muslim communities in the United States. Thousands of Muslim-owned businesses, professionals, halal restaurants, and community organizations call Minnesota home.
+                Minnesota has a vibrant Muslim community—with trusted businesses, halal restaurants, skilled professionals, and valuable resources all around us. The problem isn't a lack of these things. It's that they're nearly impossible to find.
               </p>
               <p className="ab-body" style={{ marginTop: '16px' }}>
-                But finding them has always been frustratingly difficult. Resources are scattered across Instagram pages, WhatsApp groups, Facebook posts, and word of mouth. There is no single trusted place to search, discover, and connect.
-              </p>
-              <p className="ab-body" style={{ marginTop: '16px' }}>
-                MNMuslim exists to change that. We are building the central platform where Minnesota Muslims can discover trusted services, support local businesses, and stay connected to their community — all in one place.
+                Information is scattered across Instagram pages, Facebook groups, WhatsApp chats, and word of mouth. MNMuslim exists to bring everything together into one trusted place.
               </p>
             </div>
             <div className="ab-story-right hn-reveal hn-reveal-d1">
@@ -153,13 +150,10 @@ export default function About() {
             <div className="hn-eyebrow">Why I started MNMuslim</div>
             <div className="ab-personal-content">
               <p className="ab-personal-body">
-                As someone living in Minnesota, I often found myself searching across Instagram, Facebook groups, WhatsApp chats, and word of mouth just to find trusted Muslim businesses and services.
+                Growing up in Minnesota, I was always searching across multiple platforms just to find something as simple as a trusted dentist, a halal restaurant, or a reliable contractor who shared my values.
               </p>
               <p className="ab-personal-body">
-                I kept thinking there should be one place where everything is organized and easy to discover.
-              </p>
-              <p className="ab-personal-body">
-                That&apos;s why I started building MNMuslim — one step at a time — with the goal of making everyday life a little easier for our community.
+                I kept thinking: there should be one place where all of this is organized and easy to find. So I started building it—one step at a time—with no outside funding, no team, just a genuine desire to make things a little easier for our community.
               </p>
             </div>
           </div>
@@ -170,10 +164,10 @@ export default function About() {
           <div className="ab-mission-inner hn-reveal">
             <div className="hn-eyebrow" style={{ textAlign: 'center' }}>Our mission</div>
             <blockquote className="ab-mission-quote">
-              To connect Minnesota Muslims with trusted businesses, services, and community resources — all in one place.
+              Our mission is to make it easier for Minnesota Muslims to find, support, and grow with one another.
             </blockquote>
             <p className="ab-mission-sub" style={{ maxWidth: '640px', margin: '0 auto' }}>
-              We believe that when Muslim businesses are easy to find, everyone benefits. Communities grow stronger, local economies thrive, and Minnesota Muslims can support one another with confidence.
+              When Muslim businesses are easy to find, everyone benefits. Local economies grow stronger, community bonds deepen, and Minnesota Muslims can support one another with confidence.
             </p>
           </div>
         </section>
@@ -183,25 +177,26 @@ export default function About() {
           <div className="ab-inner">
             <div className="hn-section-head hn-reveal">
               <div className="hn-eyebrow" style={{ textAlign: 'center' }}>What we're building</div>
-              <h2 className="ab-h2 ab-center">Two products. One growing ecosystem.</h2>
+              <h2 className="ab-h2 ab-center">Building one place, one step at a time.</h2>
+              <p className="hn-section-sub" style={{ textAlign: 'center', marginTop: '14px' }}>MNMuslim is starting with two focused products and expanding based on what our community actually needs.</p>
             </div>
             <div className="ab-cards">
               <div className="ab-card ab-card-teal hn-reveal hn-reveal-d1">
                 <div className="ab-card-badge ab-badge-neutral">Coming Soon</div>
                 <h3 className="ab-card-title">Muslim Services</h3>
-                <p className="ab-card-desc">A directory of trusted Muslim professionals and service providers across Minnesota — from accountants and photographers to tutors and contractors.</p>
+                <p className="ab-card-desc">A trusted directory of Muslim professionals and service providers across Minnesota.</p>
                 <Link href="/services" className="ab-card-link ab-link-teal">Explore Muslim Services →</Link>
               </div>
               <div className="ab-card ab-card-gold hn-reveal hn-reveal-d2">
                 <div className="ab-card-badge ab-badge-gold">Live Now</div>
                 <h3 className="ab-card-title">MNHalal</h3>
-                <p className="ab-card-desc">A dedicated guide to halal restaurants, cafés, bakeries, markets, and catering across Minnesota. The go-to resource for halal dining and shopping.</p>
+                <p className="ab-card-desc">Minnesota's trusted guide to halal restaurants, cafés, bakeries, and markets.</p>
                 <a href="https://mnhalal.com" className="ab-card-link ab-link-gold" target="_blank" rel="noopener noreferrer">Explore MNHalal →</a>
               </div>
               <div className="ab-card ab-card-neutral hn-reveal hn-reveal-d3">
                 <div className="ab-card-badge ab-badge-neutral">Coming Soon</div>
                 <h3 className="ab-card-title">More to Come</h3>
-                <p className="ab-card-desc">Events, mosques, organizations, jobs, and more. MNMuslim is growing into the complete digital home for Minnesota Muslims.</p>
+                <p className="ab-card-desc">As MNMuslim grows alongside the community, additional resources will be added based on what Minnesota Muslims actually need.</p>
                 <Link href="/contact" className="ab-card-link ab-link-neutral">Share an idea →</Link>
               </div>
             </div>
@@ -219,19 +214,19 @@ export default function About() {
               {[
                 {
                   icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0CA5A5" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
-                  title: 'Community First', desc: 'Every decision is made with the Minnesota Muslim community in mind. We build for people, not metrics.'
+                  title: 'Community First', desc: 'Every decision starts with what is best for Minnesota Muslims.'
                 },
                 {
                   icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0CA5A5" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,
-                  title: 'Trust', desc: 'We only feature real businesses and professionals. Our community deserves accurate, reliable information.'
+                  title: 'Trust', desc: 'We only feature real businesses and professionals our community can trust.'
                 },
                 {
                   icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0CA5A5" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>,
-                  title: 'Support Local', desc: 'Every listing and every visit helps a local Muslim business grow. We believe in building from within.'
+                  title: 'Support Local', desc: 'Every visit and listing helps a local Muslim business grow.'
                 },
                 {
                   icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0CA5A5" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="23" y1="11" x2="17" y2="11"/><line x1="20" y1="8" x2="20" y2="14"/></svg>,
-                  title: 'Build Together', desc: 'MNMuslim is shaped by community feedback. Your ideas directly influence what we build next.'
+                  title: 'Build Together', desc: 'Your ideas and feedback directly shape what we build next.'
                 },
               ].map((v, i) => (
                 <div key={v.title} className={`ab-value-card hn-reveal hn-reveal-d${i+1}`}>
@@ -251,10 +246,10 @@ export default function About() {
               <div className="hn-eyebrow">Looking ahead</div>
               <h2 className="ab-h2">Building the complete digital home for Minnesota Muslims</h2>
               <p className="ab-body">
-                MNMuslim is just getting started. We began with MNHalal — a dedicated halal food guide for Minnesota — and are actively building Muslim Services, a directory of trusted Muslim professionals.
+                MNMuslim launched with MNHalal, a halal food guide for Minnesota, and is now building Muslim Services, a directory of trusted Muslim professionals. As the community grows, the directory will too.
               </p>
               <p className="ab-body" style={{ marginTop: '16px' }}>
-                Our long-term vision is a platform where every Minnesota Muslim can find anything they need — from a trusted dentist to a mosque, from a halal grocery store to a community event — all verified, all local, all in one place.
+                The goal is simple: one place where Minnesota Muslims can find anything they need — trusted, local, and easy to discover. We will keep building based on what our community actually asks for.
               </p>
             </div>
             <div className="ab-ahead-right hn-reveal hn-reveal-d1">
@@ -285,7 +280,7 @@ export default function About() {
         <section className="hn-cta">
           <div className="hn-cta-inner">
             <h2 className="hn-cta-h2">Help build Minnesota&apos;s<br />Muslim ecosystem</h2>
-            <p className="hn-cta-sub">Whether you want to list your business, share an idea, or just say hello — we'd love to hear from you.</p>
+            <p className="hn-cta-sub">Whether you're a business owner, service provider, or community member, we'd love to hear from you.</p>
             <div className="hn-cta-btns">
               <Link href="/contact" className="hn-cta-btn1">Contact Us</Link>
               <a href="https://mnhalal.com" className="hn-cta-btn2" target="_blank" rel="noopener noreferrer">Explore MNHalal</a>
@@ -301,7 +296,7 @@ export default function About() {
                 <Link href="/" className="hn-footer-logo">
                   <img src="/logo-footer.png" alt="MNMuslim" className="hn-footer-logo-img" />
                 </Link>
-                <p className="hn-footer-tag">The trusted platform connecting Minnesota Muslims with businesses, services, and community resources.</p>
+                <p className="hn-footer-tag">Helping Minnesota Muslims discover trusted businesses, services, and community resources.</p>
                 <p className="hn-footer-mission">Built by a Minnesota Muslim for the Minnesota Muslim community.</p>
               </div>
               <div className="hn-footer-cols">
