@@ -215,52 +215,41 @@ export default function Home() {
         <section className="hn-vision">
           <div className="hn-vision-inner">
             <div className="hn-vision-intro">
-              <div className="hn-eyebrow">Building the digital home for Muslims in Minnesota</div>
-              <h2 className="hn-section-h2">One platform. Growing together.</h2>
-              <p className="hn-vision-sub">We&apos;re just getting started — and we&apos;d love to build this together.</p>
+              <div className="hn-eyebrow">What&apos;s coming next</div>
+              <h2 className="hn-section-h2">Building the digital home<br />for Muslims in Minnesota</h2>
+              <p className="hn-vision-sub">MNMuslim begins with Muslim Services and MNHalal, but our vision is much bigger. Over time we&apos;ll continue building tools that help Minnesota Muslims discover, connect, and support one another.</p>
             </div>
-            <div className="hn-vg">
-              <div className="hn-vcol">
-                <div className="hn-vcol-hd">
+            <div className="hn-roadmap">
+              <div className="hn-roadmap-col">
+                <div className="hn-roadmap-label">
                   <span className="hn-vdot-live" />
-                  <span className="hn-vlbl hn-vlbl-live">Live now</span>
+                  Available Today
                 </div>
-                <Link href="/services" className="hn-vi hn-vi-live">
-                  <div className="hn-vi-ico" style={{ background: '#E6F9F9' }}>💼</div>
-                  <div>
-                    <div className="hn-vi-t">Muslim Services</div>
-                    <div className="hn-vi-s">Professional services directory</div>
+                <div className="hn-roadmap-live">
+                  <div className="hn-live-item">
+                    <span className="hn-live-check">✓</span>
+                    <span className="hn-live-name">Muslim Services</span>
                   </div>
-                  <span className="hn-vi-arr">→</span>
-                </Link>
-                <a href="https://mnhalal.com" className="hn-vi hn-vi-live" target="_blank" rel="noopener noreferrer">
-                  <div className="hn-vi-ico" style={{ background: '#FFFBEB' }}>🍽️</div>
-                  <div>
-                    <div className="hn-vi-t">MNHalal</div>
-                    <div className="hn-vi-s">Halal food directory</div>
+                  <div className="hn-live-item">
+                    <span className="hn-live-check">✓</span>
+                    <span className="hn-live-name">MNHalal</span>
                   </div>
-                  <span className="hn-vi-arr">→</span>
-                </a>
+                </div>
               </div>
-              <div className="hn-vcol">
-                <div className="hn-vcol-hd">
+              <div className="hn-roadmap-col">
+                <div className="hn-roadmap-label">
                   <span className="hn-vdot-soon" />
-                  <span className="hn-vlbl hn-vlbl-soon">Coming next</span>
+                  Coming Soon
                 </div>
-                <div className="hn-soon-grid">
-                  {visionItems.map(v => (
-                    <div key={v.name} className="hn-si">
-                      <div className="hn-si-ico">{v.emoji}</div>
-                      <div className="hn-si-name">{v.name}</div>
-                    </div>
+                <div className="hn-soon-chips">
+                  {['Events', 'Mosques', 'Organizations', 'Jobs', 'Scholarships', 'Resources'].map(item => (
+                    <div key={item} className="hn-soon-chip">{item}</div>
                   ))}
                 </div>
               </div>
             </div>
             <div className="hn-vision-suggest">
-              <p style={{ fontSize: '13px', color: '#7A8FA6', marginBottom: '16px' }}>
-                We&apos;re just getting started — and we&apos;d love to build this together.
-              </p>
+              <p className="hn-vision-suggest-txt">Have an idea for MNMuslim? We&apos;d love to hear it.</p>
               <Link href="/contact" className="hn-suggest-btn">✦ Make a Suggestion</Link>
             </div>
           </div>
