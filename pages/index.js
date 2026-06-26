@@ -230,18 +230,54 @@ export default function Home() {
           <div className="hn-how-inner">
             <div className="hn-section-head hn-reveal">
               <div className="hn-eyebrow" style={{ textAlign: 'center' }}>How it works</div>
-              <h2 className="hn-section-h2" style={{ textAlign: 'center' }}>Simple. Trusted. Community-first.</h2>
+              <h2 className="hn-section-h2" style={{ textAlign: 'center', marginBottom: '12px' }}>Your journey starts here</h2>
+              <p className="hn-section-sub" style={{ textAlign: 'center' }}>From discovery to community growth — here&apos;s how MNMuslim connects Minnesota Muslims.</p>
             </div>
-            <div className="hn-how-grid">
+            <div className="hn-journey">
               {[
-                { num: '01', title: 'Discover', desc: 'Search trusted Muslim services and halal businesses across Minnesota—all in one place.' },
-                { num: '02', title: 'Support', desc: 'Choose local Muslim professionals and businesses. Every visit helps strengthen our community.' },
-                { num: '03', title: 'Grow', desc: 'List your business and get discovered by thousands of Minnesota Muslims looking for trusted services.' },
+                {
+                  icon: (
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                    </svg>
+                  ),
+                  num: '01', title: 'Discover',
+                  desc: 'Search for trusted Muslim services, halal food, and local businesses across Minnesota.'
+                },
+                {
+                  icon: (
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                  ),
+                  num: '02', title: 'Connect',
+                  desc: 'Contact or visit businesses and professionals in your community with confidence.'
+                },
+                {
+                  icon: (
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                  ),
+                  num: '03', title: 'Support',
+                  desc: 'Every purchase strengthens Minnesota's Muslim economy and helps local businesses thrive.'
+                },
+                {
+                  icon: (
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>
+                    </svg>
+                  ),
+                  num: '04', title: 'Grow',
+                  desc: 'Businesses gain visibility while the entire Minnesota Muslim community grows stronger together.'
+                },
               ].map((s, i) => (
-                <div key={s.num} className={`hn-how-card hn-reveal hn-reveal-d${i+1}`}>
-                  <div className="hn-how-num">{s.num}</div>
-                  <div className="hn-how-title">{s.title}</div>
-                  <p className="hn-how-desc">{s.desc}</p>
+                <div key={s.num} className={`hn-journey-step hn-reveal hn-reveal-d${i+1}`}>
+                  <div className="hn-journey-icon">{s.icon}</div>
+                  <div className="hn-journey-num">{s.num}</div>
+                  <div className="hn-journey-title">{s.title}</div>
+                  <p className="hn-journey-desc">{s.desc}</p>
+                  {i < 3 && <div className="hn-journey-arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>}
                 </div>
               ))}
             </div>
