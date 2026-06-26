@@ -262,9 +262,7 @@ export default function Home() {
 
                 {/* ── CTA ── */}
         <section className="hn-cta">
-          <div className="hn-cta-glow" />
           <div className="hn-cta-inner">
-            <p className="hn-cta-label">Get Listed</p>
             <h2 className="hn-cta-h2">Grow your business<br />with MNMuslim</h2>
             <p className="hn-cta-sub">Join the growing directory and make it easier for Minnesota Muslims to discover and support your business or professional service.</p>
             <Link href="/submit" className="hn-cta-btn1">List Your Business</Link>
@@ -280,7 +278,7 @@ export default function Home() {
                 <Link href="/" className="hn-footer-logo">
                   <img src="/logo.png" alt="MNMuslim" className="hn-footer-logo-img" />
                 </Link>
-                <p className="hn-footer-tag">The digital home for Muslims in Minnesota.</p>
+                <p className="hn-footer-tag">The trusted platform connecting Minnesota Muslims with businesses, services, and community resources.</p>
               </div>
               <div className="hn-footer-cols">
                 <div className="hn-footer-col">
@@ -297,17 +295,18 @@ export default function Home() {
                 <div className="hn-footer-col">
                   <div className="hn-footer-col-title">Resources</div>
                   <Link href="/submit" className="hn-fl">Get Listed</Link>
-                  <span className="hn-fl hn-fl-muted">FAQ (coming soon)</span>
                 </div>
                 <div className="hn-footer-col">
                   <div className="hn-footer-col-title">Community</div>
                   <a href="https://instagram.com/mnmuslim" className="hn-fl" target="_blank" rel="noopener noreferrer">Instagram</a>
-                  <span className="hn-fl hn-fl-muted">Newsletter (coming soon)</span>
                 </div>
               </div>
             </div>
             <div className="hn-footer-bottom">
-              <span className="hn-fb-copy">© 2026 MNMuslim. Built in Minnesota for the Minnesota Muslim community.</span>
+              <div>
+                <span className="hn-fb-copy">© 2026 MNMuslim</span>
+                <span className="hn-fb-copy hn-fb-copy-sub">Built in Minnesota for the Minnesota Muslim community.</span>
+              </div>
               <div className="hn-fb-legal">
                 <Link href="/privacy" className="hn-fb-link">Privacy Policy</Link>
                 <Link href="/terms" className="hn-fb-link">Terms of Use</Link>
