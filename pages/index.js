@@ -181,7 +181,6 @@ export default function Home() {
                 <span className="hn-about-sig-line" />
                 <p className="hn-about-human">Built by a Minnesota Muslim.<br />For the Minnesota Muslim community.</p>
               </div>
-              <Link href="/about" className="hn-about-cta hn-reveal hn-reveal-d4">Why We Built This <span className="hn-cta-arrow">→</span></Link>
             </div>
 
             <div className="hn-about-right">
