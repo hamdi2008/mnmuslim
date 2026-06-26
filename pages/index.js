@@ -60,7 +60,6 @@ export default function Home() {
           <div className="hn-pill">
             <Link href="/services" className={`hn-nl${router.pathname==="/services" ? " hn-nl-active" : ""}`}>Services</Link>
             <a href="https://mnhalal.com" className="hn-nl" target="_blank" rel="noopener noreferrer">MNHalal</a>
-            <Link href="/about" className={`hn-nl${router.pathname==="/about" ? " hn-nl-active" : ""}`}>About</Link>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <Link href="/contact" className="hn-contact">Contact <span aria-hidden="true">→</span></Link>
@@ -102,7 +101,6 @@ export default function Home() {
               {[
                 { label: 'Services', href: '/services', internal: true },
                 { label: 'MNHalal', href: 'https://mnhalal.com', internal: false },
-                { label: 'About', href: '/about', internal: true },
                 { label: 'Contact', href: '/contact', internal: true },
               ].map(item => item.internal ? (
                 <Link key={item.label} href={item.href} onClick={() => setMobileOpen(false)} style={{
@@ -348,7 +346,7 @@ export default function Home() {
               <a href="https://mnhalal.com/submit" className="hn-cta-btn2" target="_blank" rel="noopener noreferrer">List Halal Business</a>
             </div>
             <p className="hn-cta-trust-line">Free to list · Built for the Minnesota Muslim community</p>
-            <Link href="/about" className="hn-cta-learn">Learn how listing works →</Link>
+            <Link href="/contact" className="hn-cta-learn">Learn how listing works →</Link>
           </div>
         </section>
 
@@ -371,7 +369,6 @@ export default function Home() {
                 </div>
                 <div className="hn-footer-col">
                   <div className="hn-footer-col-title">Company</div>
-                  <Link href="/about" className="hn-fl">About</Link>
                   <Link href="/contact" className="hn-fl">Contact</Link>
                   <Link href="/contact" className="hn-fl">Suggest a Feature</Link>
                 </div>
