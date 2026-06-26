@@ -273,13 +273,14 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
   /* HOW IT WORKS */
   .hn-how { padding: 56px 20px; }
   .hn-how-inner .hn-section-head { margin-bottom: 36px; }
-  .hn-journey { grid-template-columns: 1fr; gap: 36px; }
+  .hn-journey { grid-template-columns: 1fr 1fr; gap: 28px 20px; }
   .hn-journey-line { display: none; }
-  .hn-journey-step { align-items: flex-start; text-align: left; flex-direction: row; gap: 16px; padding: 0; }
-  .hn-journey-icon-wrap { margin-bottom: 0; flex-shrink: 0; }
+  .hn-journey-step { align-items: center; text-align: center; padding: 0; }
   .hn-journey-icon { width: 56px; height: 56px; }
-  .hn-journey-desc { max-width: 100%; }
-  .hn-journey-closing { margin-top: 32px; font-size: 12px; }
+  .hn-journey-icon-wrap { margin-bottom: 14px; }
+  .hn-journey-title { font-size: 13px; }
+  .hn-journey-desc { max-width: 100%; font-size: 11.5px; }
+  .hn-journey-closing { margin-top: 28px; font-size: 12px; }
 
   /* TRUST */
   .hn-trust { padding: 40px 20px; }
