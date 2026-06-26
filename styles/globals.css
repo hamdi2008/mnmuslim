@@ -22,14 +22,14 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
 .hn-nl:hover::after { opacity: 0.7; transform: scaleX(1); }
 .hn-nl-active { color: rgba(255,255,255,0.95); font-weight: 600; }
 .hn-nl-active::after { opacity: 1; transform: scaleX(1); }
-.hn-contact { background: rgba(12,165,165,0.9); color: #fff; border: none; font-size: 12.5px; font-weight: 600; padding: 8px 18px; border-radius: 40px; cursor: pointer; font-family: inherit; transition: background .18s; letter-spacing: .02em; text-decoration: none; box-shadow: none; display: inline-flex; align-items: center; gap: 6px; }
-.hn-contact:hover { background: #0CA5A5; }
+.hn-contact { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.25); font-size: 12.5px; font-weight: 600; padding: 7px 18px; border-radius: 40px; cursor: pointer; font-family: inherit; transition: all .2s; letter-spacing: .02em; text-decoration: none; box-shadow: none; display: inline-flex; align-items: center; gap: 6px; }
+.hn-contact:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.4); }
 .hn-contact:hover { background: #0bbdbd; transform: translateY(-1px); box-shadow: none; }
 .hn-mobile-menu { display: none; background: none; border: none; cursor: pointer; padding: 8px; color: #fff; }
 .hn-mobile-nav { display: none; }
 
 /* HERO */
-.hn-hero { position: relative; background: transparent; padding: 140px 0 100px; text-align: center; overflow: hidden; z-index: 1; width: 100%; }
+.hn-hero { position: relative; background: transparent; padding: 105px 0 100px; text-align: center; overflow: hidden; z-index: 1; width: 100%; }
 /* subtle background: noise texture overlay + radial glows */
 .hn-hero::before { content: ''; position: absolute; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.025; pointer-events: none; z-index: 0; }
 .hn-g { position: absolute; border-radius: 50%; pointer-events: none; }
@@ -42,7 +42,7 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
 .hn-h1 { font-size: 80px; font-weight: 900; line-height: 1.05; letter-spacing: -4px; margin-bottom: 32px; position: relative; z-index: 2; color: #fff; max-width: 860px; margin-left: auto; margin-right: auto; }
 .hn-h1-sub { font-size: 80px; font-weight: 900; line-height: 1.0; letter-spacing: -4px; margin-bottom: 40px; position: relative; z-index: 2; color: #fff; font-style: normal; }
 .hn-teal { color: #fff; display: block; }
-.hn-sub { color: rgba(255,255,255,0.42); font-size: 16px; line-height: 1.8; max-width: 520px; margin: 0 auto 40px; position: relative; z-index: 2; font-weight: 400; }
+.hn-sub { color: rgba(255,255,255,0.58); font-size: 16px; line-height: 1.8; max-width: 520px; margin: 0 auto 40px; position: relative; z-index: 2; font-weight: 400; }
 
 .hn-search-wrap { max-width: 580px; margin: 0 auto 24px; position: relative; z-index: 2; padding: 0 24px; }
 .hn-search-icon { color: rgba(255,255,255,0.4); flex-shrink: 0; }
@@ -187,7 +187,7 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
   .hn-search-wrap { padding: 0 4px; }
   .hn-search-box { border-radius: 12px; padding: 8px 8px 8px 14px; }
   .hn-search-btn { padding: 10px 18px; font-size: 12px; }
-  .hn-hero { padding: 120px 20px 80px; }
+  .hn-hero { padding: 90px 20px 80px; }
   .hn-dark-header { min-height: 100vh; display: flex; flex-direction: column; }
   .hn-h1 { font-size: 42px; letter-spacing: -2.5px; }
   .hn-h1-sub { font-size: 42px; letter-spacing: -2.5px; }
