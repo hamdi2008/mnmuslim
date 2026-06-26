@@ -202,30 +202,81 @@ export default function Home() {
         {/* ── ECOSYSTEM ── */}
         <section className="hn-eco">
           <div className="hn-eco-inner">
-            <div className="hn-section-head">
+            <div className="hn-section-head hn-reveal">
               <h2 className="hn-section-h2" style={{ textAlign: 'center' }}>Explore the MNMuslim ecosystem</h2>
-              <p className="hn-section-sub">Two products. One trusted community platform built for Minnesota Muslims.</p>
+              <p className="hn-section-sub">Two focused products. One trusted community platform built for Minnesota Muslims.</p>
             </div>
             <div className="hn-eco-grid">
-              <Link href="/services" className="hn-ecard hn-ec-teal" style={{ textDecoration: 'none' }}>
+
+              {/* ── SERVICES CARD ── */}
+              <Link href="/services" className="hn-ecard hn-ec-teal hn-reveal hn-reveal-d1" style={{ textDecoration: 'none' }}>
                 <div className="hn-ec-pat" />
-                <div className="hn-ec-tag">Services Directory</div>
-                <div className="hn-ec-name">Muslim Services</div>
-                <p className="hn-ec-desc">Find trusted Muslim professionals and businesses across Minnesota — from accountants and tutors to photographers and contractors.</p>
-                <span className="hn-ec-btn hn-ec-btn-teal">Find a Service <span className="hn-ec-arr">→</span></span>
+                <div className="hn-ec-content">
+                  <div className="hn-ec-tag">Services Directory</div>
+                  <div className="hn-ec-name">Muslim Services</div>
+                  <p className="hn-ec-desc">Find trusted Muslim professionals across Minnesota — accountants, photographers, tutors, contractors, and more.</p>
+                  <div className="hn-ec-chips">
+                    {['Photographer', 'Accountant', 'Tutor', 'Contractor', 'Designer'].map(c => (
+                      <span key={c} className="hn-ec-chip hn-ec-chip-teal">{c}</span>
+                    ))}
+                  </div>
+                  <div className="hn-ec-mockup hn-ec-mockup-teal">
+                    {[
+                      { icon: '📷', name: 'Aisha Photography', cat: 'Photographer' },
+                      { icon: '📊', name: 'Ahmed & Associates', cat: 'Accountant' },
+                      { icon: '📚', name: 'Fatima Tutoring', cat: 'Tutor' },
+                    ].map(item => (
+                      <div key={item.name} className="hn-ec-row">
+                        <span className="hn-ec-row-ico">{item.icon}</span>
+                        <div className="hn-ec-row-info">
+                          <span className="hn-ec-row-name">{item.name}</span>
+                          <span className="hn-ec-row-cat">{item.cat}</span>
+                        </div>
+                        <span className="hn-ec-row-arr">→</span>
+                      </div>
+                    ))}
+                  </div>
+                  <span className="hn-ec-btn hn-ec-btn-teal">Find a Service <span className="hn-ec-arr">→</span></span>
+                </div>
               </Link>
-              <a href="https://mnhalal.com" className="hn-ecard hn-ec-gold" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+
+              {/* ── MNHALAL CARD ── */}
+              <a href="https://mnhalal.com" className="hn-ecard hn-ec-gold hn-reveal hn-reveal-d2" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
                 <div className="hn-ec-pat" />
-                <div className="hn-ec-tag hn-ec-tag-gold">Halal Food Guide</div>
-                <div className="hn-ec-name">MNHalal</div>
-                <p className="hn-ec-desc">Discover halal restaurants, cafés, bakeries, and markets across Minnesota.</p>
-                <span className="hn-ec-btn hn-ec-btn-gold">Find Halal Food <span className="hn-ec-arr">→</span></span>
+                <div className="hn-ec-content">
+                  <div className="hn-ec-tag hn-ec-tag-gold">Halal Food Guide</div>
+                  <div className="hn-ec-name">MNHalal</div>
+                  <p className="hn-ec-desc">Discover halal restaurants, cafés, bakeries, and markets near you across Minnesota.</p>
+                  <div className="hn-ec-chips">
+                    {['Restaurant', 'Bakery', 'Café', 'Market', 'Catering'].map(c => (
+                      <span key={c} className="hn-ec-chip hn-ec-chip-gold">{c}</span>
+                    ))}
+                  </div>
+                  <div className="hn-ec-mockup hn-ec-mockup-gold">
+                    {[
+                      { icon: '🍽️', name: 'Halwo Kismayo Grill', cat: 'Restaurant' },
+                      { icon: '🥐', name: 'Ajeen Bakery', cat: 'Bakery' },
+                      { icon: '☕', name: 'Cairo Café', cat: 'Café' },
+                    ].map(item => (
+                      <div key={item.name} className="hn-ec-row">
+                        <span className="hn-ec-row-ico">{item.icon}</span>
+                        <div className="hn-ec-row-info">
+                          <span className="hn-ec-row-name">{item.name}</span>
+                          <span className="hn-ec-row-cat">{item.cat}</span>
+                        </div>
+                        <span className="hn-ec-row-arr">→</span>
+                      </div>
+                    ))}
+                  </div>
+                  <span className="hn-ec-btn hn-ec-btn-gold">Find Halal Food <span className="hn-ec-arr">→</span></span>
+                </div>
               </a>
+
             </div>
           </div>
         </section>
 
-        {/* ── HOW IT WORKS ── */}
+                {/* ── HOW IT WORKS ── */}
         <section className="hn-how">
           <div className="hn-how-inner">
             <div className="hn-section-head hn-reveal">
