@@ -409,3 +409,26 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
   .ab-ahead-inner { grid-template-columns: 1fr; gap: 40px; }
   .ab-h2 { font-size: 26px; }
 }
+
+/* ABOUT PAGE ADDITIONS */
+/* Personal story section */
+.ab-personal { background: #F8FAFC; padding: 80px 56px; border-top: 1px solid #F0F4F8; }
+.ab-personal-inner { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: 1fr 2fr; gap: 80px; align-items: start; }
+.ab-personal-content { display: flex; flex-direction: column; gap: 16px; }
+.ab-personal-body { font-size: 16px; color: #4A5568; line-height: 1.85; }
+
+/* Stat cards with icons */
+.ab-stat-icon { width: 36px; height: 36px; background: #F0FDFA; border: 1px solid rgba(12,165,165,0.15); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+
+/* SVG value icons */
+.ab-value-icon-svg { width: 40px; height: 40px; background: #F0FDFA; border: 1px solid rgba(12,165,165,0.15); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+
+/* Roadmap coming soon item */
+.ab-live-soon { color: #7A8FA6; font-weight: 500; }
+.ab-check-soon { font-size: 13px; }
+
+@media (max-width: 768px) {
+  .ab-personal { padding: 56px 20px; }
+  .ab-personal-inner { grid-template-columns: 1fr; gap: 24px; }
+  .ab-personal-body { font-size: 15px; }
+}
