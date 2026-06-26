@@ -186,13 +186,13 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
 /* FOOTER */
 .hn-footer { background: #071423; padding: 56px 56px 36px; border-top: 1px solid rgba(255,255,255,0.06); }
 .hn-footer-inner { max-width: 1040px; margin: 0 auto; }
-.hn-footer-top { display: grid; grid-template-columns: 240px 1fr; gap: 64px; align-items: start; margin-bottom: 48px; }
+.hn-footer-top { display: grid; grid-template-columns: 220px 1fr; gap: 56px; align-items: start; margin-bottom: 48px; }
 .hn-footer-brand { display: flex; flex-direction: column; }
-.hn-footer-logo { display: flex; align-items: center; text-decoration: none; margin-bottom: 16px; line-height: 1; }
+.hn-footer-logo { display: flex; align-items: center; text-decoration: none; margin-bottom: 12px; line-height: 1; }
 .hn-footer-logo-img { width: 160px; height: auto; display: block; }
-.hn-footer-tag { font-size: 13px; color: rgba(255,255,255,.38); line-height: 1.65; max-width: 230px; margin-bottom: 0; }
+.hn-footer-tag { font-size: 12.5px; color: rgba(255,255,255,.38); line-height: 1.6; max-width: 260px; margin-bottom: 0; }
 .hn-footer-mission { font-size: 11.5px; color: rgba(255,255,255,.2); font-style: italic; margin-top: 10px; max-width: 230px; line-height: 1.6; }
-.hn-footer-cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 48px; }
+.hn-footer-cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 48px; align-items: start; }
 .hn-footer-col { display: flex; flex-direction: column; }
 .hn-footer-col-title { font-size: 10.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,0.9); margin-bottom: 22px; }
 .hn-fl { font-size: 13px; color: rgba(255,255,255,.38); cursor: pointer; transition: color .18s; letter-spacing: .01em; text-decoration: none; display: block; margin-bottom: 14px; line-height: 1.5; }
@@ -256,7 +256,7 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
   .hn-trust-inner { grid-template-columns: 1fr 1fr; gap: 28px; }
   .hn-cta-h2 { font-size: 32px; letter-spacing: -1.5px; }
   .hn-footer { padding: 56px 24px 32px; }
-  .hn-footer-top { grid-template-columns: 1fr; gap: 40px; }
+  .hn-footer-top { grid-template-columns: 1fr; gap: 36px; }
   .hn-footer-cols { grid-template-columns: 1fr 1fr; gap: 32px; }
   .hn-footer-bottom { flex-direction: column; align-items: flex-start; }
 }
