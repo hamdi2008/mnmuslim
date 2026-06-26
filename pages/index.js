@@ -203,63 +203,29 @@ export default function Home() {
         <section className="hn-eco">
           <div className="hn-eco-inner">
             <div className="hn-section-head hn-reveal">
-              <h2 className="hn-section-h2" style={{ textAlign: 'center' }}>Explore the MNMuslim ecosystem</h2>
-              <p className="hn-section-sub">Two focused products. One trusted community platform built for Minnesota Muslims.</p>
+              <h2 className="hn-section-h2" style={{ textAlign: 'center' }}>Explore the MNMuslim Ecosystem</h2>
+              <p className="hn-section-sub">Two products. One platform. Built for Minnesota Muslims.</p>
             </div>
             <div className="hn-eco-grid">
 
-              {/* ── SERVICES CARD ── */}
               <Link href="/services" className="hn-ecard hn-ec-teal hn-reveal hn-reveal-d1" style={{ textDecoration: 'none' }}>
-                <div className="hn-ec-pat" />
-                <div className="hn-ec-content">
+                <div className="hn-ec-glow-orb hn-ec-orb1" />
+                <div className="hn-ec-glow-orb hn-ec-orb2" />
+                <div className="hn-ec-inner">
                   <div className="hn-ec-tag">Services Directory</div>
-                  <div className="hn-ec-name">Muslim Services</div>
-                  <p className="hn-ec-desc">Find trusted Muslim professionals across Minnesota.</p>
-                  <div className="hn-ec-cat-grid">
-                    {[
-                      { icon: '📷', label: 'Photographer' },
-                      { icon: '📊', label: 'Accountant' },
-                      { icon: '📚', label: 'Tutor' },
-                      { icon: '⚖️', label: 'Lawyer' },
-                      { icon: '🔨', label: 'Contractor' },
-                      { icon: '🎨', label: 'Designer' },
-                      { icon: '💊', label: 'Therapist' },
-                      { icon: '✦', label: 'More →' },
-                    ].map(c => (
-                      <div key={c.label} className="hn-ec-cat hn-ec-cat-teal">
-                        <span className="hn-ec-cat-ico">{c.icon}</span>
-                        <span className="hn-ec-cat-lbl">{c.label}</span>
-                      </div>
-                    ))}
-                  </div>
+                  <h3 className="hn-ec-name">Muslim Services</h3>
+                  <p className="hn-ec-desc">Find trusted Muslim professionals and service providers across Minnesota.</p>
                   <span className="hn-ec-btn hn-ec-btn-teal">Find a Service <span className="hn-ec-arr">→</span></span>
                 </div>
               </Link>
 
-              {/* ── MNHALAL CARD ── */}
               <a href="https://mnhalal.com" className="hn-ecard hn-ec-gold hn-reveal hn-reveal-d2" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
-                <div className="hn-ec-pat" />
-                <div className="hn-ec-content">
+                <div className="hn-ec-glow-orb hn-ec-orb3" />
+                <div className="hn-ec-glow-orb hn-ec-orb4" />
+                <div className="hn-ec-inner">
                   <div className="hn-ec-tag hn-ec-tag-gold">Halal Food Guide</div>
-                  <div className="hn-ec-name">MNHalal</div>
+                  <h3 className="hn-ec-name">MNHalal</h3>
                   <p className="hn-ec-desc">Discover halal restaurants, cafés, bakeries, and markets near you.</p>
-                  <div className="hn-ec-cat-grid">
-                    {[
-                      { icon: '🍽️', label: 'Restaurant' },
-                      { icon: '☕', label: 'Café' },
-                      { icon: '🥐', label: 'Bakery' },
-                      { icon: '🛒', label: 'Market' },
-                      { icon: '🍱', label: 'Catering' },
-                      { icon: '🍰', label: 'Dessert' },
-                      { icon: '🥩', label: 'Butcher' },
-                      { icon: '✦', label: 'More →' },
-                    ].map(c => (
-                      <div key={c.label} className="hn-ec-cat hn-ec-cat-gold">
-                        <span className="hn-ec-cat-ico">{c.icon}</span>
-                        <span className="hn-ec-cat-lbl">{c.label}</span>
-                      </div>
-                    ))}
-                  </div>
                   <span className="hn-ec-btn hn-ec-btn-gold">Find Halal Food <span className="hn-ec-arr">→</span></span>
                 </div>
               </a>
