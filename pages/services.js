@@ -22,7 +22,7 @@ function ListingCard({ listing }) {
   return (
     <Link href={`/listing/${listing.id}`} className="sv-card">
       <div className="sv-card-top">
-        <span className="sv-card-badge">{cat.icon} {cat.name}</span>
+        <span className="sv-card-badge">{cat.name}</span>
       </div>
       <div className="sv-card-name">{listing.service_name}</div>
       <div className="sv-card-provider">
