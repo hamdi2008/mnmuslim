@@ -41,15 +41,44 @@ function ListingCard({ listing }) {
   )
 }
 
+// Category chip → category ID mapping
+const CHIP_CATS = [
+  { label: 'Education',         id: 'education' },
+  { label: 'Home Services',     id: 'home' },
+  { label: 'Technology',        id: 'tech' },
+  { label: 'Health & Wellness', id: 'health' },
+  { label: 'Photography',       id: 'photo' },
+  { label: 'Business Services', id: 'business' },
+]
+
+const PLACEHOLDERS = [
+  'Photographer…',
+  'Tutor…',
+  'Contractor…',
+  'Accountant…',
+  'Therapist…',
+  'Web Designer…',
+  'Home Cleaning…',
+  'Event Planner…',
+  'Graphic Designer…',
+  'Quran Teacher…',
+]
+
 export default function Services() {
-  const [mobileOpen, setMobileOpen]   = useState(false)
-  const [scrolled, setScrolled]       = useState(false)
-  const [listings, setListings]       = useState([])
-  const [loading, setLoading]         = useState(true)
-  const [search, setSearch]           = useState('')
-  const [activeCat, setActiveCat]     = useState('')
-  const [catOpen, setCatOpen]         = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const [scrolled, setScrolled]     = useState(false)
+  const [listings, setListings]     = useState([])
+  const [loading, setLoading]       = useState(true)
+  const [search, setSearch]         = useState('')
+  const [activeCat, setActiveCat]   = useState('')
+  const [phIdx, setPhIdx]           = useState(0)
   const router = useRouter()
+
+  // Rotating placeholder — same 3s interval as homepage
+  useEffect(() => {
+    const t = setInterval(() => setPhIdx(i => (i + 1) % PLACEHOLDERS.length), 3000)
+    return () => clearInterval(t)
+  }, [])
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -84,7 +113,10 @@ export default function Services() {
   function toggleCat(id) { setActiveCat(prev => prev === id ? '' : id) }
   function clearAll()    { setSearch(''); setActiveCat('') }
 
-  const activeCatName = activeCat ? getCategoryById(activeCat)?.name : ''
+  function handleSearch(e) {
+    e.preventDefault()
+    fetchListings()
+  }
 
   return (
     <>
@@ -96,7 +128,7 @@ export default function Services() {
 
       <div className="home-page">
 
-        {/* NAV */}
+        {/* ── NAV ── */}
         <nav className={`hn-nav${scrolled ? ' scrolled' : ''}`}>
           <Link href="/" className="hn-logo">
             <img src="/logo.png" alt="MNMuslim" className="hn-logo-img" />
@@ -139,36 +171,57 @@ export default function Services() {
           </div>
         )}
 
-        {/* HERO — compact */}
-        <section className="sv-hero">
-          <div className="sv-hero-glow" />
-          <div className="sv-hero-inner">
-            <p className="sv-eyebrow">Muslim Services Directory</p>
-            <h1 className="sv-hero-h1">Find trusted Muslim<br />services in Minnesota</h1>
-            <p className="sv-hero-sub">Discover Muslim-owned businesses, freelancers, and service providers across Minnesota.</p>
-            <div className="sv-search-wrap">
-              <div className="sv-search-box">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" style={{ color: 'rgba(255,255,255,0.4)', flexShrink: 0 }}><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        {/* ── HERO — exact homepage layout ── */}
+        <div className="hn-dark-header">
+          <section className="hn-hero">
+            <div className="hn-g hn-g1" />
+            <div className="hn-g hn-g2" />
+            <div className="hn-g hn-g3" />
+
+            <p className="hn-hero-eyebrow">Muslim Services Directory</p>
+
+            <h1 className="hn-h1">
+              Find trusted Muslim<br />services in Minnesota
+            </h1>
+
+            <p className="hn-sub">
+              Discover Muslim-owned businesses, freelancers, and service providers across Minnesota.
+            </p>
+
+            {/* Exact homepage search component */}
+            <div className="hn-search-wrap">
+              <div className="hn-search-box">
+                <svg className="hn-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                 <input
-                  className="sv-search-input"
-                  placeholder="Search for a photographer, tutor, contractor, or keyword..."
+                  className="hn-search-input"
+                  placeholder={PLACEHOLDERS[phIdx]}
                   value={search}
                   onChange={e => setSearch(e.target.value)}
+                  onKeyDown={e => e.key === 'Enter' && fetchListings()}
                 />
-                {search && (
-                  <button className="sv-search-clear" onClick={() => setSearch('')} aria-label="Clear">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                  </button>
-                )}
+                <button className="hn-search-btn" onClick={fetchListings}>Search</button>
               </div>
             </div>
-          </div>
-        </section>
 
-        {/* DIRECTORY */}
+            {/* Category chips — filter the directory */}
+            <div className="hn-chips">
+              {CHIP_CATS.map(chip => (
+                <button
+                  key={chip.id}
+                  className={`hn-chip sv-chip-filter${activeCat === chip.id ? ' sv-chip-active' : ''}`}
+                  onClick={() => toggleCat(chip.id)}
+                >
+                  {chip.label}
+                </button>
+              ))}
+            </div>
+          </section>
+        </div>
+
+        {/* ── DIRECTORY ── */}
         <div className="sv-body">
 
-          {/* Sticky sidebar — desktop */}
+          {/* Sticky sidebar */}
           <aside className="sv-sidebar">
             <div className="sv-sidebar-label">Categories</div>
             <button className={`sv-cat-btn${activeCat === '' ? ' sv-cat-active' : ''}`} onClick={() => setActiveCat('')}>
@@ -184,7 +237,7 @@ export default function Services() {
           {/* Main */}
           <main className="sv-main">
 
-            {/* Mobile: horizontal scrollable category chips */}
+            {/* Mobile: scrollable chip row */}
             <div className="sv-pills-mobile">
               <button className={`sv-pill${activeCat === '' ? ' sv-pill-active' : ''}`} onClick={() => setActiveCat('')}>All</button>
               {CATEGORIES.map(cat => (
@@ -194,7 +247,7 @@ export default function Services() {
               ))}
             </div>
 
-            {/* Toolbar — List Your Service only, no count */}
+            {/* Toolbar */}
             <div className="sv-results-head">
               <div />
               <Link href="/submit" className="sv-list-btn">+ List Your Service</Link>
@@ -226,7 +279,7 @@ export default function Services() {
           </main>
         </div>
 
-        {/* CTA */}
+        {/* ── CTA ── */}
         <section className="sv-cta-bar">
           <div className="sv-cta-bar-inner">
             <div>
@@ -237,7 +290,7 @@ export default function Services() {
           </div>
         </section>
 
-        {/* FOOTER */}
+        {/* ── FOOTER ── */}
         <footer className="hn-footer">
           <div className="hn-footer-inner">
             <div className="hn-footer-top">
