@@ -322,7 +322,7 @@ export default function Services() {
                 <div className="hn-footer-col">
                   <div className="hn-footer-col-title">Resources</div>
                   <Link href="/submit" className="hn-fl" target="_blank" rel="noopener noreferrer">List Your Service</Link>
-                  <a href="https://mnhalal.com/submit" className="hn-fl" target="_blank" rel="noopener noreferrer">List Halal Business</a>
+                  <a href="https://mnhalal.com/submit" className="hn-fl" target="_blank" rel="noopener noreferrer">Add Your Halal Food Business</a>
                 </div>
                 <div className="hn-footer-col">
                   <div className="hn-footer-col-title">Community</div>
