@@ -116,7 +116,7 @@ export default function Submit() {
           <section className="hn-hero" style={{ paddingBottom: '96px' }}>
             <div className="hn-g hn-g1" /><div className="hn-g hn-g2" /><div className="hn-g hn-g3" />
             <p className="hn-hero-eyebrow">Muslim Services Directory</p>
-            <h1 className="hn-h1" style={{ fontSize: '44px' }}>Submit Your Service</h1>
+            <h1 className="hn-h1" style={{ fontSize: '42px', letterSpacing: '-0.5px', wordSpacing: '4px' }}>Submit Your Service</h1>
             <p className="hn-sub" style={{ maxWidth: '460px' }}>
               Reach Minnesota Muslims looking for local services. Listing is free and every submission is reviewed before publication.
             </p>
