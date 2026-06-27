@@ -268,17 +268,6 @@ export default function Services() {
           </main>
         </div>
 
-        {/* ── CTA ── */}
-        <section className="sv-cta-bar">
-          <div className="sv-cta-bar-inner">
-            <div>
-              <div className="sv-cta-bar-title">Grow your business with MNMuslim</div>
-              <div className="sv-cta-bar-sub">List your service for free and help Minnesota Muslims discover what you offer.</div>
-            </div>
-            <Link href="/submit" className="sv-cta-bar-btn">List Your Service →</Link>
-          </div>
-        </section>
-
         {/* ── FOOTER ── */}
         <footer className="hn-footer">
           <div className="hn-footer-inner">
