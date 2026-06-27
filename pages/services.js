@@ -214,11 +214,11 @@ export default function Services() {
           <aside className="sv-sidebar">
             <div className="sv-sidebar-label">Categories</div>
             <button className={`sv-cat-btn${activeCat === '' ? ' sv-cat-active' : ''}`} onClick={() => setActiveCat('')}>
-              <span className="sv-cat-icon">🗂️</span> All Categories
+              All Categories
             </button>
             {CATEGORIES.map(cat => (
               <button key={cat.id} className={`sv-cat-btn${activeCat === cat.id ? ' sv-cat-active' : ''}`} onClick={() => toggleCat(cat.id)}>
-                <span className="sv-cat-icon">{cat.icon}</span> {cat.name}
+                {cat.name}
               </button>
             ))}
           </aside>
