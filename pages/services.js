@@ -32,7 +32,7 @@ function TrustBadges({ listing }) {
 function ListingCard({ listing }) {
   const cat = getCategoryById(listing.category)
   return (
-    <Link href={`/listing/${listing.id}`} className="sv-card">
+    <Link href={`/listing/${listing.id}`} className="sv-card" target="_blank" rel="noopener noreferrer">
       <div className="sv-card-top">
         <span className="sv-card-badge">{cat.name}</span>
       </div>
@@ -147,11 +147,11 @@ export default function Services() {
             <img src="/logo.png" alt="MNMuslim" className="hn-logo-img" />
           </Link>
           <div className="hn-pill">
-            <Link href="/services" className={`hn-nl${router.pathname === '/services' ? ' hn-nl-active' : ''}`}>Services</Link>
+            <Link href="/services" className={`hn-nl${router.pathname === '/services' ? ' hn-nl-active' : ''}`} target="_blank" rel="noopener noreferrer">Services</Link>
             <a href="https://mnhalal.com" className="hn-nl" target="_blank" rel="noopener noreferrer">MNHalal</a>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <Link href="/contact" className="hn-contact">Contact <span aria-hidden="true">→</span></Link>
+            <Link href="/contact" className="hn-contact" target="_blank" rel="noopener noreferrer">Contact <span aria-hidden="true">→</span></Link>
             <button className="hn-mobile-menu" onClick={() => setMobileOpen(!mobileOpen)} aria-label="Toggle menu">
               {mobileOpen
                 ? <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -177,7 +177,7 @@ export default function Services() {
                 { label: 'MNHalal', href: 'https://mnhalal.com', internal: false },
                 { label: 'Contact', href: '/contact', internal: true },
               ].map(item => item.internal
-                ? <Link key={item.label} href={item.href} onClick={() => setMobileOpen(false)} style={{ color: '#fff', fontSize: '32px', fontWeight: '800', textDecoration: 'none', padding: '18px 0', borderBottom: '1px solid rgba(255,255,255,0.07)', letterSpacing: '-1px', display: 'block' }}>{item.label}</Link>
+                ? <Link key={item.label} href={item.href} onClick={() = target="_blank" rel="noopener noreferrer"> setMobileOpen(false)} style={{ color: '#fff', fontSize: '32px', fontWeight: '800', textDecoration: 'none', padding: '18px 0', borderBottom: '1px solid rgba(255,255,255,0.07)', letterSpacing: '-1px', display: 'block' }}>{item.label}</Link>
                 : <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer" onClick={() => setMobileOpen(false)} style={{ color: '#fff', fontSize: '32px', fontWeight: '800', textDecoration: 'none', padding: '18px 0', borderBottom: '1px solid rgba(255,255,255,0.07)', letterSpacing: '-1px', display: 'block' }}>{item.label}</a>
               )}
             </div>
@@ -231,7 +231,7 @@ export default function Services() {
               <option key={cat.id} value={cat.id}>{cat.name}</option>
             ))}
           </select>
-          <Link href="/submit" className="sv-mobile-list-btn">+ List Your Service</Link>
+          <Link href="/submit" className="sv-mobile-list-btn" target="_blank" rel="noopener noreferrer">+ List Your Service</Link>
         </div>
 
         {/* ── DIRECTORY ── */}
@@ -256,7 +256,7 @@ export default function Services() {
             {/* Toolbar — desktop only */}
             <div className="sv-results-head sv-results-head-desktop">
               <div />
-              <Link href="/submit" className="sv-list-btn">+ List Your Service</Link>
+              <Link href="/submit" className="sv-list-btn" target="_blank" rel="noopener noreferrer">+ List Your Service</Link>
             </div>
 
             {/* Skeleton */}
@@ -280,7 +280,7 @@ export default function Services() {
                 </p>
                 {activeCat ? (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', alignItems: 'center' }}>
-                    <Link href="/submit" className="sv-empty-cta">List Your Service →</Link>
+                    <Link href="/submit" className="sv-empty-cta" target="_blank" rel="noopener noreferrer">List Your Service →</Link>
                     <button className="sv-empty-reset" onClick={clearAll}>Browse all categories</button>
                   </div>
                 ) : (
@@ -312,16 +312,16 @@ export default function Services() {
               <div className="hn-footer-cols">
                 <div className="hn-footer-col">
                   <div className="hn-footer-col-title">Products</div>
-                  <Link href="/services" className="hn-fl">Muslim Services</Link>
+                  <Link href="/services" className="hn-fl" target="_blank" rel="noopener noreferrer">Muslim Services</Link>
                   <a href="https://mnhalal.com" className="hn-fl" target="_blank" rel="noopener noreferrer">MNHalal</a>
                 </div>
                 <div className="hn-footer-col">
                   <div className="hn-footer-col-title">Company</div>
-                  <Link href="/contact" className="hn-fl">Contact</Link>
+                  <Link href="/contact" className="hn-fl" target="_blank" rel="noopener noreferrer">Contact</Link>
                   </div>
                 <div className="hn-footer-col">
                   <div className="hn-footer-col-title">Resources</div>
-                  <Link href="/submit" className="hn-fl">List Your Service</Link>
+                  <Link href="/submit" className="hn-fl" target="_blank" rel="noopener noreferrer">List Your Service</Link>
                   <a href="https://mnhalal.com/submit" className="hn-fl" target="_blank" rel="noopener noreferrer">List Halal Business</a>
                 </div>
                 <div className="hn-footer-col">
@@ -336,8 +336,8 @@ export default function Services() {
                 <span className="hn-fb-copy hn-fb-copy-sub">Built in Minnesota for the Minnesota Muslim community.</span>
               </div>
               <div className="hn-fb-legal">
-                <Link href="/privacy" className="hn-fb-link">Privacy Policy</Link>
-                <Link href="/terms" className="hn-fb-link">Terms of Use</Link>
+                <Link href="/privacy" className="hn-fb-link" target="_blank" rel="noopener noreferrer">Privacy Policy</Link>
+                <Link href="/terms" className="hn-fb-link" target="_blank" rel="noopener noreferrer">Terms of Use</Link>
               </div>
             </div>
           </div>
