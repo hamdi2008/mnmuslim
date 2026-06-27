@@ -637,7 +637,7 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
    SUBMIT / LIST YOUR SERVICE — sf-* namespace
    ============================================================ */
 
-.sf-page { max-width: 680px; margin: 0 auto; padding: 56px 40px 96px; }
+.sf-page { max-width: 780px; margin: 0 auto; padding: 56px 40px 96px; }
 
 /* Success */
 .sf-success { text-align: center; padding: 64px 20px; }
