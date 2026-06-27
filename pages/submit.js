@@ -113,12 +113,12 @@ export default function Submit() {
 
         {/* HERO */}
         <div className="hn-dark-header">
-          <section className="hn-hero" style={{ paddingTop: '120px', paddingBottom: '96px' }}>
+          <section className="hn-hero" style={{ paddingBottom: '96px' }}>
             <div className="hn-g hn-g1" /><div className="hn-g hn-g2" /><div className="hn-g hn-g3" />
             <p className="hn-hero-eyebrow">Muslim Services Directory</p>
             <h1 className="hn-h1" style={{ fontSize: '44px' }}>Submit Your Service</h1>
             <p className="hn-sub" style={{ maxWidth: '460px' }}>
-              Reach Minnesota Muslims looking for trusted local services. Listing is free and reviewed before publication.
+              Reach Minnesota Muslims looking for local services. Listing is free and every submission is reviewed before publication.
             </p>
           </section>
         </div>
@@ -161,7 +161,7 @@ export default function Submit() {
                 <div className="sf-group">
                   <label className="sf-label" htmlFor="category">Category <span className="sf-req">*</span></label>
                   <select className="sf-input sf-select" id="category" name="category" value={form.category} onChange={handleChange}>
-                    <option value="">Select a category…</option>
+                    <option value="">Choose a category</option>
                     {CATEGORIES.map(cat => <option key={cat.id} value={cat.id}>{cat.name}</option>)}
                   </select>
                 </div>
@@ -221,7 +221,7 @@ export default function Submit() {
                 </div>
 
                 <button type="submit" className="sf-submit" disabled={loading}>
-                  {loading ? 'Submitting…' : 'Submit for Review'}
+                  {loading ? 'Submitting…' : 'Submit Service'}
                 </button>
                 <p className="sf-note">Free to list • Reviewed before publication</p>
 
