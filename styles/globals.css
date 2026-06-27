@@ -566,7 +566,7 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
    LISTING DETAIL PAGE — ld-* namespace
    ============================================================ */
 
-.ld-page { max-width: 1060px; margin: 0 auto; padding: 40px 40px 96px; }
+.ld-page { max-width: 1060px; margin: 0 auto; padding: 112px 40px 96px; }
 
 /* Breadcrumb */
 .ld-breadcrumb { margin-bottom: 28px; }
@@ -622,7 +622,7 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
 
 /* RESPONSIVE */
 @media (max-width: 820px) {
-  .ld-page { padding: 24px 20px 64px; }
+  .ld-page { padding: 96px 20px 64px; }
   .ld-layout { grid-template-columns: 1fr; }
   .ld-sidebar { position: static; }
   .ld-related-grid { grid-template-columns: 1fr; }
