@@ -52,16 +52,17 @@ const CHIP_CATS = [
 ]
 
 const PLACEHOLDERS = [
-  'Photographer…',
-  'Tutor…',
-  'Contractor…',
-  'Accountant…',
-  'Therapist…',
-  'Web Designer…',
-  'Home Cleaning…',
-  'Event Planner…',
-  'Graphic Designer…',
-  'Quran Teacher…',
+  'Wedding Photographer...',
+  'Quran Teacher...',
+  'Math Tutor...',
+  'Home Cleaning...',
+  'Tax Accountant...',
+  'Therapist...',
+  'Web Designer...',
+  'Handyman...',
+  'Immigration Lawyer...',
+  'Event Planner...',
+  'Graphic Designer...',
 ]
 
 export default function Services() {
@@ -181,7 +182,7 @@ export default function Services() {
             <p className="hn-hero-eyebrow">Muslim Services Directory</p>
 
             <h1 className="hn-h1">
-              Find trusted Muslim<br />services in Minnesota
+              Find Trusted<br />Muslim Services
             </h1>
 
             <p className="hn-sub">
@@ -203,18 +204,6 @@ export default function Services() {
               </div>
             </div>
 
-            {/* Category chips — filter the directory */}
-            <div className="hn-chips">
-              {CHIP_CATS.map(chip => (
-                <button
-                  key={chip.id}
-                  className={`hn-chip sv-chip-filter${activeCat === chip.id ? ' sv-chip-active' : ''}`}
-                  onClick={() => toggleCat(chip.id)}
-                >
-                  {chip.label}
-                </button>
-              ))}
-            </div>
           </section>
         </div>
 
