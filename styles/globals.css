@@ -542,40 +542,42 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
 
 /* MOBILE */
 @media (max-width: 900px) {
-  /* Layout */
-  .sv-body { grid-template-columns: 1fr; padding: 24px 16px 64px; }
-  .sv-sidebar { display: none; }
-  .sv-main { padding-left: 0; }
+  /* Layout — single column, no sidebar */
+  .sv-body { grid-template-columns: 1fr !important; padding: 24px 16px 64px !important; width: 100%; box-sizing: border-box; }
+  .sv-sidebar { display: none !important; }
+  .sv-main { padding-left: 0 !important; width: 100%; min-width: 0; }
 
   /* Category pills */
-  .sv-pills-mobile { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 18px; scrollbar-width: none; -ms-overflow-style: none; -webkit-overflow-scrolling: touch; }
+  .sv-pills-mobile { display: flex !important; gap: 8px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 18px; scrollbar-width: none; -ms-overflow-style: none; -webkit-overflow-scrolling: touch; width: 100%; }
   .sv-pills-mobile::-webkit-scrollbar { display: none; }
-  .sv-pill { flex-shrink: 0; background: #F8FAFC; border: 1.5px solid #EDF2F7; color: #6B7A8D; font-size: 12.5px; font-weight: 600; padding: 8px 16px; border-radius: 40px; cursor: pointer; font-family: 'Poppins', sans-serif; transition: all .18s; white-space: nowrap; }
+  .sv-pill { flex-shrink: 0; background: #F8FAFC; border: 1.5px solid #EDF2F7; color: #6B7A8D; font-size: 12.5px; font-weight: 600; padding: 8px 16px; border-radius: 40px; cursor: pointer; font-family: 'Poppins', sans-serif; white-space: nowrap; }
   .sv-pill-active { background: #F0FDFA; border-color: rgba(12,165,165,0.4); color: #0CA5A5; font-weight: 700; }
+
+  /* Grid — single column */
+  .sv-grid { grid-template-columns: 1fr !important; gap: 12px; width: 100%; }
+  .sv-loading { grid-template-columns: 1fr !important; }
+
+  /* Cards */
+  .sv-card { padding: 16px 16px 14px; border-radius: 14px; width: 100%; box-sizing: border-box; overflow: hidden; }
+  .sv-card-name { font-size: 15px; word-break: break-word; white-space: normal; }
+  .sv-card-provider { white-space: normal; overflow: visible; text-overflow: unset; }
+  .sv-card-desc { font-size: 13px; }
+  .sv-card-footer { flex-wrap: wrap; gap: 6px; }
+  .sv-card-area { max-width: 100%; white-space: normal; font-size: 11.5px; }
+  .sv-card-cta { flex-shrink: 0; }
 
   /* Results toolbar */
   .sv-results-head { margin-bottom: 16px; }
 }
 
 @media (max-width: 768px) {
-  /* Hero */
-  .sv-hero { padding: 108px 16px 60px; }
-  .sv-hero-h1 { font-size: 36px; letter-spacing: -1.2px; line-height: 1.12; }
-  .sv-hero-sub { font-size: 14px; margin-bottom: 24px; }
-  .sv-search-box { padding: 9px 10px 9px 16px; }
-  .sv-search-input { font-size: 13.5px; }
-  .sv-search-input::placeholder { font-size: 12.5px; }
-  .sv-search-wrap { max-width: 100%; }
-  .sv-search-box { width: 100%; box-sizing: border-box; }
-
-  /* Cards — single column, comfortable padding */
-  .sv-grid { grid-template-columns: 1fr; gap: 12px; }
-  .sv-loading { grid-template-columns: 1fr; }
-  .sv-card { padding: 18px 18px 14px; border-radius: 14px; }
-  .sv-card-name { font-size: 15px; }
-  .sv-card-desc { font-size: 13px; -webkit-line-clamp: 3; }
-  .sv-card-area { font-size: 11.5px; max-width: 55%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .sv-card-footer { gap: 8px; }
+  /* Hero — uses hn-hero class, override for services context */
+  .hn-dark-header .hn-hero { padding: 108px 20px 64px; }
+  .hn-dark-header .hn-h1 { font-size: 38px; letter-spacing: -1.5px; line-height: 1.12; }
+  .hn-dark-header .hn-sub { font-size: 14px; max-width: 100%; }
+  .sv-search-wrap { max-width: 100%; padding: 0; }
+  .sv-search-box { width: 100%; box-sizing: border-box; padding: 9px 10px 9px 14px; }
+  .sv-search-input { font-size: 13px; min-width: 0; }
 
   /* CTA bar */
   .sv-cta-bar { padding: 44px 20px; }
