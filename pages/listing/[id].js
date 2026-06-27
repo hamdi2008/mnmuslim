@@ -105,14 +105,6 @@ export default function ListingDetail({ listing }) {
         {/* PAGE CONTENT */}
         <div className="ld-page">
 
-          {/* ← Back to Services */}
-          <div className="ld-breadcrumb">
-            <Link href="/services" className="ld-back">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><polyline points="15 18 9 12 15 6"/></svg>
-              Back to Services
-            </Link>
-          </div>
-
           <div className="ld-layout">
 
             {/* Main */}
@@ -132,6 +124,14 @@ export default function ListingDetail({ listing }) {
                     {listing.service_area}
                   </span>
                 </div>
+              </div>
+
+              {/* Back link */}
+              <div className="ld-breadcrumb">
+                <Link href="/services" className="ld-back">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+                  Back to Services
+                </Link>
               </div>
 
               {/* About */}
