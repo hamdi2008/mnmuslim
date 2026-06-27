@@ -109,13 +109,13 @@ export default function Home() {
           )}
 
           {/* HERO */}
-          <section className="hn-hero" style={{ padding: isMobile ? '120px 24px 96px' : undefined }}>
+          <section className="hn-hero">
             <div className="hn-g hn-g1" /><div className="hn-g hn-g2" /><div className="hn-g hn-g3" />
-            <p className="hn-hero-eyebrow" style={{ marginBottom: isMobile ? '20px' : undefined }}>The digital home for Muslims in Minnesota</p>
-            <h1 className="hn-h1" style={isMobile ? { fontSize: '34px', letterSpacing: '-1px', lineHeight: '1.2', marginBottom: '22px' } : undefined}>
+            <p className="hn-hero-eyebrow">The digital home for Muslims in Minnesota</p>
+            <h1 className="hn-h1">
               Everything Minnesota<br />Muslims need
             </h1>
-            <p className="hn-sub" style={isMobile ? { fontSize: '15px', lineHeight: '1.8', maxWidth: '300px', marginBottom: '0' } : undefined}>
+            <p className="hn-sub">
               Discover Muslim services, halal food, businesses, and community resources across Minnesota — all in one place.
             </p>
           </section>
@@ -158,7 +158,7 @@ export default function Home() {
           <div className="hn-eco-inner">
             <div className="hn-section-head hn-reveal">
               <h2 className="hn-section-h2" style={{ textAlign: 'center' }}>Explore the MNMuslim Ecosystem</h2>
-              <p className="hn-section-sub">Two products. One platform. Built for Minnesota Muslims.</p>
+              <p className="hn-section-sub">Two ways to discover what Minnesota's Muslim community has to offer.</p>
             </div>
             <div className="hn-eco-grid">
               <Link href="/services" className="hn-ecard hn-ec-teal hn-reveal hn-reveal-d1" style={{ textDecoration: 'none' }}>
