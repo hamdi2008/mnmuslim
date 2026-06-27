@@ -219,6 +219,20 @@ export default function Services() {
           </section>
         </div>
 
+        {/* Mobile filter — only visible on mobile */}
+        <div className="sv-mobile-filter">
+          <select
+            className="sv-cat-select"
+            value={activeCat}
+            onChange={e => setActiveCat(e.target.value)}
+          >
+            <option value="">Filter by Category</option>
+            {CATEGORIES.map(cat => (
+              <option key={cat.id} value={cat.id}>{cat.name}</option>
+            ))}
+          </select>
+        </div>
+
         {/* ── DIRECTORY ── */}
         <div className="sv-body">
 
