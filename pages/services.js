@@ -4,6 +4,18 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { CATEGORIES, getCategoryById } from '../lib/categories'
 
+// Daily seed shuffle — rotates order each day, stable within the day
+function seededShuffle(arr) {
+  const today = new Date()
+  const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate()
+  const a = [...arr]
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.abs((seed * (i + 1) * 2654435761) % (i + 1))
+    ;[a[i], a[j]] = [a[j], a[i]]
+  }
+  return a
+}
+
 function TrustBadges({ listing }) {
   const badges = []
   if (listing.owner_submitted)  badges.push('Owner Submitted')
@@ -101,7 +113,7 @@ export default function Services() {
     try {
       const res  = await fetch(`/api/listings?${params.toString()}`)
       const data = await res.json()
-      setListings(Array.isArray(data) ? data : [])
+      setListings(Array.isArray(data) ? seededShuffle(data) : [])
     } catch { setListings([]) }
     finally  { setLoading(false) }
   }, [search, activeCat])
