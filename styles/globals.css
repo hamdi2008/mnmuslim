@@ -246,11 +246,11 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
   .hn-logo-img { width: 120px; height: auto; }
 
   /* 1. HERO — more room, better readability */
-  .hn-hero { padding: 116px 24px 88px; }
+  .hn-hero { padding: 140px 24px 100px; } /* v2 */
   .hn-dark-header { background: #071423; }
-  .hn-h1 { font-size: 36px; letter-spacing: -1.2px; line-height: 1.18; margin-bottom: 24px; }
+  .hn-h1 { font-size: 34px !important; letter-spacing: -1.2px; line-height: 1.2 !important; margin-bottom: 28px !important; } /* v2 */
   .hn-hero-eyebrow { margin-bottom: 24px; font-size: 10px; }
-  .hn-sub { font-size: 15px; margin-bottom: 0; max-width: 340px; line-height: 1.8; padding-bottom: 0; margin-left: auto; margin-right: auto; }
+  .hn-sub { font-size: 15px !important; margin-bottom: 0 !important; max-width: 320px !important; line-height: 1.85 !important; padding-bottom: 0; margin-left: auto; margin-right: auto; } /* v2 */
 
   /* 2. ABOUT — breathing room */
   .hn-about { padding: 72px 24px; }
