@@ -113,8 +113,12 @@ export default function Services() {
     try {
       const res  = await fetch(`/api/listings?${params.toString()}`)
       const data = await res.json()
+      console.log('[listings] status:', res.status, 'count:', Array.isArray(data) ? data.length : data)
       setListings(Array.isArray(data) ? seededShuffle(data) : [])
-    } catch { setListings([]) }
+    } catch(err) {
+      console.error('[listings] fetch error:', err)
+      setListings([])
+    }
     finally  { setLoading(false) }
   }, [search, activeCat])
 
