@@ -296,7 +296,7 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
 
   /* FOOTER */
   .hn-footer { padding: 48px 20px 28px; }
-  .hn-footer-top { grid-template-columns: 1fr; gap: 32px; }
+  .hn-footer-top { grid-template-columns: 1fr; gap: 44px; }
   .hn-footer-logo-img { height: 32px; }
   .hn-footer-cols { grid-template-columns: 1fr 1fr; gap: 28px; }
   .hn-footer-col-title { font-size: 10px; margin-bottom: 14px; }
@@ -537,6 +537,8 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
 .sv-empty-sub { font-size: 13.5px; color: #7A8FA6; margin-bottom: 24px; line-height: 1.6; }
 .sv-empty-reset { background: transparent; border: 1.5px solid #0CA5A5; color: #0CA5A5; font-size: 13px; font-weight: 700; padding: 10px 24px; border-radius: 40px; cursor: pointer; font-family: 'Poppins', sans-serif; transition: all .18s; }
 .sv-empty-reset:hover { background: #0CA5A5; color: #fff; }
+.sv-empty-cta { display: inline-flex; align-items: center; background: #0CA5A5; color: #fff; font-size: 13px; font-weight: 700; padding: 11px 24px; border-radius: 40px; text-decoration: none; font-family: 'Poppins', sans-serif; transition: all .18s; }
+.sv-empty-cta:hover { background: #0bbdbd; transform: translateY(-2px); }
 
 /* CTA BANNER */
 .sv-cta-bar { background: #071423; padding: 56px; border-top: 1px solid rgba(255,255,255,0.05); }
@@ -557,12 +559,13 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
 /* MOBILE */
 @media (max-width: 900px) {
   /* Mobile filter row */
-  .sv-mobile-filter { display: flex !important; gap: 10px; align-items: center; padding: 16px 16px 12px; background: #fff; flex-wrap: wrap; }
-  .sv-mobile-list-btn { display: inline-flex !important; }
+  .sv-mobile-filter { display: flex !important; gap: 10px; align-items: stretch; padding: 16px 16px 0; background: #fff; flex-wrap: nowrap; }
+  .sv-cat-select { height: 46px !important; font-size: 13px; flex: 1; }
+  .sv-mobile-list-btn { display: inline-flex !important; height: 46px !important; padding: 0 14px; font-size: 12px; border-radius: 10px; align-items: center; flex-shrink: 0; }
   .sv-results-head-desktop { display: none !important; }
 
   /* Layout — single column, no sidebar */
-  .sv-body { grid-template-columns: 1fr !important; padding: 24px 16px 64px !important; width: 100%; box-sizing: border-box; }
+  .sv-body { grid-template-columns: 1fr !important; padding: 20px 16px 64px !important; width: 100%; box-sizing: border-box; }
   .sv-sidebar { display: none !important; }
   .sv-main { padding-left: 0 !important; width: 100%; min-width: 0; }
 
