@@ -676,7 +676,7 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
 .sf-submit { width: 100%; background: #0CA5A5; color: #fff; font-size: 14.5px; font-weight: 700; padding: 17px; border: none; border-radius: 12px; cursor: pointer; font-family: 'Poppins', sans-serif; transition: all .18s; letter-spacing: .02em; margin-top: 8px; box-shadow: 0 2px 14px rgba(12,165,165,0.25); }
 .sf-submit:hover:not(:disabled) { background: #0bbdbd; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(12,165,165,0.35); }
 .sf-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-.sf-note { font-size: 11.5px; color: #94A3B8; text-align: center; margin-top: 14px; line-height: 1.6; }
+.sf-note { font-size: 12px; color: #6B7A8D; text-align: center; margin-top: 14px; line-height: 1.6; font-weight: 500; }
 .sf-success-btns { display: flex; flex-direction: column; gap: 10px; align-items: center; }
 .sf-success-btn-sec { background: transparent; border: 1.5px solid #0CA5A5; color: #0CA5A5; font-size: 14px; font-weight: 700; padding: 12px 28px; border-radius: 40px; cursor: pointer; font-family: 'Poppins', sans-serif; transition: all .18s; }
 .sf-success-btn-sec:hover { background: #F0FDFA; }
