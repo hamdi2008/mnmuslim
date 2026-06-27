@@ -22,7 +22,7 @@ export async function getStaticProps({ params }) {
     .eq('category', data.category).neq('id', data.id).limit(4)
   const related = (relatedRaw || []).filter(r => r.id !== data.id && r.service_name !== data.service_name)
 
-  return { props: { listing: data, related: related }, revalidate: 60 }
+  return { props: { listing: data, related: related }, revalidate: 1 }
 }
 
 function cleanUrl(url) {
