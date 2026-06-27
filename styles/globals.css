@@ -493,8 +493,13 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
 
 /* MAIN */
 .sv-main { padding-left: 36px; }
-.sv-pills-wrapper { display: none; }
 .sv-pills-mobile { display: none; }
+
+/* Mobile filter — hidden on desktop */
+.sv-mobile-filter { display: none; }
+.sv-mobile-filter-inner { display: flex; align-items: center; gap: 10px; background: #fff; border: 1.5px solid #EDF2F7; border-radius: 12px; padding: 11px 14px; cursor: pointer; }
+.sv-cat-select { flex: 1; border: none; outline: none; background: transparent; font-family: 'Poppins', sans-serif; font-size: 13.5px; font-weight: 600; color: #0D2B59; cursor: pointer; appearance: none; -webkit-appearance: none; }
+.sv-cat-select:focus { outline: none; }
 
 /* Toolbar */
 .sv-results-head { display: flex; align-items: center; justify-content: flex-end; margin-bottom: 20px; }
@@ -549,11 +554,12 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
   .sv-main { padding-left: 0 !important; width: 100%; min-width: 0; }
 
   /* Category pills */
-  .sv-pills-wrapper { display: block !important; width: 100%; background: #fff; border-bottom: 1px solid #F0F4F8; padding: 12px 16px; box-sizing: border-box; }
-  .sv-pills-mobile { display: flex !important; gap: 8px; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; -webkit-overflow-scrolling: touch; width: 100%; }
+  /* Mobile category filter */
+  .sv-mobile-filter { display: block !important; padding: 0 0 16px; }
+  .sv-mobile-filter-inner { border-color: #EDF2F7; }
+  .sv-mobile-filter-inner:focus-within { border-color: rgba(12,165,165,0.5); box-shadow: 0 0 0 3px rgba(12,165,165,0.08); }
   .sv-pills-mobile::-webkit-scrollbar { display: none; }
-  .sv-pill { flex-shrink: 0; background: #F8FAFC; border: 1.5px solid #EDF2F7; color: #6B7A8D; font-size: 12px; font-weight: 600; padding: 7px 14px; border-radius: 40px; cursor: pointer; font-family: 'Poppins', sans-serif; white-space: nowrap; line-height: 1; }
-  .sv-pill-active { background: #0CA5A5 !important; border-color: #0CA5A5 !important; color: #fff !important; font-weight: 700; }
+
 
   /* Grid — single column */
   .sv-grid { grid-template-columns: 1fr !important; gap: 12px; width: 100%; }
