@@ -140,24 +140,6 @@ export default function Home() {
             Discover trusted Muslim services, halal food, businesses, and community resources across Minnesota—all in one place.
           </p>
 
-          <div className="hn-search-wrap">
-            <div className="hn-search-box">
-              <svg className="hn-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-              <input
-                className="hn-search-input"
-                placeholder={placeholders[phIdx]}
-                value={search}
-                onChange={e => setSearch(e.target.value)}
-              />
-              <button className="hn-search-btn">Search</button>
-            </div>
-          </div>
-
-          <div className="hn-chips">
-            <Link href="/services" className="hn-chip">Services</Link>
-            <a href="https://mnhalal.com" className="hn-chip" target="_blank" rel="noopener noreferrer">Halal Food</a>
-            <Link href="/services" className="hn-chip">Businesses</Link>
-          </div>
         </section>
         </div>
 
