@@ -548,10 +548,10 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
   .sv-main { padding-left: 0 !important; width: 100%; min-width: 0; }
 
   /* Category pills */
-  .sv-pills-mobile { display: flex !important; gap: 8px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 18px; scrollbar-width: none; -ms-overflow-style: none; -webkit-overflow-scrolling: touch; width: 100%; }
+  .sv-pills-mobile { display: flex !important; gap: 8px; overflow-x: auto; padding-bottom: 12px; margin-bottom: 16px; scrollbar-width: none; -ms-overflow-style: none; -webkit-overflow-scrolling: touch; width: 100%; border-bottom: 1px solid #F0F4F8; }
   .sv-pills-mobile::-webkit-scrollbar { display: none; }
-  .sv-pill { flex-shrink: 0; background: #F8FAFC; border: 1.5px solid #EDF2F7; color: #6B7A8D; font-size: 12.5px; font-weight: 600; padding: 8px 16px; border-radius: 40px; cursor: pointer; font-family: 'Poppins', sans-serif; white-space: nowrap; }
-  .sv-pill-active { background: #F0FDFA; border-color: rgba(12,165,165,0.4); color: #0CA5A5; font-weight: 700; }
+  .sv-pill { flex-shrink: 0; background: #F8FAFC; border: 1.5px solid #EDF2F7; color: #6B7A8D; font-size: 12px; font-weight: 600; padding: 7px 14px; border-radius: 40px; cursor: pointer; font-family: 'Poppins', sans-serif; white-space: nowrap; line-height: 1; }
+  .sv-pill-active { background: #0CA5A5 !important; border-color: #0CA5A5 !important; color: #fff !important; font-weight: 700; }
 
   /* Grid — single column */
   .sv-grid { grid-template-columns: 1fr !important; gap: 12px; width: 100%; }
