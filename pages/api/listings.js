@@ -16,7 +16,7 @@ export default async function handler(req, res) {
 
     if (search) {
       query = query.or(
-        `service_name.ilike.%${search}%,provider_name.ilike.%${search}%,description.ilike.%${search}%,service_area.ilike.%${search}%`
+        `service_name.ilike.%${search}%,provider_name.ilike.%${search}%,service_area.ilike.%${search}%`
       )
     }
 
