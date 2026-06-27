@@ -32,7 +32,7 @@ function TrustBadges({ listing }) {
 function ListingCard({ listing }) {
   const cat = getCategoryById(listing.category)
   return (
-    <Link href={`/listing/${listing.id}`} className="sv-card" target="_blank" rel="noopener noreferrer">
+    <Link href={`/listing/${listing.id}`} className="sv-card">
       <div className="sv-card-top">
         <span className="sv-card-badge">{cat.name}</span>
       </div>
