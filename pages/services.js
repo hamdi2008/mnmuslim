@@ -182,11 +182,11 @@ export default function Services() {
             <p className="hn-hero-eyebrow">Muslim Services Directory</p>
 
             <h1 className="hn-h1">
-              Find Trusted<br />Muslim Services
+              Find Muslim Services
             </h1>
 
             <p className="hn-sub">
-              Discover Muslim-owned businesses, freelancers, and service providers across Minnesota.
+              Find the services you need from Minnesota’s Muslim community.
             </p>
 
             {/* Exact homepage search component */}
