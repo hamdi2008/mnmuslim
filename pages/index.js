@@ -6,6 +6,13 @@ import { useRouter } from 'next/router'
 export default function Home() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 768)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
   const router = useRouter()
 
   useEffect(() => {
@@ -102,14 +109,14 @@ export default function Home() {
           )}
 
           {/* HERO */}
-          <section className="hn-hero">
+          <section className="hn-hero" style={{ padding: isMobile ? '120px 24px 96px' : undefined }}>
             <div className="hn-g hn-g1" /><div className="hn-g hn-g2" /><div className="hn-g hn-g3" />
-            <p className="hn-hero-eyebrow">The digital home for Muslims in Minnesota</p>
-            <h1 className="hn-h1">
+            <p className="hn-hero-eyebrow" style={{ marginBottom: isMobile ? '20px' : undefined }}>The digital home for Muslims in Minnesota</p>
+            <h1 className="hn-h1" style={isMobile ? { fontSize: '34px', letterSpacing: '-1px', lineHeight: '1.2', marginBottom: '22px' } : undefined}>
               Everything Minnesota<br />Muslims need
             </h1>
-            <p className="hn-sub">
-              Discover Muslim services, halal food, businesses, and<br />community resources across Minnesota — all in one place.
+            <p className="hn-sub" style={isMobile ? { fontSize: '15px', lineHeight: '1.8', maxWidth: '300px', marginBottom: '0' } : undefined}>
+              Discover Muslim services, halal food, businesses, and community resources across Minnesota — all in one place.
             </p>
           </section>
         </div>
