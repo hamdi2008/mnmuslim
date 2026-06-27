@@ -559,13 +559,13 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
 /* MOBILE */
 @media (max-width: 900px) {
   /* Mobile filter row */
-  .sv-mobile-filter { display: flex !important; gap: 10px; align-items: stretch; padding: 16px 16px 0; background: #fff; flex-wrap: nowrap; }
+  .sv-mobile-filter { display: flex !important; gap: 10px; align-items: stretch; padding: 24px 16px 0; background: #fff; flex-wrap: nowrap; }
   .sv-cat-select { height: 46px !important; font-size: 13px; flex: 1; }
   .sv-mobile-list-btn { display: inline-flex !important; height: 46px !important; padding: 0 14px; font-size: 12px; border-radius: 10px; align-items: center; flex-shrink: 0; }
   .sv-results-head-desktop { display: none !important; }
 
   /* Layout — single column, no sidebar */
-  .sv-body { grid-template-columns: 1fr !important; padding: 20px 16px 64px !important; width: 100%; box-sizing: border-box; }
+  .sv-body { grid-template-columns: 1fr !important; padding: 24px 16px 72px !important; width: 100%; box-sizing: border-box; }
   .sv-sidebar { display: none !important; }
   .sv-main { padding-left: 0 !important; width: 100%; min-width: 0; }
 
