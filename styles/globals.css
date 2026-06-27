@@ -245,65 +245,74 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
   .hn-mobile-menu { display: block; }
   .hn-logo-img { width: 120px; height: auto; }
 
-  /* HERO */
-  .hn-hero { padding: 108px 24px 80px; }
+  /* 1. HERO — more room, better readability */
+  .hn-hero { padding: 116px 24px 88px; }
   .hn-dark-header { background: #071423; }
-  .hn-h1 { font-size: 40px; letter-spacing: -1.5px; line-height: 1.12; margin-bottom: 20px; }
+  .hn-h1 { font-size: 36px; letter-spacing: -1.2px; line-height: 1.18; margin-bottom: 24px; }
   .hn-hero-eyebrow { margin-bottom: 24px; font-size: 10px; }
-  .hn-sub { font-size: 14.5px; margin-bottom: 0; max-width: 100%; line-height: 1.7; padding-bottom: 0; }
+  .hn-sub { font-size: 15px; margin-bottom: 0; max-width: 340px; line-height: 1.8; padding-bottom: 0; margin-left: auto; margin-right: auto; }
 
-  /* ABOUT */
-  .hn-about { padding: 64px 24px; }
-  .hn-about-inner { grid-template-columns: 1fr; gap: 40px; }
-  .hn-section-h2 { font-size: 28px; letter-spacing: -0.8px; }
-  .hn-about-body { font-size: 14.5px; max-width: 100%; }
-  .hn-pillar-simple { padding: 18px 0; }
+  /* 2. ABOUT — breathing room */
+  .hn-about { padding: 72px 24px; }
+  .hn-about-inner { grid-template-columns: 1fr; gap: 48px; }
+  .hn-section-h2 { font-size: 26px; letter-spacing: -0.6px; line-height: 1.25; margin-bottom: 20px; }
+  .hn-about-body { font-size: 15px; max-width: 100%; line-height: 1.85; }
+  .hn-eyebrow { margin-bottom: 16px; }
+
+  /* 3. FEATURE LIST (pillars) — more vertical space between items */
+  .hn-pillar-simple { padding: 22px 0; }
+  .hn-pillar-simple .hn-pillar-label { font-size: 14px; margin-bottom: 6px; }
+  .hn-pillar-simple .hn-pillar-desc { font-size: 13.5px; line-height: 1.7; }
   .hn-pillars { gap: 0; }
-  .hn-pillar { padding: 18px 0; }
+  .hn-pillar { padding: 22px 0; }
 
-  /* ECOSYSTEM */
-  .hn-eco { padding: 56px 20px 64px; }
-  .hn-eco-grid { grid-template-columns: 1fr; gap: 16px; }
-  .hn-ec-inner { padding: 32px 24px 28px; min-height: auto; }
+  /* 4. ECOSYSTEM — more gap, more padding, equal buttons */
+  .hn-eco { padding: 64px 20px 72px; }
+  .hn-eco-grid { grid-template-columns: 1fr; gap: 20px; }
+  .hn-ec-inner { padding: 36px 28px 32px; min-height: auto; }
   .hn-ec-name { font-size: 26px; }
   .hn-ec-desc { font-size: 14px; max-width: 100%; }
+  .hn-ec-btn { width: 100%; justify-content: center; text-align: center; box-sizing: border-box; }
 
-  /* HOW IT WORKS */
-  .hn-how { padding: 56px 20px; }
-  .hn-how-inner .hn-section-head { margin-bottom: 36px; }
-  .hn-journey { grid-template-columns: 1fr 1fr; gap: 28px 20px; }
+  /* 5. HOW IT WORKS — single column stacked */
+  .hn-how { padding: 64px 20px 72px; }
+  .hn-how-inner .hn-section-head { margin-bottom: 44px; }
+  .hn-journey { grid-template-columns: 1fr !important; gap: 36px; }
   .hn-journey-no-line .hn-journey-line { display: none; }
-.hn-journey-line { display: none; }
+  .hn-journey-line { display: none; }
   .hn-journey-step { align-items: center; text-align: center; padding: 0; }
-  .hn-journey-icon { width: 56px; height: 56px; }
-  .hn-journey-icon-wrap { margin-bottom: 14px; }
-  .hn-journey-title { font-size: 13px; }
-  .hn-journey-desc { max-width: 100%; font-size: 11.5px; }
-  .hn-journey-closing { margin-top: 28px; font-size: 12px; }
+  .hn-journey-icon { width: 64px; height: 64px; }
+  .hn-journey-icon-wrap { margin-bottom: 18px; }
+  .hn-journey-title { font-size: 15px; margin-bottom: 10px; }
+  .hn-journey-desc { max-width: 260px; font-size: 13px; line-height: 1.7; margin: 0 auto; }
+  .hn-journey-closing { margin-top: 36px; font-size: 12.5px; }
 
-  /* TRUST */
-  .hn-trust { padding: 40px 20px; }
-  .hn-trust-inner { grid-template-columns: 1fr 1fr; gap: 24px; }
-  .hn-trust-label { font-size: 12.5px; }
-  .hn-trust-sub { font-size: 11px; }
+  /* 6. TRUST — 2×2 grid */
+  .hn-trust { padding: 48px 20px; }
+  .hn-trust-inner { grid-template-columns: 1fr 1fr; gap: 32px 20px; }
+  .hn-trust-label { font-size: 13px; margin-bottom: 5px; }
+  .hn-trust-sub { font-size: 11.5px; line-height: 1.5; }
 
-  /* CTA */
-  .hn-cta { padding: 56px 20px; }
-  .hn-cta-h2 { font-size: 28px; letter-spacing: -1px; }
-  .hn-cta-sub { font-size: 13px; margin-bottom: 28px; }
-  .hn-cta-btns { flex-direction: column; align-items: center; gap: 10px; }
-  .hn-cta-btn1, .hn-cta-btn2 { width: 100%; justify-content: center; max-width: 280px; font-size: 13px; padding: 13px 20px; }
+  /* 7. CTA — generous spacing */
+  .hn-cta { padding: 72px 20px; }
+  .hn-cta-h2 { font-size: 28px; letter-spacing: -1px; margin-bottom: 16px; }
+  .hn-cta-sub { font-size: 14px; margin-bottom: 36px; line-height: 1.75; }
+  .hn-cta-btns { flex-direction: column; align-items: center; gap: 12px; }
+  .hn-cta-btn1, .hn-cta-btn2 { width: 100%; justify-content: center; max-width: 300px; font-size: 14px; padding: 14px 20px; }
+  .hn-cta-trust-line { margin-top: 32px; font-size: 12px; }
 
-  /* FOOTER */
-  .hn-footer { padding: 48px 20px 28px; }
-  .hn-footer-top { grid-template-columns: 1fr; gap: 44px; }
-  .hn-footer-logo-img { height: 32px; }
-  .hn-footer-cols { grid-template-columns: 1fr 1fr; gap: 28px; }
-  .hn-footer-col-title { font-size: 10px; margin-bottom: 14px; }
-  .hn-fl { font-size: 12px; margin-bottom: 10px; }
-  .hn-footer-bottom { flex-direction: column; align-items: flex-start; gap: 8px; }
-  .hn-fb-copy, .hn-fb-link { font-size: 11px; }
-  .hn-fb-legal { gap: 14px; }
+  /* 8. FOOTER — generous vertical spacing */
+  .hn-footer { padding: 56px 20px 40px; }
+  .hn-footer-top { grid-template-columns: 1fr; gap: 48px; }
+  .hn-footer-logo-img { height: 32px; margin-bottom: 16px; }
+  .hn-footer-tag { font-size: 13px; line-height: 1.7; margin-bottom: 6px; }
+  .hn-footer-mission { font-size: 12px; }
+  .hn-footer-cols { grid-template-columns: 1fr 1fr; gap: 32px 24px; }
+  .hn-footer-col-title { font-size: 10px; margin-bottom: 16px; }
+  .hn-fl { font-size: 13px; margin-bottom: 12px; }
+  .hn-footer-bottom { flex-direction: column; align-items: flex-start; gap: 10px; padding-top: 24px; }
+  .hn-fb-copy, .hn-fb-link { font-size: 11.5px; }
+  .hn-fb-legal { gap: 16px; }
 }
 
 
