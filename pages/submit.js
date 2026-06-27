@@ -116,7 +116,7 @@ export default function Submit() {
           <section className="hn-hero" style={{ paddingBottom: '72px' }}>
             <div className="hn-g hn-g1" /><div className="hn-g hn-g2" /><div className="hn-g hn-g3" />
             <p className="hn-hero-eyebrow">Muslim Services Directory</p>
-            <h1 className="hn-h1" style={{ fontSize: '52px' }}>List Your Service</h1>
+            <h1 className="hn-h1" style={{ fontSize: '44px' }}>List Your Service</h1>
             <p className="hn-sub" style={{ maxWidth: '460px' }}>
               Reach Minnesota Muslims looking for trusted local services. Listing is free and reviewed before publication.
             </p>
@@ -138,7 +138,7 @@ export default function Submit() {
           ) : (
             <div className="sf-card">
               <div className="sf-card-head">
-                <h2 className="sf-card-title">Service Information</h2>
+                <h2 className="sf-card-title">Service Details</h2>
                 <p className="sf-card-sub">Fields marked <span className="sf-req">*</span> are required.</p>
               </div>
 
@@ -149,7 +149,7 @@ export default function Submit() {
                 <div className="sf-group">
                   <label className="sf-label" htmlFor="service_name">Service Name <span className="sf-req">*</span></label>
                   <input className="sf-input" id="service_name" name="service_name" type="text"
-                    placeholder="e.g. Keisar Counseling, Four Squared Creamery"
+                    placeholder="e.g. Keisar Counseling, CreatorMN Studios, Four Squared Creamery"
                     value={form.service_name} onChange={handleChange} />
                 </div>
 
@@ -171,7 +171,7 @@ export default function Submit() {
                 <div className="sf-group">
                   <label className="sf-label" htmlFor="description">Description <span className="sf-req">*</span></label>
                   <textarea className="sf-input sf-textarea" id="description" name="description"
-                    placeholder="Describe what you offer, who you help, and what makes your service valuable to the community."
+                    placeholder="Describe your service, who you help, and what makes your service unique."
                     value={form.description} onChange={handleChange} />
                 </div>
 
