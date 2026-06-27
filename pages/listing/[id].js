@@ -20,7 +20,7 @@ export async function getStaticProps({ params }) {
   const { data: relatedRaw } = await supabase
     .from('listings').select('*').eq('approved', true)
     .eq('category', data.category).neq('id', data.id).limit(4)
-  const related = (relatedRaw || []).filter(r => r.id !== data.id)
+  const related = (relatedRaw || []).filter(r => r.id !== data.id && r.service_name !== data.service_name)
 
   return { props: { listing: data, related: related }, revalidate: 60 }
 }
