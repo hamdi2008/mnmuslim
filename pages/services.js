@@ -270,9 +270,22 @@ export default function Services() {
             {!loading && listings.length === 0 && (
               <div className="sv-empty">
                 <div className="sv-empty-icon">🔍</div>
-                <h3 className="sv-empty-title">No services found</h3>
-                <p className="sv-empty-sub">Try a different keyword or browse a category.</p>
-                <button className="sv-empty-reset" onClick={clearAll}>Clear Search</button>
+                <h3 className="sv-empty-title">
+                  {activeCat ? 'No listings in this category yet.' : 'No services found'}
+                </h3>
+                <p className="sv-empty-sub">
+                  {activeCat
+                    ? 'Be the first to list your service in this category.'
+                    : 'Try a different keyword or browse a different category.'}
+                </p>
+                {activeCat ? (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', alignItems: 'center' }}>
+                    <Link href="/submit" className="sv-empty-cta">List Your Service →</Link>
+                    <button className="sv-empty-reset" onClick={clearAll}>Browse all categories</button>
+                  </div>
+                ) : (
+                  <button className="sv-empty-reset" onClick={clearAll}>Clear filters</button>
+                )}
               </div>
             )}
 
