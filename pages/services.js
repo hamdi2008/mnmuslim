@@ -242,9 +242,7 @@ export default function Services() {
             <div className="sv-pills-mobile">
               <button className={`sv-pill${activeCat === '' ? ' sv-pill-active' : ''}`} onClick={() => setActiveCat('')}>All</button>
               {CATEGORIES.map(cat => (
-                <button key={cat.id} className={`sv-pill${activeCat === cat.id ? ' sv-pill-active' : ''}`} onClick={() => toggleCat(cat.id)}>
-                  {cat.icon} {cat.name}
-                </button>
+                <button key={cat.id} className={`sv-pill${activeCat === cat.id ? ' sv-pill-active' : ''}`} onClick={() => toggleCat(cat.id)}>{cat.name}</button>
               ))}
             </div>
 
