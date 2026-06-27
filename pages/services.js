@@ -177,7 +177,7 @@ export default function Services() {
                 { label: 'MNHalal', href: 'https://mnhalal.com', internal: false },
                 { label: 'Contact', href: '/contact', internal: true },
               ].map(item => item.internal
-                ? <Link key={item.label} href={item.href} onClick={() = target="_blank" rel="noopener noreferrer"> setMobileOpen(false)} style={{ color: '#fff', fontSize: '32px', fontWeight: '800', textDecoration: 'none', padding: '18px 0', borderBottom: '1px solid rgba(255,255,255,0.07)', letterSpacing: '-1px', display: 'block' }}>{item.label}</Link>
+                ? <Link key={item.label} href={item.href} onClick={() => setMobileOpen(false)} target="_blank" rel="noopener noreferrer" style={{ color: '#fff', fontSize: '32px', fontWeight: '800', textDecoration: 'none', padding: '18px 0', borderBottom: '1px solid rgba(255,255,255,0.07)', letterSpacing: '-1px', display: 'block' }}>{item.label}</Link>
                 : <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer" onClick={() => setMobileOpen(false)} style={{ color: '#fff', fontSize: '32px', fontWeight: '800', textDecoration: 'none', padding: '18px 0', borderBottom: '1px solid rgba(255,255,255,0.07)', letterSpacing: '-1px', display: 'block' }}>{item.label}</a>
               )}
             </div>
