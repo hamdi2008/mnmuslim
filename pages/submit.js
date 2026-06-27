@@ -113,10 +113,10 @@ export default function Submit() {
 
         {/* HERO */}
         <div className="hn-dark-header">
-          <section className="hn-hero" style={{ paddingBottom: '72px' }}>
+          <section className="hn-hero" style={{ paddingTop: '120px', paddingBottom: '96px' }}>
             <div className="hn-g hn-g1" /><div className="hn-g hn-g2" /><div className="hn-g hn-g3" />
             <p className="hn-hero-eyebrow">Muslim Services Directory</p>
-            <h1 className="hn-h1" style={{ fontSize: '44px' }}>List Your Service</h1>
+            <h1 className="hn-h1" style={{ fontSize: '44px' }}>Submit Your Service</h1>
             <p className="hn-sub" style={{ maxWidth: '460px' }}>
               Reach Minnesota Muslims looking for trusted local services. Listing is free and reviewed before publication.
             </p>
@@ -128,21 +128,19 @@ export default function Submit() {
           {submitted ? (
             <div className="sf-success">
               <div className="sf-success-icon">✓</div>
-              <h2 className="sf-success-title">Thank you!</h2>
+              <h2 className="sf-success-title">Submission Received</h2>
               <p className="sf-success-sub">
-                Your listing has been received and is now under review.<br /><br />
-                We&apos;ll review it before publishing it to the MNMuslim Services directory. If we need any additional information, we&apos;ll contact you using the details you provided.
+                Thank you for submitting your service.<br /><br />
+                We&apos;ll review your listing and publish approved submissions within 2–3 business days. If we need any additional information, we&apos;ll contact you using the details you provided.
               </p>
-              <Link href="/services" className="sf-success-btn">Browse Services →</Link>
+              <div className="sf-success-btns">
+                <Link href="/services" className="sf-success-btn">Browse Services →</Link>
+                <button className="sf-success-btn-sec" onClick={() => setSubmitted(false)}>Submit Another Service</button>
+              </div>
             </div>
           ) : (
             <div className="sf-card">
-              <div className="sf-card-head">
-                <h2 className="sf-card-title">Service Details</h2>
-                <p className="sf-card-sub">Fields marked <span className="sf-req">*</span> are required.</p>
-              </div>
-
-              {error && <div className="sf-error">{error}</div>}
+{error && <div className="sf-error">{error}</div>}
 
               <form onSubmit={handleSubmit} noValidate>
 
@@ -225,7 +223,7 @@ export default function Submit() {
                 <button type="submit" className="sf-submit" disabled={loading}>
                   {loading ? 'Submitting…' : 'Submit for Review'}
                 </button>
-                <p className="sf-note">Free to list. Every submission is reviewed before publication.</p>
+                <p className="sf-note">Free to list • Reviewed before publication</p>
 
               </form>
             </div>
