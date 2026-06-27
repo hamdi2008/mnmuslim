@@ -686,3 +686,21 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
   .sf-card { padding: 24px 20px; }
   .sf-row { grid-template-columns: 1fr; gap: 0; }
 }
+
+
+/* ============================================================
+   LEGAL PAGES — privacy, terms
+   ============================================================ */
+
+.legal-page { max-width: 680px; margin: 0 auto; padding: 64px 40px 96px; }
+.legal-section { margin-bottom: 48px; }
+.legal-h2 { font-size: 18px; font-weight: 800; color: #0D2B59; letter-spacing: -0.3px; margin-bottom: 12px; }
+.legal-p { font-size: 15px; color: #4A5568; line-height: 1.8; }
+.legal-link { color: #0CA5A5; text-decoration: none; font-weight: 600; }
+.legal-link:hover { color: #088888; }
+
+@media (max-width: 640px) {
+  .legal-page { padding: 44px 20px 64px; }
+  .legal-h2 { font-size: 16px; }
+  .legal-p { font-size: 14px; }
+}
