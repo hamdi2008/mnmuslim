@@ -227,10 +227,10 @@ export default function Home() {
         <section className="hn-cta">
           <div className="hn-cta-inner">
             <h2 className="hn-cta-h2">Get discovered by<br />Minnesota Muslims</h2>
-            <p className="hn-cta-sub">Help more Minnesota Muslims discover your service.</p>
+            <p className="hn-cta-sub">Help more Minnesota Muslims discover what you offer.</p>
             <div className="hn-cta-btns">
               <Link href="/submit" className="hn-cta-btn1">List Your Service</Link>
-              <a href="https://mnhalal.com/submit" className="hn-cta-btn2" target="_blank" rel="noopener noreferrer">List Halal Business</a>
+              <a href="https://mnhalal.com/submit" className="hn-cta-btn2" target="_blank" rel="noopener noreferrer">Add Your Halal Food Business</a>
             </div>
             <p className="hn-cta-trust-line">Free to list · Built for the Minnesota Muslim community</p>
           </div>
@@ -260,7 +260,7 @@ export default function Home() {
                 <div className="hn-footer-col">
                   <div className="hn-footer-col-title">Resources</div>
                   <Link href="/submit" className="hn-fl">List Your Service</Link>
-                  <a href="https://mnhalal.com/submit" className="hn-fl" target="_blank" rel="noopener noreferrer">List Halal Business</a>
+                  <a href="https://mnhalal.com/submit" className="hn-fl" target="_blank" rel="noopener noreferrer">Add Your Halal Food Business</a>
                 </div>
                 <div className="hn-footer-col">
                   <div className="hn-footer-col-title">Community</div>
