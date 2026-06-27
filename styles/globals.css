@@ -81,6 +81,8 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
 /* Right column: pillars */
 .hn-about-right { padding-top: 8px; }
 .hn-pillars { display: flex; flex-direction: column; gap: 0; }
+.hn-pillar-simple { display: flex; align-items: flex-start; gap: 0; padding: 20px 0; border-bottom: 1px solid #EDF2F7; }
+.hn-pillar-simple:first-child { border-top: 1px solid #EDF2F7; }
 .hn-pillar { display: flex; align-items: flex-start; gap: 12px; padding: 24px 0; border-bottom: 1px solid rgba(237,242,247,0.7); transition: padding-left .22s, border-color .22s; }
 .hn-pillar:first-child { border-top: 1px solid #EDF2F7; }
 .hn-pillar:hover { padding-left: 6px; border-color: #B2DEDE; }
@@ -157,6 +159,7 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
 .hn-how-inner { max-width: 960px; margin: 0 auto; }
 .hn-how-inner .hn-section-head { margin-bottom: 52px; }
 .hn-journey { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; align-items: start; }
+.hn-journey-no-line .hn-journey-line { display: none; }
 .hn-journey-line { position: absolute; top: 36px; left: calc(12.5%); right: calc(12.5%); height: 1px; background: linear-gradient(to right, transparent, #0CA5A5 20%, #B2DEDE 50%, #0CA5A5 80%, transparent); opacity: 0.4; z-index: 0; pointer-events: none; }
 .hn-journey-step { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 16px; position: relative; z-index: 1; }
 .hn-journey-icon-wrap { position: relative; margin-bottom: 22px; }
@@ -274,7 +277,8 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
   .hn-how { padding: 56px 20px; }
   .hn-how-inner .hn-section-head { margin-bottom: 36px; }
   .hn-journey { grid-template-columns: 1fr 1fr; gap: 28px 20px; }
-  .hn-journey-line { display: none; }
+  .hn-journey-no-line .hn-journey-line { display: none; }
+.hn-journey-line { display: none; }
   .hn-journey-step { align-items: center; text-align: center; padding: 0; }
   .hn-journey-icon { width: 56px; height: 56px; }
   .hn-journey-icon-wrap { margin-bottom: 14px; }
