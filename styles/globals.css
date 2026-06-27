@@ -631,3 +631,55 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
   .ld-title { font-size: 24px; }
   .ld-section { padding: 22px 20px; }
 }
+
+
+/* ============================================================
+   SUBMIT / LIST YOUR SERVICE — sf-* namespace
+   ============================================================ */
+
+.sf-page { max-width: 680px; margin: 0 auto; padding: 56px 40px 96px; }
+
+/* Success */
+.sf-success { text-align: center; padding: 64px 20px; }
+.sf-success-icon { width: 56px; height: 56px; border-radius: 50%; background: #F0FDFA; border: 2px solid rgba(12,165,165,0.25); color: #0CA5A5; font-size: 22px; font-weight: 800; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+.sf-success-title { font-size: 24px; font-weight: 900; color: #0D2B59; letter-spacing: -0.5px; margin-bottom: 10px; }
+.sf-success-sub { font-size: 14px; color: #6B7A8D; line-height: 1.75; max-width: 380px; margin: 0 auto 28px; }
+.sf-success-btn { display: inline-flex; align-items: center; background: #0CA5A5; color: #fff; font-size: 14px; font-weight: 700; padding: 12px 28px; border-radius: 40px; text-decoration: none; font-family: 'Poppins', sans-serif; transition: all .18s; }
+.sf-success-btn:hover { background: #0bbdbd; transform: translateY(-2px); }
+
+/* Card */
+.sf-card { background: #fff; border: 1.5px solid #EDF2F7; border-radius: 20px; padding: 40px; }
+.sf-card-head { margin-bottom: 28px; }
+.sf-card-title { font-size: 18px; font-weight: 800; color: #0D2B59; letter-spacing: -0.3px; margin-bottom: 4px; }
+.sf-card-sub { font-size: 13px; color: #94A3B8; }
+
+/* Error */
+.sf-error { background: #FFF5F5; border: 1px solid #FEB2B2; color: #C53030; font-size: 13px; font-weight: 600; padding: 12px 16px; border-radius: 10px; margin-bottom: 20px; }
+
+/* Form elements */
+.sf-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 20px; }
+.sf-label { font-size: 13px; font-weight: 700; color: #0D2B59; letter-spacing: -0.1px; }
+.sf-req { color: #0CA5A5; }
+.sf-opt { font-size: 11.5px; font-weight: 400; color: #94A3B8; margin-left: 4px; }
+.sf-input { width: 100%; font-size: 13.5px; font-family: 'Poppins', sans-serif; color: #0D2B59; background: #F8FAFC; border: 1.5px solid #EDF2F7; border-radius: 10px; padding: 10px 14px; outline: none; transition: border-color .18s, box-shadow .18s; box-sizing: border-box; }
+.sf-input:focus { border-color: rgba(12,165,165,0.5); background: #fff; box-shadow: 0 0 0 4px rgba(12,165,165,0.08); }
+.sf-input::placeholder { color: #B0BEC8; }
+.sf-select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2394A3B8' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; cursor: pointer; }
+.sf-textarea { min-height: 110px; resize: vertical; line-height: 1.65; }
+.sf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+/* Divider + section label */
+.sf-divider { border: none; border-top: 1px solid #F0F4F8; margin: 8px 0 20px; }
+.sf-section-label { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #94A3B8; margin-bottom: 18px; }
+
+/* Submit */
+.sf-submit { width: 100%; background: #0CA5A5; color: #fff; font-size: 14.5px; font-weight: 700; padding: 14px; border: none; border-radius: 12px; cursor: pointer; font-family: 'Poppins', sans-serif; transition: all .18s; letter-spacing: .02em; margin-top: 8px; box-shadow: 0 2px 14px rgba(12,165,165,0.25); }
+.sf-submit:hover:not(:disabled) { background: #0bbdbd; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(12,165,165,0.35); }
+.sf-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+.sf-note { font-size: 11.5px; color: #94A3B8; text-align: center; margin-top: 14px; line-height: 1.6; }
+
+@media (max-width: 640px) {
+  .sf-page { padding: 40px 16px 64px; }
+  .sf-card { padding: 24px 20px; }
+  .sf-row { grid-template-columns: 1fr; gap: 0; }
+}
