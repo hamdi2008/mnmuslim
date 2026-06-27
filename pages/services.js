@@ -20,7 +20,7 @@ function TrustBadges({ listing }) {
 function ListingCard({ listing }) {
   const cat = getCategoryById(listing.category)
   return (
-    <Link href={`/listing/${listing.id}`} className="sv-card" style={{ textDecoration: 'none' }}>
+    <Link href={`/listing/${listing.id}`} className="sv-card">
       <div className="sv-card-top">
         <span className="sv-card-badge">{cat.icon} {cat.name}</span>
       </div>
@@ -42,12 +42,13 @@ function ListingCard({ listing }) {
 }
 
 export default function Services() {
-  const [mobileOpen, setMobileOpen] = useState(false)
-  const [scrolled, setScrolled]     = useState(false)
-  const [listings, setListings]     = useState([])
-  const [loading, setLoading]       = useState(true)
-  const [search, setSearch]         = useState('')
-  const [activeCat, setActiveCat]   = useState('')
+  const [mobileOpen, setMobileOpen]   = useState(false)
+  const [scrolled, setScrolled]       = useState(false)
+  const [listings, setListings]       = useState([])
+  const [loading, setLoading]         = useState(true)
+  const [search, setSearch]           = useState('')
+  const [activeCat, setActiveCat]     = useState('')
+  const [catOpen, setCatOpen]         = useState(false)
   const router = useRouter()
 
   useEffect(() => {
@@ -81,6 +82,9 @@ export default function Services() {
   }, [fetchListings])
 
   function toggleCat(id) { setActiveCat(prev => prev === id ? '' : id) }
+  function clearAll()    { setSearch(''); setActiveCat('') }
+
+  const activeCatName = activeCat ? getCategoryById(activeCat)?.name : ''
 
   return (
     <>
@@ -104,11 +108,10 @@ export default function Services() {
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <Link href="/contact" className="hn-contact">Contact <span aria-hidden="true">→</span></Link>
             <button className="hn-mobile-menu" onClick={() => setMobileOpen(!mobileOpen)} aria-label="Toggle menu">
-              {mobileOpen ? (
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-              ) : (
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
-              )}
+              {mobileOpen
+                ? <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                : <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
+              }
             </button>
           </div>
         </nav>
@@ -128,16 +131,15 @@ export default function Services() {
                 { label: 'Services', href: '/services', internal: true },
                 { label: 'MNHalal', href: 'https://mnhalal.com', internal: false },
                 { label: 'Contact', href: '/contact', internal: true },
-              ].map(item => item.internal ? (
-                <Link key={item.label} href={item.href} onClick={() => setMobileOpen(false)} style={{ color: '#fff', fontSize: '32px', fontWeight: '800', textDecoration: 'none', padding: '18px 0', borderBottom: '1px solid rgba(255,255,255,0.07)', letterSpacing: '-1px', display: 'block' }}>{item.label}</Link>
-              ) : (
-                <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer" onClick={() => setMobileOpen(false)} style={{ color: '#fff', fontSize: '32px', fontWeight: '800', textDecoration: 'none', padding: '18px 0', borderBottom: '1px solid rgba(255,255,255,0.07)', letterSpacing: '-1px', display: 'block' }}>{item.label}</a>
-              ))}
+              ].map(item => item.internal
+                ? <Link key={item.label} href={item.href} onClick={() => setMobileOpen(false)} style={{ color: '#fff', fontSize: '32px', fontWeight: '800', textDecoration: 'none', padding: '18px 0', borderBottom: '1px solid rgba(255,255,255,0.07)', letterSpacing: '-1px', display: 'block' }}>{item.label}</Link>
+                : <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer" onClick={() => setMobileOpen(false)} style={{ color: '#fff', fontSize: '32px', fontWeight: '800', textDecoration: 'none', padding: '18px 0', borderBottom: '1px solid rgba(255,255,255,0.07)', letterSpacing: '-1px', display: 'block' }}>{item.label}</a>
+              )}
             </div>
           </div>
         )}
 
-        {/* HERO */}
+        {/* HERO — compact */}
         <section className="sv-hero">
           <div className="sv-hero-glow" />
           <div className="sv-hero-inner">
@@ -149,7 +151,7 @@ export default function Services() {
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" style={{ color: 'rgba(255,255,255,0.4)', flexShrink: 0 }}><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                 <input
                   className="sv-search-input"
-                  placeholder="Search services, businesses, or keywords..."
+                  placeholder="Search for a photographer, tutor, contractor, or keyword..."
                   value={search}
                   onChange={e => setSearch(e.target.value)}
                 />
@@ -166,7 +168,7 @@ export default function Services() {
         {/* DIRECTORY */}
         <div className="sv-body">
 
-          {/* Sidebar */}
+          {/* Sticky sidebar — desktop */}
           <aside className="sv-sidebar">
             <div className="sv-sidebar-label">Categories</div>
             <button className={`sv-cat-btn${activeCat === '' ? ' sv-cat-active' : ''}`} onClick={() => setActiveCat('')}>
@@ -182,7 +184,7 @@ export default function Services() {
           {/* Main */}
           <main className="sv-main">
 
-            {/* Mobile pills */}
+            {/* Mobile: horizontal scrollable category chips */}
             <div className="sv-pills-mobile">
               <button className={`sv-pill${activeCat === '' ? ' sv-pill-active' : ''}`} onClick={() => setActiveCat('')}>All</button>
               {CATEGORIES.map(cat => (
@@ -192,15 +194,9 @@ export default function Services() {
               ))}
             </div>
 
-            {/* Results bar */}
+            {/* Toolbar — List Your Service only, no count */}
             <div className="sv-results-head">
-              {!loading && (
-                <p className="sv-results-count">
-                  {listings.length === 0
-                    ? 'No listings found'
-                    : `${listings.length} listing${listings.length !== 1 ? 's' : ''}${activeCat ? ` · ${getCategoryById(activeCat).name}` : ''}${search ? ` · "${search}"` : ''}`}
-                </p>
-              )}
+              <div />
               <Link href="/submit" className="sv-list-btn">+ List Your Service</Link>
             </div>
 
@@ -211,13 +207,13 @@ export default function Services() {
               </div>
             )}
 
-            {/* Empty */}
+            {/* Empty state */}
             {!loading && listings.length === 0 && (
               <div className="sv-empty">
                 <div className="sv-empty-icon">🔍</div>
-                <h3 className="sv-empty-title">No listings found</h3>
-                <p className="sv-empty-sub">Try a different search term or browse all categories.</p>
-                <button className="sv-empty-reset" onClick={() => { setSearch(''); setActiveCat('') }}>Clear filters</button>
+                <h3 className="sv-empty-title">No services found</h3>
+                <p className="sv-empty-sub">Try a different keyword or browse a category.</p>
+                <button className="sv-empty-reset" onClick={clearAll}>Clear Search</button>
               </div>
             )}
 
