@@ -1,145 +1,246 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
+import { useRouter } from 'next/router'
 import { CATEGORIES } from '../lib/categories'
 
 export default function Submit() {
+  const [scrolled, setScrolled] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const router = useRouter()
+
   const [form, setForm] = useState({
-    service_name: '',
-    provider_name: '',
-    category: '',
-    description: '',
-    service_area: '',
-    phone: '',
-    email: '',
-    website: '',
-    instagram: '',
+    service_name: '', provider_name: '', category: '',
+    description: '', service_area: '', phone: '',
+    email: '', website: '', instagram: '',
   })
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
+  const [loading, setLoading]   = useState(false)
+  const [error, setError]       = useState('')
   const [submitted, setSubmitted] = useState(false)
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40)
+    window.addEventListener('scroll', onScroll)
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
   function handleChange(e) {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
   async function handleSubmit(e) {
     e.preventDefault()
     setError('')
-    const required = ['service_name', 'provider_name', 'category', 'description']
-    for (const field of required) {
-      if (!form[field].trim()) {
-        setError('Please fill in all required fields.')
-        return
-      }
+    for (const f of ['service_name', 'provider_name', 'category', 'description']) {
+      if (!form[f].trim()) { setError('Please fill in all required fields.'); return }
     }
     setLoading(true)
     try {
-      const res = await fetch('/api/submit', {
+      const res  = await fetch('/api/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...form,
-          service_area: form.service_area.trim() || 'Minnesota',
-        }),
+        body: JSON.stringify({ ...form, service_area: form.service_area.trim() || 'Minnesota' }),
       })
       const data = await res.json()
-      if (!res.ok) {
-        setError(data.error || 'Something went wrong. Please try again.')
-      } else {
-        setSubmitted(true)
-      }
-    } catch {
-      setError('Network error. Please check your connection and try again.')
-    } finally {
-      setLoading(false)
-    }
+      if (!res.ok) setError(data.error || 'Something went wrong. Please try again.')
+      else setSubmitted(true)
+    } catch { setError('Network error. Please check your connection and try again.') }
+    finally  { setLoading(false) }
   }
 
   return (
     <>
       <Head>
-        <title>Get Listed – MNMuslim.com</title>
-        <meta name="description" content="List your service, business, or professional expertise on MNMuslim.com and be discovered by Minnesota Muslims." />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>List Your Service — MNMuslim</title>
+        <meta name="description" content="List your Muslim-owned service or business on MNMuslim and be discovered by Minnesota Muslims. Free to list." />
+        <link rel="icon" href="/favicon.png" />
       </Head>
-      <Navbar />
-      <div className="form-wrap">
-        {submitted ? (
-          <div className="success-box">
-            <div style={{ fontSize: '40px' }}>🌿</div>
-            <h2>Listing Submitted!</h2>
-            <p>Thank you. Your listing is pending review and will appear publicly once approved, typically within 2–3 business days.</p>
-            <Link href="/browse" className="btn-green" style={{ display: 'inline-block', marginTop: '16px' }}>Browse Listings</Link>
+
+      <div className="home-page">
+
+        {/* NAV */}
+        <nav className={`hn-nav${scrolled ? ' scrolled' : ''}`}>
+          <Link href="/" className="hn-logo">
+            <img src="/logo.png" alt="MNMuslim" className="hn-logo-img" />
+          </Link>
+          <div className="hn-pill">
+            <Link href="/services" className="hn-nl">Services</Link>
+            <a href="https://mnhalal.com" className="hn-nl" target="_blank" rel="noopener noreferrer">MNHalal</a>
           </div>
-        ) : (
-          <>
-            <h1>List Your Service or Business</h1>
-            <p className="form-sub">Submit your service, business, or professional expertise to be discovered by Minnesota Muslims. All listings are reviewed before publishing. Free to list — always.</p>
-            {error && <div className="error-msg">{error}</div>}
-            <form onSubmit={handleSubmit} noValidate>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <Link href="/contact" className="hn-contact">Contact <span>→</span></Link>
+            <button className="hn-mobile-menu" onClick={() => setMobileOpen(!mobileOpen)} aria-label="Toggle menu">
+              {mobileOpen
+                ? <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                : <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
+              }
+            </button>
+          </div>
+        </nav>
 
-              <div className="form-group">
-                <label htmlFor="service_name">Service or Business Name <span className="req">*</span></label>
-                <input id="service_name" name="service_name" type="text" placeholder="e.g. Your business or service name" value={form.service_name} onChange={handleChange} />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="provider_name">Contact Person <span className="req">*</span></label>
-                <input id="provider_name" name="provider_name" type="text" placeholder="e.g. Your name" value={form.provider_name} onChange={handleChange} />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="category">Category <span className="req">*</span></label>
-                <select id="category" name="category" value={form.category} onChange={handleChange}>
-                  <option value="">Select a category…</option>
-                  {CATEGORIES.map((cat) => (<option key={cat.id} value={cat.id}>{cat.icon} {cat.name}</option>))}
-                </select>
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="description">Description <span className="req">*</span></label>
-                <textarea id="description" name="description" placeholder="Briefly describe what you offer, who you help, and what makes your service useful." value={form.description} onChange={handleChange} />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="service_area">Service Area <span style={{fontSize:'12px',color:'var(--text-muted)',fontWeight:400}}>(optional)</span></label>
-                <input id="service_area" name="service_area" type="text" placeholder="e.g. Twin Cities Metro, Minneapolis, Statewide, Remote" value={form.service_area} onChange={handleChange} />
-              </div>
-
-              <div className="form-row">
-                <div className="form-group">
-                  <label htmlFor="phone">Phone <span style={{fontSize:'12px',color:'var(--text-muted)',fontWeight:400}}>(optional)</span></label>
-                  <input id="phone" name="phone" type="tel" placeholder="(612) 555-0100" value={form.phone} onChange={handleChange} />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="email">Email <span style={{fontSize:'12px',color:'var(--text-muted)',fontWeight:400}}>(optional)</span></label>
-                  <input id="email" name="email" type="email" placeholder="you@example.com" value={form.email} onChange={handleChange} />
-                </div>
-              </div>
-
-              <div className="form-row">
-                <div className="form-group">
-                  <label htmlFor="website">Website <span style={{fontSize:'12px',color:'var(--text-muted)',fontWeight:400}}>(optional)</span></label>
-                  <input id="website" name="website" type="url" placeholder="https://yoursite.com" value={form.website} onChange={handleChange} />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="instagram">Instagram <span style={{fontSize:'12px',color:'var(--text-muted)',fontWeight:400}}>(optional)</span></label>
-                  <input id="instagram" name="instagram" type="text" placeholder="@yourhandle" value={form.instagram} onChange={handleChange} />
-                </div>
-              </div>
-
-              <button type="submit" className="submit-btn" disabled={loading}>
-                {loading ? 'Submitting…' : 'Submit Listing'}
+        {mobileOpen && (
+          <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', background: '#060D1A', zIndex: 100, display: 'flex', flexDirection: 'column', padding: '20px 24px', overflowY: 'auto' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '52px' }}>
+              <Link href="/" onClick={() => setMobileOpen(false)} style={{ textDecoration: 'none' }}>
+                <img src="/logo-light.png" alt="MNMuslim" style={{ width: '140px', height: 'auto' }} />
+              </Link>
+              <button onClick={() => setMobileOpen(false)} style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer' }}>
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
               </button>
-              <p className="form-note">Free to list &nbsp;·&nbsp; Reviewed within 2–3 business days &nbsp;·&nbsp; Approved listings appear publicly</p>
-            </form>
-          </>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+              {[
+                { label: 'Services', href: '/services', internal: true },
+                { label: 'MNHalal', href: 'https://mnhalal.com', internal: false },
+                { label: 'Contact', href: '/contact', internal: true },
+              ].map(item => item.internal
+                ? <Link key={item.label} href={item.href} onClick={() => setMobileOpen(false)} style={{ color: '#fff', fontSize: '32px', fontWeight: '800', textDecoration: 'none', padding: '18px 0', borderBottom: '1px solid rgba(255,255,255,0.07)', letterSpacing: '-1px', display: 'block' }}>{item.label}</Link>
+                : <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer" onClick={() => setMobileOpen(false)} style={{ color: '#fff', fontSize: '32px', fontWeight: '800', textDecoration: 'none', padding: '18px 0', borderBottom: '1px solid rgba(255,255,255,0.07)', letterSpacing: '-1px', display: 'block' }}>{item.label}</a>
+              )}
+            </div>
+          </div>
         )}
+
+        {/* HERO */}
+        <div className="hn-dark-header">
+          <section className="hn-hero" style={{ paddingBottom: '72px' }}>
+            <div className="hn-g hn-g1" /><div className="hn-g hn-g2" /><div className="hn-g hn-g3" />
+            <p className="hn-hero-eyebrow">Muslim Services Directory</p>
+            <h1 className="hn-h1" style={{ fontSize: '52px' }}>List Your Service</h1>
+            <p className="hn-sub" style={{ maxWidth: '440px' }}>Join the Minnesota Muslim services directory. Free to list — reviewed and published within 2–3 business days.</p>
+          </section>
+        </div>
+
+        {/* FORM */}
+        <div className="sf-page">
+          {submitted ? (
+            <div className="sf-success">
+              <div className="sf-success-icon">✓</div>
+              <h2 className="sf-success-title">Listing Submitted!</h2>
+              <p className="sf-success-sub">Thank you. Your listing is pending review and will appear publicly once approved, typically within 2–3 business days.</p>
+              <Link href="/services" className="sf-success-btn">Browse Services →</Link>
+            </div>
+          ) : (
+            <div className="sf-card">
+              <div className="sf-card-head">
+                <h2 className="sf-card-title">Service Information</h2>
+                <p className="sf-card-sub">Fields marked <span className="sf-req">*</span> are required.</p>
+              </div>
+
+              {error && <div className="sf-error">{error}</div>}
+
+              <form onSubmit={handleSubmit} noValidate>
+
+                <div className="sf-group">
+                  <label className="sf-label" htmlFor="service_name">Service or Business Name <span className="sf-req">*</span></label>
+                  <input className="sf-input" id="service_name" name="service_name" type="text" placeholder="e.g. Photography by Ahmed, Keisar Counseling" value={form.service_name} onChange={handleChange} />
+                </div>
+
+                <div className="sf-group">
+                  <label className="sf-label" htmlFor="provider_name">Your Name <span className="sf-req">*</span></label>
+                  <input className="sf-input" id="provider_name" name="provider_name" type="text" placeholder="e.g. Ahmed Hassan" value={form.provider_name} onChange={handleChange} />
+                </div>
+
+                <div className="sf-group">
+                  <label className="sf-label" htmlFor="category">Category <span className="sf-req">*</span></label>
+                  <select className="sf-input sf-select" id="category" name="category" value={form.category} onChange={handleChange}>
+                    <option value="">Select a category…</option>
+                    {CATEGORIES.map(cat => <option key={cat.id} value={cat.id}>{cat.name}</option>)}
+                  </select>
+                </div>
+
+                <div className="sf-group">
+                  <label className="sf-label" htmlFor="description">Description <span className="sf-req">*</span></label>
+                  <textarea className="sf-input sf-textarea" id="description" name="description" placeholder="Describe what you offer, who you help, and what makes your service valuable to the community." value={form.description} onChange={handleChange} />
+                </div>
+
+                <div className="sf-group">
+                  <label className="sf-label" htmlFor="service_area">Service Area <span className="sf-opt">(optional)</span></label>
+                  <input className="sf-input" id="service_area" name="service_area" type="text" placeholder="e.g. Twin Cities Metro, Minneapolis, Statewide, Remote" value={form.service_area} onChange={handleChange} />
+                </div>
+
+                <div className="sf-divider" />
+                <p className="sf-section-label">Contact Information <span className="sf-opt">(at least one recommended)</span></p>
+
+                <div className="sf-row">
+                  <div className="sf-group">
+                    <label className="sf-label" htmlFor="email">Email</label>
+                    <input className="sf-input" id="email" name="email" type="email" placeholder="you@example.com" value={form.email} onChange={handleChange} />
+                  </div>
+                  <div className="sf-group">
+                    <label className="sf-label" htmlFor="phone">Phone</label>
+                    <input className="sf-input" id="phone" name="phone" type="tel" placeholder="(612) 555-0100" value={form.phone} onChange={handleChange} />
+                  </div>
+                </div>
+
+                <div className="sf-row">
+                  <div className="sf-group">
+                    <label className="sf-label" htmlFor="website">Website</label>
+                    <input className="sf-input" id="website" name="website" type="url" placeholder="https://yoursite.com" value={form.website} onChange={handleChange} />
+                  </div>
+                  <div className="sf-group">
+                    <label className="sf-label" htmlFor="instagram">Instagram</label>
+                    <input className="sf-input" id="instagram" name="instagram" type="text" placeholder="@yourhandle" value={form.instagram} onChange={handleChange} />
+                  </div>
+                </div>
+
+                <button type="submit" className="sf-submit" disabled={loading}>
+                  {loading ? 'Submitting…' : 'Submit Listing'}
+                </button>
+                <p className="sf-note">Free to list · Reviewed within 2–3 business days · Approved listings appear publicly on MNMuslim</p>
+
+              </form>
+            </div>
+          )}
+        </div>
+
+        {/* FOOTER */}
+        <footer className="hn-footer">
+          <div className="hn-footer-inner">
+            <div className="hn-footer-top">
+              <div className="hn-footer-brand">
+                <Link href="/" className="hn-footer-logo">
+                  <img src="/logo-footer.png" alt="MNMuslim" className="hn-footer-logo-img" />
+                </Link>
+                <p className="hn-footer-tag">Helping Minnesota Muslims discover trusted businesses, services, and community resources.</p>
+                <p className="hn-footer-mission">Built by a Minnesota Muslim for the Minnesota Muslim community.</p>
+              </div>
+              <div className="hn-footer-cols">
+                <div className="hn-footer-col">
+                  <div className="hn-footer-col-title">Products</div>
+                  <Link href="/services" className="hn-fl">Muslim Services</Link>
+                  <a href="https://mnhalal.com" className="hn-fl" target="_blank" rel="noopener noreferrer">MNHalal</a>
+                </div>
+                <div className="hn-footer-col">
+                  <div className="hn-footer-col-title">Company</div>
+                  <Link href="/contact" className="hn-fl">Contact</Link>
+                  <Link href="/contact" className="hn-fl">Suggest a Feature</Link>
+                </div>
+                <div className="hn-footer-col">
+                  <div className="hn-footer-col-title">Resources</div>
+                  <Link href="/submit" className="hn-fl">List Your Service</Link>
+                  <a href="https://mnhalal.com/submit" className="hn-fl" target="_blank" rel="noopener noreferrer">List Halal Business</a>
+                </div>
+                <div className="hn-footer-col">
+                  <div className="hn-footer-col-title">Community</div>
+                  <a href="https://instagram.com/mnmuslimevents" className="hn-fl" target="_blank" rel="noopener noreferrer">Instagram</a>
+                </div>
+              </div>
+            </div>
+            <div className="hn-footer-bottom">
+              <div>
+                <span className="hn-fb-copy">© 2026 MNMuslim</span>
+                <span className="hn-fb-copy hn-fb-copy-sub">Built in Minnesota for the Minnesota Muslim community.</span>
+              </div>
+              <div className="hn-fb-legal">
+                <Link href="/privacy" className="hn-fb-link">Privacy Policy</Link>
+                <Link href="/terms" className="hn-fb-link">Terms of Use</Link>
+              </div>
+            </div>
+          </div>
+        </footer>
+
       </div>
-      <Footer />
     </>
   )
 }
