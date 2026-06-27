@@ -369,8 +369,7 @@ export default function Home() {
                 <div className="hn-footer-col">
                   <div className="hn-footer-col-title">Company</div>
                   <Link href="/contact" className="hn-fl">Contact</Link>
-                  <Link href="/contact" className="hn-fl">Suggest a Feature</Link>
-                </div>
+                  </div>
                 <div className="hn-footer-col">
                   <div className="hn-footer-col-title">Resources</div>
                   <Link href="/submit" className="hn-fl">List Your Service</Link>
@@ -378,7 +377,7 @@ export default function Home() {
                 </div>
                 <div className="hn-footer-col">
                   <div className="hn-footer-col-title">Community</div>
-                  <a href="https://instagram.com/mnmuslim" className="hn-fl" target="_blank" rel="noopener noreferrer">Instagram</a>
+                  <a href="https://www.instagram.com/mnmuslimevents/" className="hn-fl" target="_blank" rel="noopener noreferrer">Instagram</a>
                 </div>
               </div>
             </div>
