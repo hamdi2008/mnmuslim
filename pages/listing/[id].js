@@ -17,11 +17,12 @@ export async function getStaticProps({ params }) {
   if (error || !data) return { notFound: true }
 
   // Related listings — same category, exclude current
-  const { data: related } = await supabase
+  const { data: relatedRaw } = await supabase
     .from('listings').select('*').eq('approved', true)
     .eq('category', data.category).neq('id', data.id).limit(4)
+  const related = (relatedRaw || []).filter(r => r.id !== data.id)
 
-  return { props: { listing: data, related: related || [] }, revalidate: 60 }
+  return { props: { listing: data, related: related }, revalidate: 60 }
 }
 
 function cleanUrl(url) {
@@ -159,7 +160,7 @@ export default function ListingDetail({ listing, related }) {
               {/* Related listings */}
               {related.length > 0 && (
                 <div className="ld-related">
-                  <h2 className="ld-section-title">More {cat.name}</h2>
+                  <h2 className="ld-section-title">Related Services</h2>
                   <div className="ld-related-grid">
                     {related.map(r => (
                       <Link key={r.id} href={`/listing/${r.id}`} className="ld-rel-card">
