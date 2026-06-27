@@ -126,14 +126,6 @@ export default function ListingDetail({ listing }) {
                 </div>
               </div>
 
-              {/* Back link */}
-              <div className="ld-breadcrumb">
-                <Link href="/services" className="ld-back">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><polyline points="15 18 9 12 15 6"/></svg>
-                  Back to Services
-                </Link>
-              </div>
-
               {/* About */}
               <div className="ld-section">
                 <h2 className="ld-section-title">About this Service</h2>
@@ -178,6 +170,14 @@ export default function ListingDetail({ listing }) {
               <div className="ld-list-prompt">
                 <p className="ld-list-prompt-text">Offer a similar service?</p>
                 <Link href="/submit" className="ld-list-link">List Your Service →</Link>
+              </div>
+
+              {/* Back to Services */}
+              <div className="ld-back-wrap">
+                <Link href="/services" className="ld-back">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+                  Back to Services
+                </Link>
               </div>
 
             </aside>
