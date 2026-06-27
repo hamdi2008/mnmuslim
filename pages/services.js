@@ -219,18 +219,19 @@ export default function Services() {
           </section>
         </div>
 
-        {/* Mobile filter — only visible on mobile */}
+        {/* Mobile filter row — select + CTA button */}
         <div className="sv-mobile-filter">
           <select
             className="sv-cat-select"
             value={activeCat}
             onChange={e => setActiveCat(e.target.value)}
           >
-            <option value="">Filter by Category</option>
+            <option value="">All Categories</option>
             {CATEGORIES.map(cat => (
               <option key={cat.id} value={cat.id}>{cat.name}</option>
             ))}
           </select>
+          <Link href="/submit" className="sv-mobile-list-btn">+ List Your Service</Link>
         </div>
 
         {/* ── DIRECTORY ── */}
@@ -252,8 +253,8 @@ export default function Services() {
           {/* Main */}
           <main className="sv-main">
 
-            {/* Toolbar */}
-            <div className="sv-results-head">
+            {/* Toolbar — desktop only */}
+            <div className="sv-results-head sv-results-head-desktop">
               <div />
               <Link href="/submit" className="sv-list-btn">+ List Your Service</Link>
             </div>
