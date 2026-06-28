@@ -55,9 +55,21 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>MNMuslim — The Digital Home for Muslims in Minnesota</title>
-        <meta name="description" content="Discover Muslim services, halal food, and community resources across Minnesota — all in one place." />
+        <title>MNMuslim | Digital Home for Muslims in Minnesota</title>
+        <meta name="description" content="Discover Muslim services, halal food, community resources, and more across Minnesota." />
         <link rel="icon" href="/favicon.png" />
+        {/* Open Graph */}
+        <meta property="og:title" content="MNMuslim | Digital Home for Muslims in Minnesota" />
+        <meta property="og:description" content="Discover Muslim services, halal food, community resources, and more across Minnesota." />
+        <meta property="og:image" content="https://mnmuslim.com/og-image.png" />
+        <meta property="og:url" content="https://mnmuslim.com" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="MNMuslim" />
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="MNMuslim | Digital Home for Muslims in Minnesota" />
+        <meta name="twitter:description" content="Discover Muslim services, halal food, community resources, and more across Minnesota." />
+        <meta name="twitter:image" content="https://mnmuslim.com/og-image.png" />
       </Head>
 
       <div className="home-page">
