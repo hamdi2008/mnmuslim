@@ -22,21 +22,14 @@ export default async function handler(req, res) {
     if (search && search.trim()) {
       const term = search.trim()
       query = query.or(
-        [
-          `service_name.ilike.%${term}%`,
-          `provider_name.ilike.%${term}%`,
-          `description.ilike.%${term}%`,
-          `service_area.ilike.%${term}%`,
-          `business_name.ilike.%${term}%`,
-          `category.ilike.%${term}%`,
-        ].join(',')
+        `service_name.ilike.%${term}%,provider_name.ilike.%${term}%,description.ilike.%${term}%,service_area.ilike.%${term}%,category.ilike.%${term}%`
       )
     }
 
     const { data, error } = await query
 
     if (error) {
-      console.error('Supabase error:', error)
+      console.error('Supabase error:', JSON.stringify(error))
       return res.status(500).json({ error: error.message })
     }
 
