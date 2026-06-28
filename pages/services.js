@@ -105,15 +105,16 @@ export default function Services() {
     if (router.query.category) setActiveCat(router.query.category)
   }, [router.isReady, router.query])
 
-  const fetchListings = useCallback(async () => {
+  const fetchListings = useCallback(async (overrideSearch, overrideCat) => {
     setLoading(true)
+    const s = overrideSearch !== undefined ? overrideSearch : search
+    const c = overrideCat   !== undefined ? overrideCat   : activeCat
     const params = new URLSearchParams()
-    if (search)    params.set('search', search)
-    if (activeCat) params.set('category', activeCat)
+    if (s) params.set('search', s)
+    if (c) params.set('category', c)
     try {
       const res  = await fetch(`/api/listings?${params.toString()}`)
       const data = await res.json()
-      console.log('[listings] status:', res.status, 'count:', Array.isArray(data) ? data.length : data)
       setListings(Array.isArray(data) ? seededShuffle(data) : [])
     } catch(err) {
       console.error('[listings] fetch error:', err)
@@ -131,8 +132,9 @@ export default function Services() {
   function clearAll()    { setSearch(''); setActiveCat('') }
 
   function handleSearch(e) {
-    e.preventDefault()
-    fetchListings()
+    if (e) e.preventDefault()
+    setActiveCat('')
+    fetchListings(search, '')
   }
 
   return (
@@ -228,7 +230,7 @@ export default function Services() {
                   onChange={e => setSearch(e.target.value)}
                   onKeyDown={e => e.key === 'Enter' && fetchListings()}
                 />
-                <button className="hn-search-btn" onClick={fetchListings}>Search</button>
+                <button className="hn-search-btn" onClick={handleSearch}>Search</button>
               </div>
             </div>
 
