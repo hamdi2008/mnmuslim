@@ -105,41 +105,49 @@ export default function Services() {
     if (router.query.category) setActiveCat(router.query.category)
   }, [router.isReady, router.query])
 
-  async function doFetch(s, c) {
+  // Core fetch — always call with explicit s/c values, never rely on state closure
+  async function runFetch(s, c) {
     setLoading(true)
     const params = new URLSearchParams()
     if (s) params.set('search', s)
     if (c) params.set('category', c)
     try {
-      const res  = await fetch(`/api/listings?${params.toString()}`)
+      const res  = await fetch('/api/listings?' + params.toString())
       const json = await res.json()
       setListings(Array.isArray(json) ? seededShuffle(json) : [])
     } catch(err) {
-      console.error('[listings] fetch error:', err)
       setListings([])
     } finally {
       setLoading(false)
     }
   }
 
-  // Auto-fetch when category changes (debounced)
+  // Initial load only
+  useEffect(() => { runFetch('', '') }, [])
+
+  // When category changes, re-fetch (clear search)
   useEffect(() => {
-    const t = setTimeout(() => doFetch(search, activeCat), 300)
-    return () => clearTimeout(t)
+    if (!router.isReady) return
+    runFetch('', activeCat)
   }, [activeCat])
 
-  // Initial load
-  useEffect(() => {
-    doFetch('', '')
-  }, [])
+  function toggleCat(id) {
+    const next = activeCat === id ? '' : id
+    setActiveCat(next)
+    setSearch('')
+  }
 
-  function toggleCat(id) { setActiveCat(prev => prev === id ? '' : id) }
-  function clearAll()    { setSearch(''); doFetch('', ''); setActiveCat('') }
+  function clearAll() {
+    setSearch('')
+    setActiveCat('')
+    runFetch('', '')
+  }
 
   function handleSearch(e) {
     if (e) e.preventDefault()
+    const term = search.trim()
     setActiveCat('')
-    doFetch(search, '')
+    runFetch(term, '')
   }
 
   return (
