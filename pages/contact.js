@@ -38,9 +38,21 @@ export default function Contact() {
   return (
     <>
       <Head>
-        <title>Contact — MNMuslim</title>
+        <title>Contact | MNMuslim</title>
         <meta name="description" content="Get in touch with MNMuslim. Suggest a feature, report an issue, or share feedback about the Minnesota Muslim community platform." />
         <link rel="icon" href="/favicon.png" />
+        {/* Open Graph */}
+        <meta property="og:title" content="Contact | MNMuslim" />
+        <meta property="og:description" content="Get in touch with MNMuslim. Suggest a feature, report an issue, or share feedback about the Minnesota Muslim community platform." />
+        <meta property="og:image" content="https://mnmuslim.com/og-image.png" />
+        <meta property="og:url" content="https://mnmuslim.com/contact" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="MNMuslim" />
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Contact | MNMuslim" />
+        <meta name="twitter:description" content="Get in touch with MNMuslim. Suggest a feature, report an issue, or share feedback about the Minnesota Muslim community platform." />
+        <meta name="twitter:image" content="https://mnmuslim.com/og-image.png" />
       </Head>
 
       <div className="home-page">
