@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -105,36 +105,41 @@ export default function Services() {
     if (router.query.category) setActiveCat(router.query.category)
   }, [router.isReady, router.query])
 
-  const fetchListings = useCallback(async (overrideSearch, overrideCat) => {
+  async function doFetch(s, c) {
     setLoading(true)
-    const s = overrideSearch !== undefined ? overrideSearch : search
-    const c = overrideCat   !== undefined ? overrideCat   : activeCat
     const params = new URLSearchParams()
     if (s) params.set('search', s)
     if (c) params.set('category', c)
     try {
       const res  = await fetch(`/api/listings?${params.toString()}`)
-      const data = await res.json()
-      setListings(Array.isArray(data) ? seededShuffle(data) : [])
+      const json = await res.json()
+      setListings(Array.isArray(json) ? seededShuffle(json) : [])
     } catch(err) {
       console.error('[listings] fetch error:', err)
       setListings([])
+    } finally {
+      setLoading(false)
     }
-    finally  { setLoading(false) }
-  }, [search, activeCat])
+  }
 
+  // Auto-fetch when category changes (debounced)
   useEffect(() => {
-    const t = setTimeout(fetchListings, 300)
+    const t = setTimeout(() => doFetch(search, activeCat), 300)
     return () => clearTimeout(t)
-  }, [fetchListings])
+  }, [activeCat])
+
+  // Initial load
+  useEffect(() => {
+    doFetch('', '')
+  }, [])
 
   function toggleCat(id) { setActiveCat(prev => prev === id ? '' : id) }
-  function clearAll()    { setSearch(''); setActiveCat('') }
+  function clearAll()    { setSearch(''); doFetch('', ''); setActiveCat('') }
 
   function handleSearch(e) {
     if (e) e.preventDefault()
     setActiveCat('')
-    fetchListings(search, '')
+    doFetch(search, '')
   }
 
   return (
@@ -228,7 +233,7 @@ export default function Services() {
                   placeholder={PLACEHOLDERS[phIdx]}
                   value={search}
                   onChange={e => setSearch(e.target.value)}
-                  onKeyDown={e => e.key === 'Enter' && fetchListings()}
+                  onKeyDown={e => e.key === 'Enter' && handleSearch()}
                 />
                 <button className="hn-search-btn" onClick={handleSearch}>Search</button>
               </div>
