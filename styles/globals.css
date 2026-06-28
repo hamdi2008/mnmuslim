@@ -246,7 +246,7 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
   .hn-logo-img { width: 120px; height: auto; }
 
   /* 1. HERO — more room, better readability */
-  .hn-hero { padding: 140px 24px 100px; } /* v2 */
+  .hn-hero { padding: 100px 24px 60px; min-height: unset; } /* v2 */
   .hn-dark-header { background: #071423; }
   .hn-h1 { font-size: 34px !important; letter-spacing: -1.2px; line-height: 1.2 !important; margin-bottom: 28px !important; } /* v2 */
   .hn-hero-eyebrow { margin-bottom: 24px; font-size: 10px; }
@@ -746,7 +746,7 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
 @media (max-width: 480px) {
   .hn-search-wrap { padding: 0 16px !important; }
   .hn-search-box { padding: 7px 7px 7px 14px !important; }
-  .hn-search-btn { padding: 10px 16px !important; font-size: 12px !important; }
-  .hn-search-input { font-size: 14px !important; min-width: 0; }
+  .hn-search-btn { padding: 10px 16px !important; font-size: 13px !important; flex-shrink: 0; }
+  .hn-search-input { font-size: 16px !important; min-width: 0; } /* 16px prevents iOS auto-zoom on focus */
 }
 
