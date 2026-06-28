@@ -52,9 +52,21 @@ export default function ListingDetail({ listing }) {
   return (
     <>
       <Head>
-        <title>{pageTitle} — MNMuslim</title>
-        <meta name="description" content={`${pageTitle} · ${listing.description?.slice(0,150)}`} />
+        <title>{pageTitle} | MNMuslim</title>
+        <meta name="description" content={listing.description?.slice(0,160) || `${pageTitle} — listed on MNMuslim`} />
         <link rel="icon" href="/favicon.png" />
+        {/* Open Graph */}
+        <meta property="og:title" content={`${pageTitle} | MNMuslim`} />
+        <meta property="og:description" content={listing.description?.slice(0,160) || `${pageTitle} — listed on MNMuslim`} />
+        <meta property="og:image" content="https://mnmuslim.com/og-image.png" />
+        <meta property="og:url" content={`https://mnmuslim.com/listing/${listing.id}`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="MNMuslim" />
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${pageTitle} | MNMuslim`} />
+        <meta name="twitter:description" content={listing.description?.slice(0,160) || `${pageTitle} — listed on MNMuslim`} />
+        <meta name="twitter:image" content="https://mnmuslim.com/og-image.png" />
       </Head>
 
       <div className="home-page">
