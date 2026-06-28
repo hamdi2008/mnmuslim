@@ -61,9 +61,21 @@ export default function Submit() {
   return (
     <>
       <Head>
-        <title>List Your Service — MNMuslim</title>
+        <title>List Your Service | MNMuslim</title>
         <meta name="description" content="List your Muslim-owned service on MNMuslim and reach Minnesota Muslims looking for trusted local services. Free to list." />
         <link rel="icon" href="/favicon.png" />
+        {/* Open Graph */}
+        <meta property="og:title" content="List Your Service | MNMuslim" />
+        <meta property="og:description" content="List your Muslim-owned service on MNMuslim and reach Minnesota Muslims looking for trusted local services. Free to list." />
+        <meta property="og:image" content="https://mnmuslim.com/og-image.png" />
+        <meta property="og:url" content="https://mnmuslim.com/submit" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="MNMuslim" />
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="List Your Service | MNMuslim" />
+        <meta name="twitter:description" content="List your Muslim-owned service on MNMuslim and reach Minnesota Muslims looking for trusted local services. Free to list." />
+        <meta name="twitter:image" content="https://mnmuslim.com/og-image.png" />
       </Head>
 
       <div className="home-page">
