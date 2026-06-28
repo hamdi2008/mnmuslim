@@ -138,9 +138,21 @@ export default function Services() {
   return (
     <>
       <Head>
-        <title>Muslim Services Directory — MNMuslim</title>
-        <meta name="description" content="Discover trusted Muslim-owned businesses, freelancers, and service providers across Minnesota." />
+        <title>Muslim Services Directory | MNMuslim</title>
+        <meta name="description" content="Find Muslim-owned businesses and professionals across Minnesota." />
         <link rel="icon" href="/favicon.png" />
+        {/* Open Graph */}
+        <meta property="og:title" content="Muslim Services Directory | MNMuslim" />
+        <meta property="og:description" content="Find Muslim-owned businesses and professionals across Minnesota." />
+        <meta property="og:image" content="https://mnmuslim.com/og-image.png" />
+        <meta property="og:url" content="https://mnmuslim.com/services" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="MNMuslim" />
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Muslim Services Directory | MNMuslim" />
+        <meta name="twitter:description" content="Find Muslim-owned businesses and professionals across Minnesota." />
+        <meta name="twitter:image" content="https://mnmuslim.com/og-image.png" />
       </Head>
 
       <div className="home-page">
