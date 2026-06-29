@@ -759,64 +759,66 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
 .hn-newsletter-inner {
   max-width: 680px;
   margin: 0 auto;
+  text-align: center;
 }
-/* Override Kit form styles to match dark theme */
-.hn-newsletter-section .formkit-form {
-  background: transparent !important;
-  border: none !important;
-  border-radius: 0 !important;
-  max-width: 100% !important;
+.hn-newsletter-inner h2 {
+  color: #ffffff;
+  font-size: 28px;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  margin: 0 0 12px 0;
 }
-.hn-newsletter-section .formkit-header h2 {
-  color: #ffffff !important;
-  font-size: 28px !important;
-  font-weight: 700 !important;
-  font-family: 'Poppins', sans-serif !important;
-  margin-bottom: 8px !important;
+.hn-newsletter-inner p.hn-nl-sub {
+  color: rgba(255,255,255,0.6);
+  font-size: 15px;
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.6;
+  margin: 0 0 32px 0;
 }
-.hn-newsletter-section .formkit-subheader p {
-  color: rgba(255,255,255,0.6) !important;
-  font-size: 15px !important;
-  font-family: 'Poppins', sans-serif !important;
-  line-height: 1.6 !important;
+.hn-newsletter-row {
+  display: flex;
+  gap: 10px;
+  max-width: 520px;
+  margin: 0 auto 12px auto;
 }
-.hn-newsletter-section .formkit-input {
-  background: rgba(255,255,255,0.08) !important;
-  border: 1.5px solid rgba(255,255,255,0.15) !important;
-  border-radius: 10px !important;
-  color: #fff !important;
-  font-family: 'Poppins', sans-serif !important;
-  font-size: 15px !important;
-  padding: 13px 18px !important;
+.hn-newsletter-row input {
+  flex: 1;
+  background: rgba(255,255,255,0.08);
+  border: 1.5px solid rgba(255,255,255,0.15);
+  border-radius: 10px;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  padding: 13px 18px;
+  outline: none;
+  transition: border-color .2s;
 }
-.hn-newsletter-section .formkit-input::placeholder {
-  color: rgba(255,255,255,0.35) !important;
+.hn-newsletter-row input::placeholder { color: rgba(255,255,255,0.35); }
+.hn-newsletter-row input:focus { border-color: #0CA5A5; }
+.hn-newsletter-row button {
+  background: #0CA5A5;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 13px 24px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background .18s;
 }
-.hn-newsletter-section .formkit-input:focus {
-  border-color: #0CA5A5 !important;
-  outline: none !important;
-}
-.hn-newsletter-section .formkit-submit {
-  background: #0CA5A5 !important;
-  border-radius: 10px !important;
-  font-family: 'Poppins', sans-serif !important;
-  font-weight: 700 !important;
-  font-size: 14px !important;
-  letter-spacing: 0.02em !important;
-}
-.hn-newsletter-section .formkit-submit:hover {
-  background: #0bbdbd !important;
-}
-.hn-newsletter-section .formkit-guarantee {
-  color: rgba(255,255,255,0.35) !important;
-  font-family: 'Poppins', sans-serif !important;
-  font-size: 12px !important;
-}
-.hn-newsletter-section .formkit-powered-by-convertkit-container {
-  justify-content: center;
+.hn-newsletter-row button:hover { background: #0bbdbd; }
+.hn-newsletter-fine {
+  color: rgba(255,255,255,0.3);
+  font-size: 12px;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
 }
 @media (max-width: 600px) {
   .hn-newsletter-section { padding: 60px 20px; }
-  .hn-newsletter-section .formkit-header h2 { font-size: 22px !important; }
+  .hn-newsletter-inner h2 { font-size: 22px; }
+  .hn-newsletter-row { flex-direction: column; }
+  .hn-newsletter-row button { width: 100%; }
 }
 
