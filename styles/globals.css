@@ -752,11 +752,10 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
 
 /* ── NEWSLETTER SECTION ─────────────────────────────────── */
 .hn-newsletter-section {
-  background: #0D1F35;
+  background: #0F1E30;
   padding: 100px 24px 96px;
   width: 100%;
-  border-top: 1px solid rgba(255,255,255,0.06);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  border-top: 1px solid rgba(255,255,255,0.05);
 }
 .hn-newsletter-inner {
   max-width: 620px;
