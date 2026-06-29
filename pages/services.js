@@ -333,30 +333,18 @@ export default function Services() {
         {/* NEWSLETTER */}
         <section className="hn-newsletter-section">
           <div className="hn-newsletter-inner">
-            <script src="https://f.convertkit.com/ckjs/ck.5.js"></script>
-            <form action="https://app.kit.com/forms/9625003/subscriptions" className="seva-form formkit-form" method="post" data-sv-form="9625003" data-uid="c15d4f5534" data-format="inline" data-version="5" min-width="400 500 600 700 800">
-              <div data-style="minimal">
-                <div className="formkit-header" data-element="header">
-                  <h2>Stay Connected</h2>
-                </div>
-                <div className="formkit-subheader" data-element="subheader">
-                  <p>Stay up to date with community events, Muslim services, halal businesses, local resources, opportunities, and new MNMuslim updates.</p>
-                </div>
-                <ul className="formkit-alert formkit-alert-error" data-element="errors" data-group="alert"></ul>
-                <div data-element="fields" data-stacked="false" className="seva-fields formkit-fields">
-                  <div className="formkit-field">
-                    <input className="formkit-input" name="email_address" aria-label="Email Address" placeholder="Email Address" required type="email" />
-                  </div>
-                  <button data-element="submit" className="formkit-submit">
-                    <div className="formkit-spinner"><div></div><div></div><div></div></div>
-                    <span>Stay Connected</span>
-                  </button>
-                </div>
-                <div className="formkit-guarantee" data-element="guarantee">
-                  <p>We won&apos;t send you spam. Unsubscribe at any time.</p>
-                </div>
-              </div>
+            <h2>Stay Connected</h2>
+            <p className="hn-nl-sub">Stay up to date with community events, Muslim services, halal businesses, local resources, opportunities, and new MNMuslim updates.</p>
+            <form
+              action="https://app.kit.com/forms/9625003/subscriptions"
+              method="post"
+              target="_blank"
+              className="hn-newsletter-row"
+            >
+              <input type="email" name="email_address" placeholder="Email Address" required />
+              <button type="submit">Stay Connected</button>
             </form>
+            <p className="hn-newsletter-fine">We won&apos;t send you spam. Unsubscribe at any time.</p>
           </div>
         </section>
 
