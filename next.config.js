@@ -4,4 +4,4 @@ const nextConfig = {
 }
 
 module.exports = nextConfig
-// deploy trigger
+// deploy trigger 2
