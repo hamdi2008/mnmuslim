@@ -157,9 +157,9 @@ export default function Submit() {
               <form onSubmit={handleSubmit} noValidate>
 
                 <div className="sf-group">
-                  <label className="sf-label" htmlFor="service_name">Service Name <span className="sf-req">*</span></label>
+                  <label className="sf-label" htmlFor="service_name">Business or Service Name <span className="sf-req">*</span></label>
                   <input className="sf-input" id="service_name" name="service_name" type="text"
-                    placeholder="e.g. Tax Preparation, Web Design, Tutoring"
+                    placeholder="e.g. Your business or service name"
                     value={form.service_name} onChange={handleChange} />
                 </div>
 
