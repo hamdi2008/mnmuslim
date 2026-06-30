@@ -159,14 +159,14 @@ export default function Submit() {
                 <div className="sf-group">
                   <label className="sf-label" htmlFor="service_name">Service Name <span className="sf-req">*</span></label>
                   <input className="sf-input" id="service_name" name="service_name" type="text"
-                    placeholder="e.g. Keisar Counseling, CreatorMN Studios, Four Squared Creamery"
+                    placeholder="e.g. Tax Preparation, Web Design, Tutoring"
                     value={form.service_name} onChange={handleChange} />
                 </div>
 
                 <div className="sf-group">
                   <label className="sf-label" htmlFor="provider_name">Contact Person <span className="sf-req">*</span></label>
                   <input className="sf-input" id="provider_name" name="provider_name" type="text"
-                    placeholder="e.g. Jamila Keisar"
+                    placeholder="e.g. Your full name"
                     value={form.provider_name} onChange={handleChange} />
                 </div>
 
