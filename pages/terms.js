@@ -24,6 +24,7 @@ export default function Terms() {
           </Link>
           <div className="hn-pill">
             <Link href="/services" className="hn-nl">Services</Link>
+            <Link href="/events" className="hn-nl">Events</Link>
             <a href="https://mnhalal.com" className="hn-nl" target="_blank" rel="noopener noreferrer">MNHalal</a>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -94,6 +95,7 @@ export default function Terms() {
                 <div className="hn-footer-col">
                   <div className="hn-footer-col-title">Products</div>
                   <Link href="/services" className="hn-fl">Muslim Services</Link>
+                  <Link href="/events" className="hn-fl">Events</Link>
                   <a href="https://mnhalal.com" className="hn-fl" target="_blank" rel="noopener noreferrer">MNHalal</a>
                 </div>
                 <div className="hn-footer-col">

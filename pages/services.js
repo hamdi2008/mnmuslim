@@ -179,6 +179,7 @@ export default function Services() {
           </Link>
           <div className="hn-pill">
             <Link href="/services" className={`hn-nl${router.pathname === '/services' ? ' hn-nl-active' : ''}`} target="_blank" rel="noopener noreferrer">Services</Link>
+            <Link href="/events" className={`hn-nl${router.pathname === '/events' ? ' hn-nl-active' : ''}`}>Events</Link>
             <a href="https://mnhalal.com" className="hn-nl" target="_blank" rel="noopener noreferrer">MNHalal</a>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -205,6 +206,7 @@ export default function Services() {
             <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
               {[
                 { label: 'Services', href: '/services', internal: true },
+                { label: 'Events', href: '/events', internal: true },
                 { label: 'MNHalal', href: 'https://mnhalal.com', internal: false },
                 { label: 'Contact', href: '/contact', internal: true },
               ].map(item => item.internal
@@ -363,6 +365,7 @@ export default function Services() {
                 <div className="hn-footer-col">
                   <div className="hn-footer-col-title">Products</div>
                   <Link href="/services" className="hn-fl" target="_blank" rel="noopener noreferrer">Muslim Services</Link>
+                  <Link href="/events" className="hn-fl">Events</Link>
                   <a href="https://mnhalal.com" className="hn-fl" target="_blank" rel="noopener noreferrer">MNHalal</a>
                 </div>
                 <div className="hn-footer-col">
