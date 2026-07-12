@@ -5,8 +5,11 @@ import { useRouter } from 'next/router'
 import { supabase } from '../lib/supabase'
 import {
   EVENT_CATEGORIES, getEventCategoryById, EVENT_PUBLIC_COLUMNS,
-  mnToday, isUpcoming, formatEventDate,
+  mnToday, isUpcoming, formatEventDate, groupUpcomingEvents,
 } from '../lib/events'
+
+const CALENDAR_FEED = 'webcal://www.mnmuslim.com/api/calendar'
+const GCAL_SUBSCRIBE = `https://calendar.google.com/calendar/r?cid=${encodeURIComponent(CALENDAR_FEED)}`
 
 export async function getStaticProps() {
   let events = []
@@ -85,6 +88,8 @@ export default function Events({ events }) {
       return true
     })
   }, [upcomingEvents, activeCat, activeCity])
+
+  const eventGroups = useMemo(() => groupUpcomingEvents(filteredEvents), [filteredEvents])
 
   function toggleCat(id) {
     setActiveCat(prev => (prev === id ? '' : id))
@@ -199,6 +204,7 @@ export default function Events({ events }) {
           </select>
         </div>
         <div className="ev-mobile-submit">
+          <a href={GCAL_SUBSCRIBE} className="ev-subscribe-btn" target="_blank" rel="noopener noreferrer">🗓 Subscribe</a>
           <Link href="/submit-event" className="ev-submit-btn">+ Submit Your Event</Link>
         </div>
 
@@ -233,7 +239,8 @@ export default function Events({ events }) {
 
             {/* Toolbar — desktop only */}
             <div className="ev-results-head">
-              <div />
+              <a href={CALENDAR_FEED} className="ev-subscribe-alt" title="Subscribe in Apple Calendar or Outlook">Apple / Outlook</a>
+              <a href={GCAL_SUBSCRIBE} className="ev-subscribe-btn" target="_blank" rel="noopener noreferrer">🗓 Subscribe to Calendar</a>
               <Link href="/submit-event" className="ev-submit-btn">+ Submit Your Event</Link>
             </div>
 
@@ -249,11 +256,14 @@ export default function Events({ events }) {
               </div>
             )}
 
-            {filteredEvents.length > 0 && (
-              <div className="ev-grid">
-                {filteredEvents.map(event => <EventCard key={event.id} event={event} />)}
+            {filteredEvents.length > 0 && eventGroups.map(group => (
+              <div key={group.label} className="ev-group">
+                <div className="ev-group-label">{group.label}</div>
+                <div className="ev-grid">
+                  {group.events.map(event => <EventCard key={event.id} event={event} />)}
+                </div>
               </div>
-            )}
+            ))}
           </main>
         </div>
 
