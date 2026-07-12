@@ -653,10 +653,6 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
 .ev-results-head { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin-bottom: 20px; }
 .ev-submit-btn { display: inline-flex; align-items: center; background: transparent; border: 1.5px solid #0CA5A5; color: #0CA5A5; font-size: 12.5px; font-weight: 700; padding: 7px 18px; border-radius: 40px; cursor: pointer; font-family: 'Poppins', sans-serif; transition: all .18s; text-decoration: none; }
 .ev-submit-btn:hover { background: #0CA5A5; color: #fff; transform: translateY(-1px); }
-.ev-subscribe-btn { display: inline-flex; align-items: center; gap: 5px; background: #F0FDFA; border: 1.5px solid rgba(12,165,165,0.25); color: #0A7070; font-size: 12.5px; font-weight: 700; padding: 7px 18px; border-radius: 40px; cursor: pointer; font-family: 'Poppins', sans-serif; transition: all .18s; text-decoration: none; }
-.ev-subscribe-btn:hover { border-color: #0CA5A5; background: #E6F8F8; transform: translateY(-1px); }
-.ev-subscribe-alt { font-size: 11.5px; font-weight: 600; color: #94A3B8; text-decoration: none; margin-right: 2px; transition: color .18s; }
-.ev-subscribe-alt:hover { color: #0CA5A5; }
 .ev-mobile-submit { display: none; }
 
 /* Date group headers */
@@ -722,9 +718,8 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
 
   .ev-mobile-filter { display: flex !important; flex-direction: row; gap: 10px; align-items: stretch; padding: 24px 16px 0; background: #fff; }
   .ev-select { height: 46px !important; font-size: 13px !important; flex: 1 !important; min-width: 0; }
-  .ev-mobile-submit { display: flex !important; gap: 10px; padding: 12px 16px 0; background: #fff; }
-  .ev-mobile-submit .ev-submit-btn,
-  .ev-mobile-submit .ev-subscribe-btn { flex: 1; justify-content: center; height: 46px; border-radius: 12px; }
+  .ev-mobile-submit { display: flex !important; padding: 12px 16px 0; background: #fff; }
+  .ev-mobile-submit .ev-submit-btn { width: 100%; justify-content: center; height: 46px; border-radius: 12px; }
   .ev-results-head { display: none !important; }
 
   .ev-detail-page { padding: 140px 20px 64px; }
