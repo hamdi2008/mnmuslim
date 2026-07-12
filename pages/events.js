@@ -8,9 +8,6 @@ import {
   mnToday, isUpcoming, formatEventDate, groupUpcomingEvents,
 } from '../lib/events'
 
-const CALENDAR_FEED = 'webcal://www.mnmuslim.com/api/calendar'
-const GCAL_SUBSCRIBE = `https://calendar.google.com/calendar/r?cid=${encodeURIComponent(CALENDAR_FEED)}`
-
 export async function getStaticProps() {
   let events = []
   try {
@@ -204,7 +201,6 @@ export default function Events({ events }) {
           </select>
         </div>
         <div className="ev-mobile-submit">
-          <a href={GCAL_SUBSCRIBE} className="ev-subscribe-btn" target="_blank" rel="noopener noreferrer">🗓 Subscribe</a>
           <Link href="/submit-event" className="ev-submit-btn">+ Submit Your Event</Link>
         </div>
 
@@ -239,8 +235,7 @@ export default function Events({ events }) {
 
             {/* Toolbar — desktop only */}
             <div className="ev-results-head">
-              <a href={CALENDAR_FEED} className="ev-subscribe-alt" title="Subscribe in Apple Calendar or Outlook">Apple / Outlook</a>
-              <a href={GCAL_SUBSCRIBE} className="ev-subscribe-btn" target="_blank" rel="noopener noreferrer">🗓 Subscribe to Calendar</a>
+              <div />
               <Link href="/submit-event" className="ev-submit-btn">+ Submit Your Event</Link>
             </div>
 
