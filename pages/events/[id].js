@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { supabase } from '../../lib/supabase'
 import {
   getEventCategoryById, EVENT_PUBLIC_COLUMNS,
-  mnToday, isUpcoming, formatEventDate, directionsUrl,
+  isUpcoming, formatEventDate, directionsUrl, icsCalendar,
 } from '../../lib/events'
 
 export async function getServerSideProps({ params }) {
@@ -18,36 +18,8 @@ export async function getServerSideProps({ params }) {
   return { props: { event: data } }
 }
 
-function nextDay(dateStr) {
-  const d = new Date(`${dateStr}T00:00:00Z`)
-  d.setUTCDate(d.getUTCDate() + 1)
-  return d.toISOString().slice(0, 10)
-}
-
-function escapeIcs(s) {
-  return s.replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\n/g, '\\n')
-}
-
 function downloadIcs(event) {
-  const fmt = d => d.replaceAll('-', '')
-  const stamp = new Date().toISOString().replace(/[-:]/g, '').slice(0, 15) + 'Z'
-  const lines = [
-    'BEGIN:VCALENDAR',
-    'VERSION:2.0',
-    'PRODID:-//MNMuslim//Events//EN',
-    'BEGIN:VEVENT',
-    `UID:mnmuslim-event-${event.id}@mnmuslim.com`,
-    `DTSTAMP:${stamp}`,
-    `DTSTART;VALUE=DATE:${fmt(event.date)}`,
-    `DTEND;VALUE=DATE:${fmt(nextDay(event.end_date || event.date))}`,
-    `SUMMARY:${escapeIcs(event.title)}`,
-    `LOCATION:${escapeIcs(`${event.venue}, ${event.city}, MN`)}`,
-    event.time_label ? `DESCRIPTION:${escapeIcs(`Time: ${event.time_label}`)}` : null,
-    event.link ? `URL:${event.link}` : null,
-    'END:VEVENT',
-    'END:VCALENDAR',
-  ].filter(Boolean)
-  const blob = new Blob([lines.join('\r\n')], { type: 'text/calendar' })
+  const blob = new Blob([icsCalendar([event])], { type: 'text/calendar' })
   const a = document.createElement('a')
   a.href = URL.createObjectURL(blob)
   a.download = `${event.title.slice(0, 40).replace(/[^a-z0-9]+/gi, '-')}.ics`
