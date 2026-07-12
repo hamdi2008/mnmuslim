@@ -2,12 +2,33 @@ import { useState, useEffect, useMemo } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { EVENT_CATEGORIES, getEventCategoryById, EVENTS } from '../lib/events'
+import { supabase } from '../lib/supabase'
+import {
+  EVENT_CATEGORIES, getEventCategoryById, EVENT_PUBLIC_COLUMNS,
+  mnToday, isUpcoming, formatEventDate,
+} from '../lib/events'
+
+export async function getStaticProps() {
+  let events = []
+  try {
+    const today = mnToday()
+    const { data } = await supabase
+      .from('events')
+      .select(EVENT_PUBLIC_COLUMNS)
+      .eq('approved', true)
+      .or(`date.gte.${today},end_date.gte.${today}`)
+      .order('date', { ascending: true })
+    events = data || []
+  } catch (err) {
+    console.error('Events fetch failed:', err)
+  }
+  return { props: { events }, revalidate: 300 }
+}
 
 function EventCard({ event }) {
   const cat = getEventCategoryById(event.category)
   return (
-    <a href={event.link} target="_blank" rel="noopener noreferrer" className="ev-card">
+    <Link href={`/events/${event.id}`} className="ev-card">
       <div className="ev-card-top">
         <span className="ev-card-badge">{cat.icon} {cat.name}</span>
       </div>
@@ -15,7 +36,7 @@ function EventCard({ event }) {
       <div className="ev-card-meta">
         <span className="ev-card-meta-row">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          {event.dateLabel} · {event.time}
+          {formatEventDate(event.date, event.end_date)}{event.time_label ? ` · ${event.time_label}` : ''}
         </span>
         <span className="ev-card-meta-row">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -23,13 +44,13 @@ function EventCard({ event }) {
         </span>
       </div>
       <div className="ev-card-footer">
-        <span className="ev-card-cta">View Event →</span>
+        <span className="ev-card-cta">View details →</span>
       </div>
-    </a>
+    </Link>
   )
 }
 
-export default function Events() {
+export default function Events({ events }) {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled, setScrolled]     = useState(false)
   const [activeCat, setActiveCat]   = useState('')
@@ -48,17 +69,14 @@ export default function Events() {
     if (router.query.city) setActiveCity(router.query.city)
   }, [router.isReady, router.query])
 
-  const cities = useMemo(
-    () => [...new Set(EVENTS.map(e => e.city))].sort(),
-    []
-  )
+  // ISR regenerates every 5 min, but re-filter client-side so a long-open tab
+  // doesn't keep showing an event that ended.
+  const upcomingEvents = useMemo(() => events.filter(e => isUpcoming(e)), [events])
 
-  const upcomingEvents = useMemo(() => {
-    const today = new Date().toISOString().slice(0, 10)
-    return EVENTS
-      .filter(e => e.date >= today)
-      .sort((a, b) => a.date.localeCompare(b.date))
-  }, [])
+  const cities = useMemo(
+    () => [...new Set(upcomingEvents.map(e => e.city))].sort(),
+    [upcomingEvents]
+  )
 
   const filteredEvents = useMemo(() => {
     return upcomingEvents.filter(e => {
@@ -77,6 +95,16 @@ export default function Events() {
     setActiveCity('')
   }
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    itemListElement: upcomingEvents.map((e, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `https://mnmuslim.com/events/${e.id}`,
+    })),
+  }
+
   return (
     <>
       <Head>
@@ -93,6 +121,7 @@ export default function Events() {
         <meta name="twitter:title" content="Muslim Community Events | MNMuslim" />
         <meta name="twitter:description" content="Discover Muslim community events across Minnesota — lectures, iftars, youth programs, fundraisers, and more." />
         <meta name="twitter:image" content="https://mnmuslim.com/og-image.png" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </Head>
 
       <div className="home-page">
@@ -169,6 +198,9 @@ export default function Events() {
             ))}
           </select>
         </div>
+        <div className="ev-mobile-submit">
+          <Link href="/submit-event" className="ev-submit-btn">+ Submit Your Event</Link>
+        </div>
 
         {/* ── DIRECTORY ── */}
         <div className="ev-body">
@@ -199,12 +231,21 @@ export default function Events() {
           {/* Main */}
           <main className="ev-main">
 
+            {/* Toolbar — desktop only */}
+            <div className="ev-results-head">
+              <div />
+              <Link href="/submit-event" className="ev-submit-btn">+ Submit Your Event</Link>
+            </div>
+
             {!filteredEvents.length && (
               <div className="ev-empty">
                 <div className="ev-empty-icon">📅</div>
                 <h3 className="ev-empty-title">No upcoming events found</h3>
-                <p className="ev-empty-sub">Try a different category or city.</p>
-                <button className="ev-empty-reset" onClick={clearAll}>Clear filters</button>
+                <p className="ev-empty-sub">Try a different category or city — or add your event to the calendar.</p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', alignItems: 'center' }}>
+                  <Link href="/submit-event" className="ev-empty-cta">Submit Your Event →</Link>
+                  <button className="ev-empty-reset" onClick={clearAll}>Clear filters</button>
+                </div>
               </div>
             )}
 
@@ -259,6 +300,7 @@ export default function Events() {
                 <div className="hn-footer-col">
                   <div className="hn-footer-col-title">Resources</div>
                   <Link href="/submit" className="hn-fl" target="_blank" rel="noopener noreferrer">List Your Service</Link>
+                  <Link href="/submit-event" className="hn-fl">Submit Your Event</Link>
                   <a href="https://mnhalal.com/submit" className="hn-fl" target="_blank" rel="noopener noreferrer">Add Your Halal Food Business</a>
                 </div>
                 <div className="hn-footer-col">
