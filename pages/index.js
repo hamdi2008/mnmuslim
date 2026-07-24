@@ -81,7 +81,7 @@ export default function Home() {
             <p className="hn-hero-eyebrow">The digital home for Muslims in Minnesota</p>
             <h1 className="hn-h1 hn-h1-dash">Everything Minnesota Muslims need</h1>
             <p className="hn-sub">
-              Discover trusted Muslim services, community events, and halal food across Minnesota.
+              Services, events, and halal food—all in one place.
             </p>
 
             <div className="hn-dash-wrap">

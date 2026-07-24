@@ -1,6 +1,6 @@
 /* GLOBAL RESET */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x: hidden; scroll-behavior: smooth; }
+html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x: hidden; scroll-behavior: smooth; scroll-padding-top: 84px; -webkit-overflow-scrolling: touch; }
 #__next { background: #071423; }
 
 /* ============================================================
@@ -57,7 +57,7 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
 .hn-chip:hover { background: rgba(12,165,165,0.1); border-color: rgba(12,165,165,0.45); color: #0CA5A5; transform: translateY(-2px); }
 
 /* DASHBOARD HERO (homepage as a routing dashboard) */
-.hn-hero-dash { padding: 94px 0 64px; }
+.hn-hero-dash { padding: 122px 0 64px; }
 .hn-hero-dash .hn-hero-eyebrow { margin-bottom: 12px; }
 .hn-h1-dash { font-size: 46px; letter-spacing: -1.5px; margin-bottom: 12px; max-width: 720px; }
 .hn-hero-dash .hn-sub { margin-bottom: 24px; }
@@ -97,8 +97,9 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
 
 @media (max-width: 900px) {
   .hn-dash-grid { grid-template-columns: 1fr; gap: 16px; }
-  .hn-hero-dash { padding: 92px 0 56px; }
-  .hn-h1-dash { font-size: 40px; letter-spacing: -1.2px; }
+  .hn-hero-dash { padding: 104px 0 48px; }
+  .hn-hero-dash .hn-hero-eyebrow { margin-bottom: 14px; }
+  .hn-h1-dash { font-size: 37px; letter-spacing: -1px; }
   .hn-dash-card { min-height: 0; padding: 26px 24px; }
 }
 
@@ -931,7 +932,7 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
 /* ── NEWSLETTER SECTION ─────────────────────────────────── */
 .hn-newsletter-section {
   background: #0F1E30;
-  padding: 100px 24px 96px;
+  padding: 76px 24px 72px;
   width: 100%;
   border-top: 1px solid rgba(255,255,255,0.05);
 }
