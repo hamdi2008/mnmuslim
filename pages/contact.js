@@ -1,19 +1,9 @@
-import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+import SiteNav from '../components/SiteNav'
+import SiteFooter from '../components/SiteFooter'
 
 export default function Contact() {
-  const [mobileOpen, setMobileOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
-  const router = useRouter()
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40)
-    window.addEventListener('scroll', onScroll)
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
-
   const rows = [
     {
       icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>,
@@ -57,62 +47,7 @@ export default function Contact() {
 
       <div className="home-page">
 
-        {/* ── NAV ── */}
-        <nav className={`hn-nav${scrolled ? " scrolled" : ""}`}>
-          <Link href="/" className="hn-logo">
-            <img src="/logo.png" alt="MNMuslim" className="hn-logo-img" />
-          </Link>
-          <div className="hn-pill">
-            <Link href="/services" className={`hn-nl${router.pathname==="/services" ? " hn-nl-active" : ""}`}>Services</Link>
-            <Link href="/events" className={`hn-nl${router.pathname==="/events" ? " hn-nl-active" : ""}`}>Events</Link>
-            <a href="https://mnhalal.com" className="hn-nl" target="_blank" rel="noopener noreferrer">MNHalal</a>
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-            <Link href="/contact" className="hn-contact">Contact <span aria-hidden="true">→</span></Link>
-            <button className="hn-mobile-menu" onClick={() => setMobileOpen(!mobileOpen)} aria-label="Toggle menu">
-              {mobileOpen ? (
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-                  <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-                </svg>
-              ) : (
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-                  <line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/>
-                </svg>
-              )}
-            </button>
-          </div>
-        </nav>
-
-        {mobileOpen && (
-          <div style={{ position: "fixed", top: 0, left: 0, width: "100vw", height: "100vh", background: "#060D1A", zIndex: 100, display: "flex", flexDirection: "column", padding: "20px 24px", overflowY: "auto" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "52px" }}>
-              <Link href="/" onClick={() => setMobileOpen(false)} style={{ textDecoration: "none" }}>
-                <img src="/logo-light.png" alt="MNMuslim" style={{ width: "140px", height: "auto", display: "block" }} />
-              </Link>
-              <button onClick={() => setMobileOpen(false)} style={{ background: "none", border: "none", color: "#fff", cursor: "pointer", padding: "4px" }}>
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-                  <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-                </svg>
-              </button>
-            </div>
-            <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
-              {[
-                { label: "Services", href: "/services", internal: true },
-                { label: "Events", href: "/events", internal: true },
-                { label: "MNHalal", href: "https://mnhalal.com", internal: false },
-                { label: "Contact", href: "/contact", internal: true },
-              ].map(item => item.internal ? (
-                <Link key={item.label} href={item.href} onClick={() => setMobileOpen(false)} style={{ color: "#fff", fontSize: "32px", fontWeight: "800", textDecoration: "none", padding: "18px 0", borderBottom: "1px solid rgba(255,255,255,0.07)", letterSpacing: "-1px", display: "block" }}>
-                  {item.label}
-                </Link>
-              ) : (
-                <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer" onClick={() => setMobileOpen(false)} style={{ color: "#fff", fontSize: "32px", fontWeight: "800", textDecoration: "none", padding: "18px 0", borderBottom: "1px solid rgba(255,255,255,0.07)", letterSpacing: "-1px", display: "block" }}>
-                  {item.label}
-                </a>
-              ))}
-            </div>
-          </div>
-        )}
+        <SiteNav />
 
         {/* ── HERO ── */}
         <section className="ct-hero">
@@ -151,51 +86,7 @@ export default function Contact() {
           </div>
         </section>
 
-        {/* ── FOOTER ── */}
-        <footer className="hn-footer">
-          <div className="hn-footer-inner">
-            <div className="hn-footer-top">
-              <div className="hn-footer-brand">
-                <Link href="/" className="hn-footer-logo">
-                  <img src="/logo-footer.png" alt="MNMuslim" className="hn-footer-logo-img" />
-                </Link>
-                <p className="hn-footer-tag">Helping Minnesota Muslims discover trusted businesses, services, and community resources.</p>
-                <p className="hn-footer-mission">Helping Minnesota Muslims discover trusted businesses, services, and community resources.</p>
-              </div>
-              <div className="hn-footer-cols">
-                <div className="hn-footer-col">
-                  <div className="hn-footer-col-title">Products</div>
-                  <Link href="/services" className="hn-fl">Muslim Services</Link>
-                  <Link href="/events" className="hn-fl">Events</Link>
-                  <a href="https://mnhalal.com" className="hn-fl" target="_blank" rel="noopener noreferrer">MNHalal</a>
-                </div>
-                <div className="hn-footer-col">
-                  <div className="hn-footer-col-title">Company</div>
-                  <Link href="/contact" className="hn-fl">Contact</Link>
-                  </div>
-                <div className="hn-footer-col">
-                  <div className="hn-footer-col-title">Resources</div>
-                  <Link href="/submit" className="hn-fl">List Your Service</Link>
-                  <a href="https://mnhalal.com/submit" className="hn-fl" target="_blank" rel="noopener noreferrer">List Halal Business</a>
-                </div>
-                <div className="hn-footer-col">
-                  <div className="hn-footer-col-title">Community</div>
-                  <a href="https://www.instagram.com/mnmuslimevents/" className="hn-fl" target="_blank" rel="noopener noreferrer">Instagram</a>
-                </div>
-              </div>
-            </div>
-            <div className="hn-footer-bottom">
-              <div>
-                <span className="hn-fb-copy">© 2026 MNMuslim</span>
-                <span className="hn-fb-copy hn-fb-copy-sub">Built in Minnesota for the Minnesota Muslim community.</span>
-              </div>
-              <div className="hn-fb-legal">
-                <Link href="/privacy" className="hn-fb-link">Privacy Policy</Link>
-                <Link href="/terms" className="hn-fb-link">Terms of Use</Link>
-              </div>
-            </div>
-          </div>
-        </footer>
+        <SiteFooter />
 
       </div>
     </>
