@@ -5,7 +5,9 @@ import { NAV_LINKS } from '../lib/nav'
 
 // Shared site navigation. Reuses the hn-* nav styles. Owns its own scroll-glass
 // and mobile-menu state so every page gets identical behavior for free.
-export default function SiteNav() {
+// Pass `solid` on light-background pages (e.g. detail pages) so the nav keeps a
+// dark background instead of being transparent over light content.
+export default function SiteNav({ solid = false }) {
   const router = useRouter()
   const [scrolled, setScrolled]   = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -29,7 +31,7 @@ export default function SiteNav() {
 
   return (
     <>
-      <nav className={`hn-nav${scrolled ? ' scrolled' : ''}`}>
+      <nav className={`hn-nav${scrolled ? ' scrolled' : ''}`} style={solid ? { background: '#071423', borderBottom: '1px solid rgba(255,255,255,0.07)' } : undefined}>
         <Link href="/" className="hn-logo">
           <img src="/logo.png" alt="MNMuslim" className="hn-logo-img" />
         </Link>

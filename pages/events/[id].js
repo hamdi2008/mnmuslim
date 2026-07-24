@@ -6,6 +6,8 @@ import {
   getEventCategoryById, EVENT_PUBLIC_COLUMNS,
   isUpcoming, formatEventDate, directionsUrl, icsCalendar,
 } from '../../lib/events'
+import SiteNav from '../../components/SiteNav'
+import SiteFooter from '../../components/SiteFooter'
 
 export async function getServerSideProps({ params }) {
   const { data, error } = await supabase
@@ -32,17 +34,9 @@ const ClockIcon    = () => <svg width="14" height="14" viewBox="0 0 24 24" fill=
 const PinIcon      = () => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
 
 export default function EventDetail({ event }) {
-  const [scrolled, setScrolled] = useState(false)
-  const [mobileOpen, setMobileOpen] = useState(false)
   const [ended, setEnded] = useState(false)
   const cat = getEventCategoryById(event.category)
   const dateLabel = formatEventDate(event.date, event.end_date)
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40)
-    window.addEventListener('scroll', onScroll)
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
 
   // Computed client-side so the SSR-cached page can't go stale.
   useEffect(() => { setEnded(!isUpcoming(event)) }, [event])
@@ -94,50 +88,7 @@ export default function EventDetail({ event }) {
 
       <div className="home-page">
 
-        {/* NAV */}
-        <nav className={`hn-nav${scrolled ? ' scrolled' : ''}`} style={{ background: '#071423', borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
-          <Link href="/" className="hn-logo">
-            <img src="/logo.png" alt="MNMuslim" className="hn-logo-img" />
-          </Link>
-          <div className="hn-pill">
-            <Link href="/services" className="hn-nl">Services</Link>
-            <Link href="/events" className="hn-nl hn-nl-active">Events</Link>
-            <a href="https://mnhalal.com" className="hn-nl" target="_blank" rel="noopener noreferrer">MNHalal</a>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <Link href="/contact" className="hn-contact">Contact <span>→</span></Link>
-            <button className="hn-mobile-menu" onClick={() => setMobileOpen(!mobileOpen)} aria-label="Toggle menu">
-              {mobileOpen
-                ? <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                : <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
-              }
-            </button>
-          </div>
-        </nav>
-
-        {mobileOpen && (
-          <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', background: '#060D1A', zIndex: 100, display: 'flex', flexDirection: 'column', padding: '20px 24px', overflowY: 'auto' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '52px' }}>
-              <Link href="/" onClick={() => setMobileOpen(false)} style={{ textDecoration: 'none' }}>
-                <img src="/logo-light.png" alt="MNMuslim" style={{ width: '140px', height: 'auto' }} />
-              </Link>
-              <button onClick={() => setMobileOpen(false)} style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer' }}>
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-              </button>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
-              {[
-                { label: 'Services', href: '/services', internal: true },
-                { label: 'Events', href: '/events', internal: true },
-                { label: 'MNHalal', href: 'https://mnhalal.com', internal: false },
-                { label: 'Contact', href: '/contact', internal: true },
-              ].map(item => item.internal
-                ? <Link key={item.label} href={item.href} onClick={() => setMobileOpen(false)} style={{ color: '#fff', fontSize: '32px', fontWeight: '800', textDecoration: 'none', padding: '18px 0', borderBottom: '1px solid rgba(255,255,255,0.07)', letterSpacing: '-1px', display: 'block' }}>{item.label}</Link>
-                : <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer" onClick={() => setMobileOpen(false)} style={{ color: '#fff', fontSize: '32px', fontWeight: '800', textDecoration: 'none', padding: '18px 0', borderBottom: '1px solid rgba(255,255,255,0.07)', letterSpacing: '-1px', display: 'block' }}>{item.label}</a>
-              )}
-            </div>
-          </div>
-        )}
+        <SiteNav solid />
 
         {/* PAGE CONTENT */}
         <div className="ev-detail-page">
@@ -231,52 +182,7 @@ export default function EventDetail({ event }) {
           </div>
         </div>
 
-        {/* ── FOOTER ── */}
-        <footer className="hn-footer">
-          <div className="hn-footer-inner">
-            <div className="hn-footer-top">
-              <div className="hn-footer-brand">
-                <Link href="/" className="hn-footer-logo">
-                  <img src="/logo-footer.png" alt="MNMuslim" className="hn-footer-logo-img" />
-                </Link>
-                <p className="hn-footer-tag">Helping Minnesota Muslims discover trusted businesses, services, and community resources.</p>
-                <p className="hn-footer-mission">Built by a Minnesota Muslim for the Minnesota Muslim community.</p>
-              </div>
-              <div className="hn-footer-cols">
-                <div className="hn-footer-col">
-                  <div className="hn-footer-col-title">Products</div>
-                  <Link href="/services" className="hn-fl">Muslim Services</Link>
-                  <Link href="/events" className="hn-fl">Events</Link>
-                  <a href="https://mnhalal.com" className="hn-fl" target="_blank" rel="noopener noreferrer">MNHalal</a>
-                </div>
-                <div className="hn-footer-col">
-                  <div className="hn-footer-col-title">Company</div>
-                  <Link href="/contact" className="hn-fl">Contact</Link>
-                </div>
-                <div className="hn-footer-col">
-                  <div className="hn-footer-col-title">Resources</div>
-                  <Link href="/submit" className="hn-fl">List Your Service</Link>
-                  <Link href="/submit-event" className="hn-fl">Submit Your Event</Link>
-                  <a href="https://mnhalal.com/submit" className="hn-fl" target="_blank" rel="noopener noreferrer">Add Your Halal Food Business</a>
-                </div>
-                <div className="hn-footer-col">
-                  <div className="hn-footer-col-title">Community</div>
-                  <a href="https://www.instagram.com/mnmuslimevents/" className="hn-fl" target="_blank" rel="noopener noreferrer">Instagram</a>
-                </div>
-              </div>
-            </div>
-            <div className="hn-footer-bottom">
-              <div>
-                <span className="hn-fb-copy">© 2026 MNMuslim</span>
-                <span className="hn-fb-copy hn-fb-copy-sub">Built in Minnesota for the Minnesota Muslim community.</span>
-              </div>
-              <div className="hn-fb-legal">
-                <Link href="/privacy" className="hn-fb-link">Privacy Policy</Link>
-                <Link href="/terms" className="hn-fb-link">Terms of Use</Link>
-              </div>
-            </div>
-          </div>
-        </footer>
+        <SiteFooter />
 
       </div>
     </>
