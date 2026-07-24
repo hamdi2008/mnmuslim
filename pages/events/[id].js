@@ -100,7 +100,7 @@ export default function EventDetail({ event }) {
             <img src="/logo.png" alt="MNMuslim" className="hn-logo-img" />
           </Link>
           <div className="hn-pill">
-            <Link href="/services" className="hn-nl" target="_blank" rel="noopener noreferrer">Services</Link>
+            <Link href="/services" className="hn-nl">Services</Link>
             <Link href="/events" className="hn-nl hn-nl-active">Events</Link>
             <a href="https://mnhalal.com" className="hn-nl" target="_blank" rel="noopener noreferrer">MNHalal</a>
           </div>
