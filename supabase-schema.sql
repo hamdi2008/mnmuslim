@@ -16,6 +16,7 @@ create table if not exists listings (
   website        text,
   instagram      text,
   approved       boolean not null default false,
+  featured       boolean not null default false,
   created_at     timestamptz not null default now()
 );
 
