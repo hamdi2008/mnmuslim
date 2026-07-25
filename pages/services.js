@@ -31,12 +31,13 @@ function TrustBadges({ listing }) {
   )
 }
 
-function ListingCard({ listing }) {
+function ListingCard({ listing, featured }) {
   const cat = getCategoryById(listing.category)
   return (
-    <Link href={`/listing/${listing.id}`} className="sv-card">
+    <Link href={`/listing/${listing.id}`} className={`sv-card${featured ? ' sv-card-featured' : ''}`}>
       <div className="sv-card-top">
         <span className="sv-card-badge">{cat.name}</span>
+        {featured && <span className="sv-featured-badge">★ Featured</span>}
       </div>
       <div className="sv-card-name">{listing.service_name}</div>
       <div className="sv-card-provider">
@@ -143,6 +144,9 @@ export default function Services() {
     setActiveCat('')
     runFetch(term, '')
   }
+
+  const featuredListings = listings.filter(l => l.featured)
+  const regularListings  = listings.filter(l => !l.featured)
 
   return (
     <>
@@ -272,10 +276,22 @@ export default function Services() {
               </div>
             )}
 
-            {/* Grid */}
-            {!loading && listings.length > 0 && (
+            {/* Featured section — any listing with featured = true */}
+            {!loading && featuredListings.length > 0 && (
+              <section className="sv-featured">
+                <div className="sv-featured-head">
+                  <span className="sv-featured-label">★ Featured</span>
+                </div>
+                <div className="sv-grid">
+                  {featuredListings.map(listing => <ListingCard key={listing.id} listing={listing} featured />)}
+                </div>
+              </section>
+            )}
+
+            {/* Grid — everything else */}
+            {!loading && regularListings.length > 0 && (
               <div className="sv-grid">
-                {listings.map(listing => <ListingCard key={listing.id} listing={listing} />)}
+                {regularListings.map(listing => <ListingCard key={listing.id} listing={listing} />)}
               </div>
             )}
           </main>
