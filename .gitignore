@@ -32,3 +32,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local dev config
+.claude/
+
+# dated Supabase batches — run by hand in the SQL Editor, no runtime effect.
+# The canonical schema files (supabase-schema.sql, supabase-events-schema.sql)
+# stay tracked.
+supabase-events-20*.sql
+supabase-events-cleanup.sql
