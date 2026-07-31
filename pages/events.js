@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useRef } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -42,7 +42,11 @@ function EventCard({ event, today }) {
   const cat = getEventCategoryById(event.category)
   const badge = todayBadge(event, today)
   return (
-    <Link href={`/events/${event.id}`} className="ev-card">
+    <Link
+      href={`/events/${event.id}`}
+      className="ev-card"
+      aria-label={`View details for ${event.title}`}
+    >
       <div className="ev-card-top">
         <span className="ev-card-badge">{cat.icon} {cat.name}</span>
         {badge && <span className="ev-today-badge">{badge}</span>}
@@ -66,17 +70,27 @@ function EventCard({ event, today }) {
 }
 
 export default function Events({ events }) {
-  const [search, setSearch]         = useState('')
-  const [activeCat, setActiveCat]   = useState('')
-  const [activeCity, setActiveCity] = useState('')
+  const [activeCat, setActiveCat] = useState('')
+  const inited = useRef(false)
   const router = useRouter()
 
+  // Seed from the URL once; the effect below then owns the query string.
   useEffect(() => {
-    if (!router.isReady) return
-    if (router.query.search) setSearch(router.query.search)
+    if (!router.isReady || inited.current) return
+    inited.current = true
     if (router.query.category) setActiveCat(router.query.category)
-    if (router.query.city) setActiveCity(router.query.city)
   }, [router.isReady, router.query])
+
+  // Keep the category in the URL so results can be shared or survive a refresh.
+  useEffect(() => {
+    if (!inited.current) return
+    router.replace(
+      { pathname: '/events', query: activeCat ? { category: activeCat } : {} },
+      undefined,
+      { shallow: true, scroll: false }
+    )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeCat])
 
   const today = mnToday()
 
@@ -84,48 +98,32 @@ export default function Events({ events }) {
   // doesn't keep showing an event that ended.
   const upcomingEvents = useMemo(() => events.filter(e => isUpcoming(e)), [events])
 
-  const cities = useMemo(
-    () => [...new Set(upcomingEvents.map(e => e.city))].sort(),
-    [upcomingEvents]
+  const filteredEvents = useMemo(
+    () => upcomingEvents.filter(e => !activeCat || e.category === activeCat),
+    [upcomingEvents, activeCat]
   )
 
-  const term = search.trim().toLowerCase()
-
-  const filteredEvents = useMemo(() => {
-    return upcomingEvents.filter(e => {
-      if (activeCat && e.category !== activeCat) return false
-      if (activeCity && e.city !== activeCity) return false
-      if (term) {
-        // No organizer column on `events` — venue is the closest stand-in.
-        const haystack = [e.title, e.venue, e.city, e.description, getEventCategoryById(e.category).name]
-          .filter(Boolean).join(' ').toLowerCase()
-        if (!haystack.includes(term)) return false
-      }
-      return true
-    })
-  }, [upcomingEvents, activeCat, activeCity, term])
-
+  // Empty date groups drop out on their own — groupUpcomingEvents only creates
+  // a group when an event lands in it.
   const eventGroups = useMemo(() => groupUpcomingEvents(filteredEvents), [filteredEvents])
 
-  const hasFilters = Boolean(search || activeCat || activeCity)
-
+  // "15 upcoming events" · "4 Youth events" · "3 Conferences" · "No upcoming events"
   const countLabel = useMemo(() => {
-    const catName = activeCat ? getEventCategoryById(activeCat).name : ''
-    const noun = filteredEvents.length === 1 ? 'event' : 'events'
-    let label = `Showing ${filteredEvents.length} upcoming ${catName ? `${catName} ` : ''}${noun}`
-    if (activeCity) label += ` in ${activeCity}`
-    if (search.trim()) label += ` matching “${search.trim()}”`
-    return label
-  }, [filteredEvents.length, activeCat, activeCity, search])
+    const n = filteredEvents.length
+    if (!n) return 'No upcoming events'
+    const noun = n === 1 ? 'event' : 'events'
+    if (!activeCat) return `${n} upcoming ${noun}`
+    const cat = getEventCategoryById(activeCat)
+    // Already-plural names read wrong with "events" appended.
+    return cat.plural && n !== 1 ? `${n} ${cat.name}` : `${n} ${cat.name} ${noun}`
+  }, [filteredEvents.length, activeCat])
 
   function toggleCat(id) {
     setActiveCat(prev => (prev === id ? '' : id))
   }
 
   function clearAll() {
-    setSearch('')
     setActiveCat('')
-    setActiveCity('')
   }
 
   const jsonLd = {
@@ -172,22 +170,37 @@ export default function Events({ events }) {
           </section>
         </div>
 
-        {/* ── FILTER BAR — same shape across every MN directory ── */}
-        <div className="ev-filterbar">
-          <div className="ev-filterbar-inner">
-            <div className="ev-fb-search">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-              <input
-                className="ev-fb-input"
-                type="search"
-                placeholder="Search events..."
-                aria-label="Search events"
-                value={search}
-                onChange={e => setSearch(e.target.value)}
-              />
-            </div>
+        {/* ── DIRECTORY ── */}
+        <div className="ev-body">
+
+          {/* Sticky category sidebar — desktop */}
+          <aside className="ev-sidebar" aria-label="Event categories">
+            <div className="ev-sidebar-label">Categories</div>
+            <button
+              className={`ev-cat-btn${activeCat === '' ? ' ev-cat-active' : ''}`}
+              aria-pressed={activeCat === ''}
+              onClick={() => setActiveCat('')}
+            >
+              All Categories
+            </button>
+            {EVENT_CATEGORIES.map(cat => (
+              <button
+                key={cat.id}
+                className={`ev-cat-btn${activeCat === cat.id ? ' ev-cat-active' : ''}`}
+                aria-pressed={activeCat === cat.id}
+                onClick={() => toggleCat(cat.id)}
+              >
+                {cat.icon} {cat.name}
+              </button>
+            ))}
+          </aside>
+
+          {/* Main */}
+          <main className="ev-main">
+
+            {/* Category control — mobile only, stands in for the hidden sidebar */}
             <select
-              className="ev-select"
+              className="ev-mobile-cat"
               aria-label="Filter by category"
               value={activeCat}
               onChange={e => setActiveCat(e.target.value)}
@@ -197,53 +210,8 @@ export default function Events({ events }) {
                 <option key={cat.id} value={cat.id}>{cat.name}</option>
               ))}
             </select>
-            <select
-              className="ev-select"
-              aria-label="Filter by city"
-              value={activeCity}
-              onChange={e => setActiveCity(e.target.value)}
-            >
-              <option value="">All Cities</option>
-              {cities.map(city => (
-                <option key={city} value={city}>{city}</option>
-              ))}
-            </select>
-          </div>
-        </div>
-        <div className="ev-mobile-submit">
-          <Link href="/submit-event" className="ev-submit-btn">+ Submit Your Event</Link>
-        </div>
 
-        {/* ── DIRECTORY ── */}
-        <div className="ev-body">
-
-          {/* Sticky sidebar — categories */}
-          <aside className="ev-sidebar">
-            <div className="ev-sidebar-label">Categories</div>
-            <button className={`ev-cat-btn${activeCat === '' ? ' ev-cat-active' : ''}`} onClick={() => setActiveCat('')}>
-              All Categories
-            </button>
-            {EVENT_CATEGORIES.map(cat => (
-              <button key={cat.id} className={`ev-cat-btn${activeCat === cat.id ? ' ev-cat-active' : ''}`} onClick={() => toggleCat(cat.id)}>
-                {cat.icon} {cat.name}
-              </button>
-            ))}
-
-            <div className="ev-sidebar-label" style={{ marginTop: '24px' }}>City</div>
-            <button className={`ev-cat-btn${activeCity === '' ? ' ev-cat-active' : ''}`} onClick={() => setActiveCity('')}>
-              All Cities
-            </button>
-            {cities.map(city => (
-              <button key={city} className={`ev-cat-btn${activeCity === city ? ' ev-cat-active' : ''}`} onClick={() => setActiveCity(prev => prev === city ? '' : city)}>
-                {city}
-              </button>
-            ))}
-          </aside>
-
-          {/* Main */}
-          <main className="ev-main">
-
-            {/* Toolbar — listing count + desktop CTA */}
+            {/* Count + CTA */}
             <div className="ev-results-head">
               <span className="ev-count">{countLabel}</span>
               <Link href="/submit-event" className="ev-submit-btn">+ Submit Your Event</Link>
@@ -251,17 +219,16 @@ export default function Events({ events }) {
 
             {!filteredEvents.length && (
               <div className="ev-empty">
-                <div className="ev-empty-icon">📅</div>
-                <h3 className="ev-empty-title">No upcoming events found.</h3>
+                <div className="ev-empty-icon" aria-hidden="true">📅</div>
+                <h2 className="ev-empty-title">No upcoming events found</h2>
                 <p className="ev-empty-sub">
-                  {hasFilters
-                    ? 'Try another city or category.'
+                  {activeCat
+                    ? 'Try another category.'
                     : 'Nothing on the calendar right now — add your event and get it in front of the community.'}
                 </p>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', alignItems: 'center' }}>
-                  {hasFilters && <button className="ev-empty-reset" onClick={clearAll}>Reset Filters</button>}
-                  <Link href="/submit-event" className="ev-empty-cta">Submit Your Event →</Link>
-                </div>
+                {activeCat
+                  ? <button className="ev-empty-reset" onClick={clearAll}>View all events</button>
+                  : <Link href="/submit-event" className="ev-empty-cta">Submit Your Event →</Link>}
               </div>
             )}
 
