@@ -168,6 +168,73 @@ order by created_at;
 
 ---
 
+## Services & Events Directory
+
+Both directories follow one shared MNMuslim pattern:
+
+> **Compact intro → filters → listing count / action → high-density listings.**
+
+MNHalal was the UX inspiration for the listing density; MNMuslim keeps its own
+visual identity (colors, typography, nav, cards, footer).
+
+### Services (`/services`)
+
+- The permanent left-hand **Categories sidebar was removed** in favor of a
+  compact, directory-focused layout where the listings are the focus.
+- A **filter bar sits above the listings** with **Search · Category · Location**.
+- Grid is responsive: **3 columns on desktop, 2 on tablet, 1 on mobile.**
+- **Featured** services stay separated from **All Services** and are
+  de-duplicated (a featured listing never also appears in All Services).
+- The **listing count updates dynamically** with the active filters.
+
+### Service location normalization
+
+`service_area` is **legacy free-text** stored in Supabase (e.g. "Twin Cities",
+"Twin Cities Metro", "Minneapolis, MN", "Minnesota & Remote"). Those database
+values were **not modified** as part of the redesign.
+
+To keep the Location filter clean, the directory normalizes existing
+`service_area` values into a fixed set of buckets via **`lib/serviceAreas.js`**:
+
+- Minneapolis
+- St. Paul
+- Twin Cities Metro
+- Greater Minnesota
+- Statewide
+- Virtual / Remote
+
+Notes:
+
+- **Minneapolis and St. Paul** listings also **roll up into Twin Cities Metro**
+  (while remaining their own filter options).
+- A single `service_area` value can map to **multiple** buckets (e.g.
+  "Minnesota & Remote" → Statewide *and* Virtual / Remote).
+- Normalization is **for filtering only** — cards and detail pages continue to
+  display the **original `service_area` value** from Supabase.
+
+**Follow-up (future task):** the **List Your Service** form still accepts a
+free-text "Areas You Serve" field, so new submissions keep producing
+inconsistent free-text values. A separate future task should move toward
+**structured service-area selection** at submission time. _No form or database
+changes were made as part of this redesign or this documentation._
+
+### Events (`/events`)
+
+- The permanent **Categories sidebar was removed.**
+- A **filter bar sits above the listings** with **Search · Category · Date ·
+  Location**.
+- Grid is responsive: **3 columns on desktop, 2 on tablet, 1 on mobile.**
+- The existing **chronological grouping** (This Week / Next Week / month
+  headings) remains intact.
+- The **listing count stays dynamic**.
+- Event cards use a **more concise location** display; the full location
+  information remains available on the event detail page.
+
+> Location-based SEO (e.g. per-location pages) is only a possible **future**
+> consideration and is **not** part of this redesign.
+
+---
+
 ## Tech Stack
 
 - **Framework:** Next.js 14 (Pages Router)
