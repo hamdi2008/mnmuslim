@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { CATEGORIES, getCategoryById } from '../lib/categories'
+import { SERVICE_AREAS, matchesServiceArea } from '../lib/serviceAreas'
 import SiteNav from '../components/SiteNav'
 import SiteFooter from '../components/SiteFooter'
 
@@ -120,35 +121,14 @@ function ListingCard({ listing, featured }) {
   )
 }
 
-const PLACEHOLDERS = [
-  'Wedding Photographer...',
-  'Quran Teacher...',
-  'Math Tutor...',
-  'Home Cleaning...',
-  'Tax Accountant...',
-  'Therapist...',
-  'Web Designer...',
-  'Handyman...',
-  'Immigration Lawyer...',
-  'Event Planner...',
-  'Graphic Designer...',
-]
-
 export default function Services() {
   const [allListings, setAllListings] = useState([])
   const [loading, setLoading]         = useState(true)
   const [search, setSearch]           = useState('')
   const [activeCat, setActiveCat]     = useState('')
-  const [phIdx, setPhIdx]             = useState(0)
+  const [activeLoc, setActiveLoc]     = useState('')
   const inited = useRef(false)
-  const resultsRef = useRef(null)
   const router = useRouter()
-
-  // Rotating placeholder — same 3s interval as homepage
-  useEffect(() => {
-    const t = setInterval(() => setPhIdx(i => (i + 1) % PLACEHOLDERS.length), 3000)
-    return () => clearInterval(t)
-  }, [])
 
   // Seed state from the URL once; the effect below then owns the query string.
   useEffect(() => {
@@ -156,6 +136,7 @@ export default function Services() {
     inited.current = true
     if (router.query.search)   setSearch(router.query.search)
     if (router.query.category) setActiveCat(router.query.category)
+    if (router.query.location) setActiveLoc(router.query.location)
   }, [router.isReady, router.query])
 
   // Keep filters in the URL so results can be shared or survive a refresh.
@@ -164,12 +145,13 @@ export default function Services() {
     const query = {}
     if (search.trim()) query.search = search.trim()
     if (activeCat)     query.category = activeCat
+    if (activeLoc)     query.location = activeLoc
     router.replace({ pathname: '/services', query }, undefined, { shallow: true, scroll: false })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search, activeCat])
+  }, [search, activeCat, activeLoc])
 
-  // The whole approved directory is fetched once; search and category filter
-  // client-side so the count stays exact and instant.
+  // The whole approved directory is fetched once; search/category/location
+  // filter client-side so the count stays exact and instant.
   useEffect(() => {
     let cancelled = false
     ;(async () => {
@@ -190,6 +172,9 @@ export default function Services() {
 
   const listings = useMemo(() => allListings.filter(l => {
     if (activeCat && l.category !== activeCat) return false
+    // Location filters on standardized buckets (see lib/serviceAreas) rather
+    // than the raw free-text value, so near-duplicate phrasings collapse.
+    if (activeLoc && !matchesServiceArea(l.service_area, activeLoc)) return false
     if (!term) return true
     const haystack = [
       l.service_name,
@@ -200,7 +185,7 @@ export default function Services() {
       getCategoryById(l.category).name,
     ].filter(Boolean).join(' ').toLowerCase()
     return haystack.includes(term)
-  }), [allListings, activeCat, term])
+  }), [allListings, activeCat, activeLoc, term])
 
   // "13 services" · "2 Health & Wellness services" · "3 Legal Services"
   const countLabel = useMemo(() => {
@@ -213,19 +198,13 @@ export default function Services() {
     return `${n} ${catName} ${n === 1 ? 'service' : 'services'}`
   }, [listings.length, activeCat])
 
-  function toggleCat(id) {
-    setActiveCat(prev => (prev === id ? '' : id))
-  }
-
   function clearAll() {
     setSearch('')
     setActiveCat('')
+    setActiveLoc('')
   }
 
-  // Results filter as you type; the hero button just takes you to them.
-  function scrollToResults() {
-    resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  }
+  const hasFilters = Boolean(term || activeCat || activeLoc)
 
   const featuredListings = listings.filter(l => l.featured)
   const regularListings  = listings.filter(l => !l.featured)
@@ -252,74 +231,34 @@ export default function Services() {
 
       <div className="home-page">
 
-        {/* ── HERO — the page's only search ── */}
+        {/* ── COMPACT HERO ── */}
         <div className="hn-dark-header">
           <SiteNav />
-          <section className="hn-hero">
+          <section className="hn-hero hn-hero-compact">
             <div className="hn-g hn-g1" />
             <div className="hn-g hn-g2" />
             <div className="hn-g hn-g3" />
-
             <p className="hn-hero-eyebrow">Muslim Services Directory</p>
-
-            <h1 className="hn-h1">
-              Find Muslim Services
-            </h1>
-
-            <p className="hn-sub">
-              Find the services you need from Minnesota’s Muslim community.
-            </p>
-
-            <div className="hn-search-wrap">
-              <div className="hn-search-box">
-                <svg className="hn-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                <input
-                  className="hn-search-input"
-                  type="search"
-                  aria-label="Search services"
-                  placeholder={PLACEHOLDERS[phIdx]}
-                  value={search}
-                  onChange={e => setSearch(e.target.value)}
-                  onKeyDown={e => e.key === 'Enter' && scrollToResults()}
-                />
-                <button className="hn-search-btn" onClick={scrollToResults}>Search</button>
-              </div>
-            </div>
-
+            <h1 className="hn-h1">Find Muslim Services</h1>
+            <p className="hn-sub">Find the services you need from Minnesota’s Muslim community.</p>
           </section>
         </div>
 
-        {/* ── DIRECTORY ── */}
-        <div className="sv-body">
-
-          {/* Sticky category sidebar — desktop */}
-          <aside className="sv-sidebar" aria-label="Service categories">
-            <div className="sv-sidebar-label">Categories</div>
-            <button
-              className={`sv-cat-btn${activeCat === '' ? ' sv-cat-active' : ''}`}
-              aria-pressed={activeCat === ''}
-              onClick={() => setActiveCat('')}
-            >
-              All Categories
-            </button>
-            {CATEGORIES.map(cat => (
-              <button
-                key={cat.id}
-                className={`sv-cat-btn${activeCat === cat.id ? ' sv-cat-active' : ''}`}
-                aria-pressed={activeCat === cat.id}
-                onClick={() => toggleCat(cat.id)}
-              >
-                {cat.name}
-              </button>
-            ))}
-          </aside>
-
-          {/* Main */}
-          <main className="sv-main" ref={resultsRef}>
-
-            {/* Category control — mobile only, stands in for the hidden sidebar */}
+        {/* ── FILTER BAR ── */}
+        <div className="df-bar-wrap">
+          <div className="df-bar">
+            <div className="df-search">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input
+                type="search"
+                aria-label="Search services"
+                placeholder="Search services…"
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+              />
+            </div>
             <select
-              className="sv-mobile-cat"
+              className="df-select"
               aria-label="Filter by category"
               value={activeCat}
               onChange={e => setActiveCat(e.target.value)}
@@ -329,52 +268,77 @@ export default function Services() {
                 <option key={cat.id} value={cat.id}>{cat.name}</option>
               ))}
             </select>
+            <select
+              className="df-select"
+              aria-label="Filter by location"
+              value={activeLoc}
+              onChange={e => setActiveLoc(e.target.value)}
+            >
+              <option value="">All Locations</option>
+              {SERVICE_AREAS.map(area => (
+                <option key={area.id} value={area.id}>{area.name}</option>
+              ))}
+            </select>
+            {hasFilters && (
+              <button className="df-clear" onClick={clearAll}>Clear filters</button>
+            )}
+          </div>
+        </div>
 
-            {/* Count + CTA */}
-            <div className="sv-results-head">
-              <span className="sv-count">{loading ? 'Loading services…' : countLabel}</span>
-              <Link href="/submit" className="sv-list-btn">+ List Your Service</Link>
+        {/* ── RESULTS ── */}
+        <main className="dir-main">
+
+          <div className="sv-results-head">
+            <span className="sv-count">{loading ? 'Loading services…' : countLabel}</span>
+            <Link href="/submit" className="sv-list-btn">+ List Your Service</Link>
+          </div>
+
+          {/* Skeleton */}
+          {loading && (
+            <div className="sv-loading">
+              {[1,2,3,4,5,6].map(i => <div key={i} className="sv-skeleton" />)}
             </div>
+          )}
 
-            {/* Skeleton */}
-            {loading && (
-              <div className="sv-loading">
-                {[1,2,3,4,5,6].map(i => <div key={i} className="sv-skeleton" />)}
+          {/* Empty state */}
+          {!loading && listings.length === 0 && (
+            <div className="sv-empty">
+              <div className="sv-empty-icon" aria-hidden="true">🔍</div>
+              <h2 className="sv-empty-title">No services found</h2>
+              <p className="sv-empty-sub">Try another search, category, or location.</p>
+              <button className="sv-empty-reset" onClick={clearAll}>
+                {hasFilters ? 'Clear filters' : 'View all services'}
+              </button>
+            </div>
+          )}
+
+          {/* Featured — only when a listing is actually flagged */}
+          {!loading && featuredListings.length > 0 && (
+            <section className="sv-featured">
+              <div className="sv-featured-head">
+                <span className="sv-featured-label">★ Featured</span>
               </div>
-            )}
-
-            {/* Empty state */}
-            {!loading && listings.length === 0 && (
-              <div className="sv-empty">
-                <div className="sv-empty-icon" aria-hidden="true">🔍</div>
-                <h2 className="sv-empty-title">No services found</h2>
-                <p className="sv-empty-sub">Try another search or category.</p>
-                <button className="sv-empty-reset" onClick={clearAll}>
-                  {term ? 'Clear search' : 'View all services'}
-                </button>
+              <div className="sv-grid">
+                {featuredListings.map(listing => <ListingCard key={listing.id} listing={listing} featured />)}
               </div>
-            )}
+            </section>
+          )}
 
-            {/* Featured — only when a listing is actually flagged */}
-            {!loading && featuredListings.length > 0 && (
-              <section className="sv-featured">
-                <div className="sv-featured-head">
-                  <span className="sv-featured-label">★ Featured</span>
+          {/* Grid — everything else. Labelled "All Services" only when a
+              Featured section sits above it, so the heading earns its place. */}
+          {!loading && regularListings.length > 0 && (
+            <>
+              {featuredListings.length > 0 && (
+                <div className="sv-featured-head sv-all-head">
+                  <span className="sv-all-label">All Services</span>
                 </div>
-                <div className="sv-grid">
-                  {featuredListings.map(listing => <ListingCard key={listing.id} listing={listing} featured />)}
-                </div>
-              </section>
-            )}
-
-            {/* Grid — everything else */}
-            {!loading && regularListings.length > 0 && (
+              )}
               <div className="sv-grid">
                 {regularListings.map(listing => <ListingCard key={listing.id} listing={listing} />)}
               </div>
-            )}
-          </main>
-        </div>
+            </>
+          )}
+        </main>
 
         <SiteFooter />
 
