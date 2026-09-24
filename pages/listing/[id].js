@@ -18,6 +18,11 @@ function cleanUrl(url) {
 function cleanInstagram(h) {
   return h.startsWith('@') ? h : `@${h}`
 }
+function fullUrl(url) {
+  return url.startsWith('http') ? url : `https://${url}`
+}
+
+const DELIVERY_LABELS = { remote: 'Remote', in_person: 'In person' }
 
 const PhoneIcon    = () => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.09 6.09l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
 const EmailIcon    = () => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
@@ -41,6 +46,46 @@ export default function ListingDetail({ listing }) {
     : listing.website ? (listing.website.startsWith('http') ? listing.website : `https://${listing.website}`)
     : null
 
+  // Structured fields (experiment) — null on most listings, so each piece
+  // only renders when present.
+  const services      = listing.services?.length ? listing.services : null
+  const deliveryModes = listing.delivery_modes?.length ? listing.delivery_modes : null
+  const hasDetails    = Boolean(services || listing.price_info || deliveryModes || listing.audience)
+
+  const listingUrl = `https://mnmuslim.com/listing/${listing.id}`
+  const sameAs = [
+    listing.website && fullUrl(listing.website),
+    listing.instagram && `https://instagram.com/${listing.instagram.replace('@','')}`,
+  ].filter(Boolean)
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: listing.service_name,
+    description: listing.description,
+    url: listingUrl,
+    category: cat.name,
+    areaServed: listing.service_area,
+    provider: {
+      '@type': 'Person',
+      name: listing.provider_name,
+      ...(listing.email ? { email: listing.email } : {}),
+      ...(listing.website ? { url: fullUrl(listing.website) } : {}),
+      ...(sameAs.length ? { sameAs } : {}),
+    },
+    ...(services ? {
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: `${listing.service_name} services`,
+        itemListElement: services.map(name => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name } })),
+      },
+    } : {}),
+    ...(listing.price_info ? { offers: { '@type': 'Offer', description: listing.price_info } } : {}),
+    ...(listing.audience ? { audience: { '@type': 'Audience', audienceType: listing.audience } } : {}),
+    ...(listing.action_url ? { availableChannel: { '@type': 'ServiceChannel', serviceUrl: listing.action_url } } : {}),
+    ...(listing.updated_at ? { dateModified: listing.updated_at } : {}),
+  }
+
   return (
     <>
       <Head>
@@ -59,6 +104,8 @@ export default function ListingDetail({ listing }) {
         <meta name="twitter:title" content={`${pageTitle} | MNMuslim`} />
         <meta name="twitter:description" content={listing.description?.slice(0,160) || `${pageTitle} — listed on MNMuslim`} />
         <meta name="twitter:image" content="https://mnmuslim.com/og-image.png" />
+        {/* Listing text is user-submitted — escape "<" so it can't close the script tag. */}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }} />
       </Head>
 
       <div className="home-page">
@@ -95,6 +142,37 @@ export default function ListingDetail({ listing }) {
                 <p className="ld-desc">{listing.description}</p>
               </div>
 
+              {/* Service details */}
+              {hasDetails && (
+                <div className="ld-section">
+                  <h2 className="ld-section-title">Service Details</h2>
+                  <dl className="ld-facts">
+                    {services && (
+                      <div className="ld-fact">
+                        <dt>Services</dt>
+                        <dd>
+                          <ul className="ld-fact-list">
+                            {services.map(s => <li key={s}>{s}</li>)}
+                          </ul>
+                        </dd>
+                      </div>
+                    )}
+                    {listing.price_info && (
+                      <div className="ld-fact"><dt>Pricing</dt><dd>{listing.price_info}</dd></div>
+                    )}
+                    {deliveryModes && (
+                      <div className="ld-fact">
+                        <dt>Delivery</dt>
+                        <dd>{deliveryModes.map(m => DELIVERY_LABELS[m] || m).join(' · ')}</dd>
+                      </div>
+                    )}
+                    {listing.audience && (
+                      <div className="ld-fact"><dt>Who it&apos;s for</dt><dd>{listing.audience}</dd></div>
+                    )}
+                  </dl>
+                </div>
+              )}
+
             </div>
 
             {/* Sidebar */}
@@ -118,7 +196,11 @@ export default function ListingDetail({ listing }) {
                     </a>
                   ))}
                 </div>
-                {primaryContact && (
+                {listing.action_url ? (
+                  <a href={listing.action_url} target="_blank" rel="noreferrer" className="ld-cta-btn">
+                    Request This Service
+                  </a>
+                ) : primaryContact && (
                   <a href={primaryContact}
                     target={!primaryContact.startsWith('mailto') && !primaryContact.startsWith('tel') ? '_blank' : undefined}
                     rel="noreferrer"
