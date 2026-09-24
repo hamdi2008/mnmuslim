@@ -101,6 +101,7 @@ mnmuslim/
 ├── styles/
 │   └── globals.css
 ├── supabase-schema.sql   # Run this in Supabase SQL Editor
+├── supabase-listings-2026-09-agent-fields.sql  # Structured listing fields (run after)
 └── .env.local.example
 ```
 
@@ -115,15 +116,28 @@ Single table: `listings`
 | id | bigint | Auto-increment primary key |
 | service_name | text | Required |
 | provider_name | text | Required |
-| category | text | One of 13 category IDs |
+| category | text | A category ID from `lib/categories.js` |
 | description | text | Required |
-| service_area | text | Required |
+| service_area | text | Required — free text, defaults to "Minnesota" on submit |
 | phone | text | Optional |
-| email | text | Required |
+| email | text | Optional (submit requires at least one contact method) |
 | website | text | Optional |
 | instagram | text | Optional |
+| extra_link | text | Optional "Additional Link" from the submit form (not displayed) |
 | approved | boolean | Default false — must be manually approved |
+| featured | boolean | Default false — set manually; shown in the Featured section on /services |
 | created_at | timestamptz | Auto-set |
+| services | text[] | Optional — named services offered |
+| price_info | text | Optional — human-readable pricing |
+| delivery_modes | text[] | Optional — any of `remote`, `in_person` |
+| audience | text | Optional — who the service is for |
+| action_url | text | Optional — https link to request/book the service |
+| updated_at | timestamptz | Auto-set on insert and on every update (trigger) |
+
+The structured fields (`services` → `updated_at`) are an experiment, populated
+only for By Hamdi (id 36) so far. They're added by
+`supabase-listings-2026-09-agent-fields.sql`, and when present they're shown on
+the listing detail page and included in its Schema.org JSON-LD.
 
 ---
 

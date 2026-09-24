@@ -829,6 +829,11 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
 .ld-section { background: #fff; border: 1.5px solid #EDF2F7; border-radius: 20px; padding: 32px 36px; margin-bottom: 20px; }
 .ld-section-title { font-size: 14px; font-weight: 800; color: #0D2B59; letter-spacing: -0.1px; margin-bottom: 14px; text-transform: uppercase; font-size: 11px; letter-spacing: .08em; color: #94A3B8; }
 .ld-desc { font-size: 15px; color: #4A5568; line-height: 1.8; }
+.ld-facts { display: grid; gap: 16px; margin: 0; }
+.ld-fact { display: grid; grid-template-columns: 140px 1fr; gap: 12px; }
+.ld-fact dt { font-size: 13px; font-weight: 700; color: #0D2B59; }
+.ld-fact dd { margin: 0; font-size: 15px; color: #4A5568; line-height: 1.6; }
+.ld-fact-list { margin: 0; padding-left: 18px; }
 
 /* Related */
 .ld-related { margin-top: 4px; }
@@ -869,6 +874,7 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
   .ld-header-card { padding: 24px 20px 20px; }
   .ld-title { font-size: 24px; }
   .ld-section { padding: 22px 20px; }
+  .ld-fact { grid-template-columns: 1fr; gap: 4px; }
 }
 
 
