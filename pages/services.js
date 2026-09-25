@@ -4,13 +4,33 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { CATEGORIES, getCategoryById } from '../lib/categories'
 import { SERVICE_AREAS, matchesServiceArea } from '../lib/serviceAreas'
+import { supabase } from '../lib/supabase'
+import { mnToday } from '../lib/events'
 import SiteNav from '../components/SiteNav'
 import SiteFooter from '../components/SiteFooter'
 
-// Daily seed shuffle — rotates order each day, stable within the day
+// Only what the cards and search use — keeps emails out of the page source.
+const LISTING_PUBLIC_COLUMNS =
+  'id,service_name,provider_name,category,description,service_area,phone,website,featured'
+
+// Listings are rendered into the HTML so crawlers can follow every
+// /listing/[id] link without running JS; regenerated at most every 5 min.
+export async function getStaticProps() {
+  const { data, error } = await supabase
+    .from('listings')
+    .select(LISTING_PUBLIC_COLUMNS)
+    .eq('approved', true)
+    .order('created_at', { ascending: false })
+  // Throw rather than render an empty directory: a failed build stops the
+  // deploy, and a failed regeneration keeps serving the last good page.
+  if (error) throw new Error(`Services fetch failed: ${error.message}`)
+  return { props: { listings: seededShuffle(data || []) }, revalidate: 300 }
+}
+
+// Daily seed shuffle — rotates order each day (Minnesota date), stable within
+// the day. Runs server-side so the HTML and hydrated order always match.
 function seededShuffle(arr) {
-  const today = new Date()
-  const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate()
+  const seed = Number(mnToday().replace(/-/g, ''))
   const a = [...arr]
   for (let i = a.length - 1; i > 0; i--) {
     const j = Math.abs((seed * (i + 1) * 2654435761) % (i + 1))
@@ -121,9 +141,9 @@ function ListingCard({ listing, featured }) {
   )
 }
 
-export default function Services() {
-  const [allListings, setAllListings] = useState([])
-  const [loading, setLoading]         = useState(true)
+// The whole approved directory arrives as props; search/category/location
+// filter client-side so the count stays exact and instant.
+export default function Services({ listings: allListings }) {
   const [search, setSearch]           = useState('')
   const [activeCat, setActiveCat]     = useState('')
   const [activeLoc, setActiveLoc]     = useState('')
@@ -149,24 +169,6 @@ export default function Services() {
     router.replace({ pathname: '/services', query }, undefined, { shallow: true, scroll: false })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search, activeCat, activeLoc])
-
-  // The whole approved directory is fetched once; search/category/location
-  // filter client-side so the count stays exact and instant.
-  useEffect(() => {
-    let cancelled = false
-    ;(async () => {
-      try {
-        const res  = await fetch('/api/listings')
-        const json = await res.json()
-        if (!cancelled) setAllListings(Array.isArray(json) ? seededShuffle(json) : [])
-      } catch (err) {
-        if (!cancelled) setAllListings([])
-      } finally {
-        if (!cancelled) setLoading(false)
-      }
-    })()
-    return () => { cancelled = true }
-  }, [])
 
   const term = search.trim().toLowerCase()
 
@@ -289,19 +291,12 @@ export default function Services() {
         <main className="dir-main">
 
           <div className="sv-results-head">
-            <span className="sv-count">{loading ? 'Loading services…' : countLabel}</span>
+            <span className="sv-count">{countLabel}</span>
             <Link href="/submit" className="sv-list-btn">+ List Your Service</Link>
           </div>
 
-          {/* Skeleton */}
-          {loading && (
-            <div className="sv-loading">
-              {[1,2,3,4,5,6].map(i => <div key={i} className="sv-skeleton" />)}
-            </div>
-          )}
-
           {/* Empty state */}
-          {!loading && listings.length === 0 && (
+          {listings.length === 0 && (
             <div className="sv-empty">
               <div className="sv-empty-icon" aria-hidden="true">🔍</div>
               <h2 className="sv-empty-title">No services found</h2>
@@ -313,7 +308,7 @@ export default function Services() {
           )}
 
           {/* Featured — only when a listing is actually flagged */}
-          {!loading && featuredListings.length > 0 && (
+          {featuredListings.length > 0 && (
             <section className="sv-featured">
               <div className="sv-featured-head">
                 <span className="sv-featured-label">★ Featured</span>
@@ -326,7 +321,7 @@ export default function Services() {
 
           {/* Grid — everything else. Labelled "All Services" only when a
               Featured section sits above it, so the heading earns its place. */}
-          {!loading && regularListings.length > 0 && (
+          {regularListings.length > 0 && (
             <>
               {featuredListings.length > 0 && (
                 <div className="sv-featured-head sv-all-head">
