@@ -912,6 +912,32 @@ html, body { margin: 0; padding: 0; background: #071423; width: 100%; overflow-x
 .sf-select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2394A3B8' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; cursor: pointer; }
 .sf-textarea { min-height: 110px; resize: vertical; line-height: 1.65; }
 .sf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.sf-help { font-size: 12px; color: #94A3B8; line-height: 1.5; margin: -2px 0 2px; }
+.sf-help-error { color: #C53030; font-weight: 600; margin: 2px 0 0; }
+
+/* Flyer upload — the real input is visually hidden but stays focusable */
+.sf-flyer-input { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; clip: rect(0 0 0 0); }
+.sf-flyer-drop { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 22px 16px; background: #F8FAFC; border: 1.5px dashed #CBD5E1; border-radius: 10px; color: #0CA5A5; cursor: pointer; text-align: center; transition: border-color .18s, background .18s; }
+.sf-flyer-drop:hover, .sf-flyer-input:focus-visible + .sf-flyer-drop { border-color: rgba(12,165,165,0.6); background: #F0FDFA; }
+.sf-flyer-drop-title { font-size: 13.5px; font-weight: 700; color: #0D2B59; margin-top: 4px; }
+.sf-flyer-drop-sub { font-size: 12px; color: #94A3B8; }
+.sf-flyer-selected { display: flex; align-items: center; gap: 14px; padding: 10px; background: #F8FAFC; border: 1.5px solid #EDF2F7; border-radius: 10px; }
+.sf-flyer-thumb { width: 64px; height: 64px; object-fit: cover; border-radius: 8px; border: 1px solid #EDF2F7; background: #fff; flex-shrink: 0; }
+.sf-flyer-info { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.sf-flyer-name { font-size: 13px; font-weight: 600; color: #0D2B59; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sf-flyer-actions { display: flex; gap: 14px; }
+.sf-flyer-link { background: none; border: none; padding: 4px 0; font-family: 'Poppins', sans-serif; font-size: 12.5px; font-weight: 600; color: #0CA5A5; cursor: pointer; }
+.sf-flyer-link:hover { text-decoration: underline; }
+
+/* Honeypot — off-screen rather than display:none, which some bots skip */
+.sf-hp { position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+
+/* Optional promotion interest — deliberately quiet */
+.sf-promo { border-top: 1px solid #F0F4F8; padding: 16px 0 4px; margin-bottom: 8px; }
+.sf-promo-title { font-size: 12.5px; font-weight: 600; color: #6B7A8D; margin-bottom: 8px; }
+.sf-promo-check { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #4A5568; cursor: pointer; }
+.sf-promo-check input { width: 16px; height: 16px; margin: 0; accent-color: #0CA5A5; cursor: pointer; }
+.sf-promo-sub { font-size: 12px; color: #94A3B8; margin: 6px 0 0 24px; line-height: 1.5; }
 
 /* Divider + section label */
 .sf-divider { border: none; border-top: 1px solid #F0F4F8; margin: 8px 0 20px; }

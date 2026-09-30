@@ -1,7 +1,11 @@
 -- ============================================================
 -- MNMuslim.com — Events Table Schema
 -- Run this in your Supabase SQL Editor before deploying the
--- Supabase-backed /events pages.
+-- Supabase-backed /events pages, then run
+-- supabase-events-submission-fields.sql (structured times, cost,
+-- flyer uploads, promotion_interest) and
+-- supabase-events-address-ratelimit.sql (street address, submission
+-- rate limit).
 -- ============================================================
 
 -- 1. Create the events table
