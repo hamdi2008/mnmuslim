@@ -132,11 +132,13 @@ Single table: `listings`
 | delivery_modes | text[] | Optional — any of `remote`, `in_person` |
 | audience | text | Optional — who the service is for |
 | action_url | text | Optional — https link to request/book the service |
+| action_label | text | Optional — button text for `action_url`; defaults to "Request This Service" |
 | updated_at | timestamptz | Auto-set on insert and on every update (trigger) |
 
 The structured fields (`services` → `updated_at`) are an experiment, populated
 only for By Hamdi (id 36) so far. They're added by
-`supabase-listings-2026-09-agent-fields.sql`, and when present they're shown on
+`supabase-listings-2026-09-agent-fields.sql` (`action_label` by
+`supabase-listings-2026-10-action-label.sql`), and when present they're shown on
 the listing detail page and included in its Schema.org JSON-LD.
 
 ---
