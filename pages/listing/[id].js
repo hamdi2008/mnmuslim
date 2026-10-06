@@ -51,8 +51,15 @@ export default function ListingDetail({ listing }) {
   const services      = listing.services?.length ? listing.services : null
   const deliveryModes = listing.delivery_modes?.length ? listing.delivery_modes : null
   const hasDetails    = Boolean(services || listing.price_info || deliveryModes || listing.audience)
+  // A single named service doubles as the header subtitle, so the offer is
+  // visible before scrolling to Service Details — unless it's already the title.
+  const primaryService = services?.length === 1 && services[0] !== listing.service_name ? services[0] : null
+  const actionLabel    = listing.action_label?.trim() || 'Request This Service'
+  // Blank lines in the description separate paragraphs.
+  const descParagraphs = listing.description.split(/\n\s*\n/).map(p => p.trim()).filter(Boolean)
 
   const listingUrl = `https://mnmuslim.com/listing/${listing.id}`
+  const metaDescription = listing.description?.replace(/\s+/g, ' ').slice(0,160) || `${pageTitle} — listed on MNMuslim`
   const sameAs = [
     listing.website && fullUrl(listing.website),
     listing.instagram && `https://instagram.com/${listing.instagram.replace('@','')}`,
@@ -82,7 +89,7 @@ export default function ListingDetail({ listing }) {
     } : {}),
     ...(listing.price_info ? { offers: { '@type': 'Offer', description: listing.price_info } } : {}),
     ...(listing.audience ? { audience: { '@type': 'Audience', audienceType: listing.audience } } : {}),
-    ...(listing.action_url ? { availableChannel: { '@type': 'ServiceChannel', serviceUrl: listing.action_url } } : {}),
+    ...(listing.action_url ? { availableChannel: { '@type': 'ServiceChannel', name: actionLabel, serviceUrl: listing.action_url } } : {}),
     ...(listing.updated_at ? { dateModified: listing.updated_at } : {}),
   }
 
@@ -90,11 +97,11 @@ export default function ListingDetail({ listing }) {
     <>
       <Head>
         <title>{pageTitle} | MNMuslim</title>
-        <meta name="description" content={listing.description?.slice(0,160) || `${pageTitle} — listed on MNMuslim`} />
+        <meta name="description" content={metaDescription} />
         <link rel="icon" href="/favicon.png" />
         {/* Open Graph */}
         <meta property="og:title" content={`${pageTitle} | MNMuslim`} />
-        <meta property="og:description" content={listing.description?.slice(0,160) || `${pageTitle} — listed on MNMuslim`} />
+        <meta property="og:description" content={metaDescription} />
         <meta property="og:image" content="https://mnmuslim.com/og-image.png" />
         <meta property="og:url" content={`https://mnmuslim.com/listing/${listing.id}`} />
         <meta property="og:type" content="website" />
@@ -102,7 +109,7 @@ export default function ListingDetail({ listing }) {
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={`${pageTitle} | MNMuslim`} />
-        <meta name="twitter:description" content={listing.description?.slice(0,160) || `${pageTitle} — listed on MNMuslim`} />
+        <meta name="twitter:description" content={metaDescription} />
         <meta name="twitter:image" content="https://mnmuslim.com/og-image.png" />
         {/* Listing text is user-submitted — escape "<" so it can't close the script tag. */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }} />
@@ -127,6 +134,9 @@ export default function ListingDetail({ listing }) {
                 {listing.business_name?.trim() && (
                   <p className="ld-business">{listing.business_name}</p>
                 )}
+                {primaryService && !listing.business_name?.trim() && (
+                  <p className="ld-business">{primaryService}</p>
+                )}
                 <p className="ld-provider">by {listing.provider_name}</p>
                 <div className="ld-meta-row">
                   <span className="ld-meta-item">
@@ -139,7 +149,7 @@ export default function ListingDetail({ listing }) {
               {/* About */}
               <div className="ld-section">
                 <h2 className="ld-section-title">About this Service</h2>
-                <p className="ld-desc">{listing.description}</p>
+                {descParagraphs.map((p, i) => <p key={i} className="ld-desc">{p}</p>)}
               </div>
 
               {/* Service details */}
@@ -198,7 +208,7 @@ export default function ListingDetail({ listing }) {
                 </div>
                 {listing.action_url ? (
                   <a href={listing.action_url} target="_blank" rel="noreferrer" className="ld-cta-btn">
-                    Request This Service
+                    {actionLabel}
                   </a>
                 ) : primaryContact && (
                   <a href={primaryContact}
