@@ -11,7 +11,7 @@ export default async function handler(req, res) {
   try {
     let query = supabase
       .from('listings')
-      .select('*')
+      .select('id,service_name,provider_name,category,description,service_area,phone,website,instagram,featured,created_at')
       .eq('approved', true)
       .order('created_at', { ascending: false })
 
