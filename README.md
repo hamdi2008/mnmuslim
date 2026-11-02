@@ -1,6 +1,24 @@
-# MNMuslim.com
+# MNMuslim
 
-A community directory connecting Minnesota Muslims with trusted service providers.
+**The digital home for Muslims in Minnesota.**
+
+MNMuslim is a community platform helping people in Minnesota discover Muslim-owned businesses and services, community events, and useful local resources. The live site includes a services directory and an events directory. The project is actively developed, with more community directories planned.
+
+**Live website:** https://mnmuslim.com
+
+## Current Features
+
+- **Services directory (`/services`):** Browse local providers, search and filter listings, view details, and submit a business or service for review.
+- **Events directory (`/events`):** Discover upcoming community events, filter by date, category, and location, view details, and submit events for review. Past events are excluded from the upcoming directory.
+
+## Planned Development
+
+- **Mosques directory:** Help residents find local mosques and Islamic centers.
+- **Community job board:** Share relevant employment opportunities.
+- **Schools directory:** Help families discover educational options.
+- **Ongoing improvements:** Maintain listings and events, improve data quality, discovery, and submission workflows.
+
+These are planned features, not currently released.
 
 Built with **Next.js** · **Supabase** · Deployed on **Vercel**
 
@@ -11,7 +29,7 @@ Built with **Next.js** · **Supabase** · Deployed on **Vercel**
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/mnmuslim.git
+git clone https://github.com/hamdi2008/mnmuslim.git
 cd mnmuslim
 npm install
 ```
@@ -78,38 +96,26 @@ Vercel auto-deploys on every push to `main`.
 
 ## Project Structure
 
-```
-mnmuslim/
-├── pages/
-│   ├── index.js          # Homepage
-│   ├── browse.js         # Browse & search page
-│   ├── submit.js         # Submit listing form
-│   ├── listing/[id].js   # Individual listing detail
-│   ├── 404.js            # Not found page
-│   ├── _app.js
-│   ├── _document.js
-│   └── api/
-│       ├── listings.js   # GET approved listings (with search/filter)
-│       └── submit.js     # POST new listing submission
-├── components/
-│   ├── Navbar.js
-│   ├── Footer.js
-│   └── ListingCard.js
-├── lib/
-│   ├── supabase.js       # Supabase client
-│   └── categories.js     # Category list
-├── styles/
-│   └── globals.css
-├── supabase-schema.sql   # Run this in Supabase SQL Editor
-├── supabase-listings-2026-09-agent-fields.sql  # Structured listing fields (run after)
-└── .env.local.example
-```
+Key parts of the Next.js Pages Router application:
+
+- `pages/index.js` — homepage
+- `pages/services.js` — services directory
+- `pages/events.js` — events directory
+- `pages/listing/[id].js` — individual service listings
+- `pages/api/` — API routes for listings and submissions
+- `components/` — shared UI components
+- `lib/` — Supabase client, categories, event utilities, and service-area filtering
+- `styles/` — site styles
+- `supabase-*.sql` — database schema and incremental migrations
+- `.env.local.example` — example environment variable names (not real credentials)
+
+See the source tree for additional routes, scripts, and migration files.
 
 ---
 
 ## Database Schema
 
-Single table: `listings`
+The services directory uses the `listings` table. The events directory uses a separate `events` table (see `supabase-events-schema.sql` and subsequent events migrations).
 
 | Column | Type | Notes |
 |---|---|---|
@@ -261,20 +267,20 @@ changes were made as part of this redesign or this documentation._
 
 ---
 
-## MVP Scope
+## Current Scope
 
-This is intentionally a focused MVP. Not included:
+MNMuslim currently focuses on community services and events. Features not currently included in the public platform include:
 
 - User accounts or authentication
 - Reviews or ratings
-- Messaging system
-- Claim listing / verification
-- Maps or geolocation
+- In-platform messaging
+- Self-service listing claims
+- Maps or geolocation-based search
 - Bookings or payments
-- Job board or events
+- Community job board, mosques directory, and schools directory (planned)
 
 ---
 
 ## License
 
-MIT
+This project's software is licensed under the MIT License. See [LICENSE](LICENSE) for the full terms.
