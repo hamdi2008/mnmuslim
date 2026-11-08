@@ -3,6 +3,15 @@ import Head from 'next/head'
 import Link from 'next/link'
 import SiteNav from '../components/SiteNav'
 import SiteFooter from '../components/SiteFooter'
+import { INSTAGRAM_EVENTS_URL, INSTAGRAM_BUSINESSES_URL } from '../lib/nav'
+
+const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'MNMuslim',
+  url: 'https://mnmuslim.com',
+  sameAs: [INSTAGRAM_EVENTS_URL, INSTAGRAM_BUSINESSES_URL],
+}
 
 export default function Home() {
   useEffect(() => {
@@ -69,6 +78,7 @@ export default function Home() {
         <meta name="twitter:title" content="MNMuslim | Digital Home for Muslims in Minnesota" />
         <meta name="twitter:description" content="Find Muslim services, discover community events, and explore halal food across Minnesota." />
         <meta name="twitter:image" content="https://mnmuslim.com/og-image.png" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }} />
       </Head>
 
       <div className="home-page">
